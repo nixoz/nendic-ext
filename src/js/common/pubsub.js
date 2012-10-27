@@ -14,9 +14,9 @@
  * @author ohgyun@gmail.com
  * @version 2012.10.27
  */
-console.log('defined', typeof define);
+
 define([], function () {
-  console.log('here');
+  
   var
     // 메시지를 보관할 맵
     // {
