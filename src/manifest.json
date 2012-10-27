@@ -1,6 +1,7 @@
 {
+  "manifest_version": 2,
   "name": "네이버 영어사전 (Naver English Dictionary)",
-  "version": "1.5.2",
+  "version": "2.0.0",
   "description": "영어 단어의 뜻과 예문을 쉽게 찾을 수 있습니다.",
   "icons": {
     "16": "icon/icon16.png",
@@ -9,15 +10,27 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "css": ["content/css/content_style.css"],
+      "css": [],
       "js": [
-        "content/build/content_script.js"
+        "js/lib/require.js",
+        "js/require_content.js",
+        "js/require_config.js",
+        "js/cscript/cscript_main.js"
       ],
       "all_frames": true
     }
   ],
-  "background_page": "background/background.html",
+  "background": {
+    "scripts": [
+      "js/lib/require.js",
+      "js/require_config.js",
+      "js/bg/bg_main.js"
+    ]
+  },
   "permissions": [
     "<all_urls>", "tabs", "contextMenus", "cookies"
+  ],
+  "web_accessible_resources": [
+    "js/*"
   ]
 }
