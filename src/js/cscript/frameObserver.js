@@ -27,7 +27,7 @@ define([
   
 ], function ($, util) {
   
-  var _id = util.guid(),
+  var _frameId = util.guid(),
     _handlers = [],
     _activated = false,
     _$doc = $(document);
@@ -37,7 +37,7 @@ define([
   // 사용자가 마우스를 클릭한 시점이다.
   $(document).mousedown(function (e) {
     _handlers.forEach(function (handler) {
-      handler(_id);
+      handler(_frameId);
     });
   });  
 
@@ -47,8 +47,8 @@ define([
    */
   function getInfo() {
     return {
-      id: _id,
-      width: _$doc.width(),
+      frameId: _frameId,
+      wframeIdth: _$doc.width(),
       height: _$doc.height()
     };
   }
@@ -57,7 +57,7 @@ define([
     /**
      * 프레임 내에 액션이 관찰되었을 때 호출할
      * 핸들러를 등록한다.
-     * @param {function (id)} handler
+     * @param {function (frameId)} handler
      */
     onObserve: function (handler) {
       _handlers.push(handler);
@@ -66,8 +66,8 @@ define([
     /**
      * 현재 프레임 정보를 가져온다.
      * @return {object} info
-     *    info.id 프레임 고유아이디
-     *    info.width 프레임 너비
+     *    info.frameId 프레임 고유아이디
+     *    info.wframeIdth 프레임 너비
      *    info.height 프레임 높이
      */
     getInfo: function () {
@@ -79,7 +79,7 @@ define([
      * @param {string} activatableId 활성화 대상 프레임 아이디
      */
     activate: function (activatableId) {
-      _activated = _id === activatableId;
+      _activated = _frameId === activatableId;
     },
 
     /**

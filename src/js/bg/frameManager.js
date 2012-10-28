@@ -16,110 +16,135 @@ define([
   
   var
     /**
-     * currentMap (object)
-     *   tabId (string): frames (object)
-     *   
-     * frames
-     *   activated (object) activated frame data
-     *   list (array) current frame list
-     *   
-     * activated
-     *   id (string) frame id
-     *   width (string) frame width
-     *   height (string) frame height
+     * {
+     *   탭아이디: {
+     *     activated: {
+     *        // 현재 활성화된 프레임 정보
+     *        tabId: 탭아이디,
+     *        frameId: 프레임아이디,
+     *        width: 프레임너비,
+     *        height: 프레임높이
+     *     },
+     *     list: [ frameId, frameId, ... ]
+     *   },
+     *   ...
+     * }
      */
-    _map = {};
+    _repos = {};
     
     
   /**
-   * try to set data of current frame
+   * 프레임 정보를 리파지터리에 등록한다. 
    * 
-   * @param data (object)
-   *   id (string) frame id
-   *   width (string) frame width
-   *   height (string) frame height
-   * @param tabId (string)
+   * @param {object} data 프레임 정보 
+   *   {string} data.frameId 프레임 아이디
+   *   {number} data.width 프레임 너비
+   *   {number} data.height 프레임 높이
+   *   {string} tabId 프레임을 포함한 탭 아이디
    */
-  function initFrame(data, tabId) {
-    var frames = _map[tabId];
+  function registerFrame(data) {
+    var frames = _repos[data.tabId];
     
     // 프레임 정보가 없다면 생성한다.
     if ( ! frames) {
-      _map[tabId] = frames = {
+      _repos[data.tabId] = frames = {
         activated: null,
         list: []
       };
     }
     
     // 프레임 목록에 추가한다.
-    frames.list.push(data.id);
-    
-    // 활성화할 프레임을 결정한다.
+    frames.list.push(data.frameId);
+  }
+
+  /**
+   * 현재 프레임을 활성화하려고 시도한다. 
+   * @param {object} data 프레임 데이터
+   * @param {function (frameId)} activatedCallback 활성화 콜백
+   *    현재 프레임이 활성화된 경우 실행할 콜백
+   */
+  function tryToActivate(data, activatedCallback) {
+    var frames = _repos[data.tabId];
+
+    // 이미 활성화했던 프레임이 존재하고 있다면,
+    // 전달한 데이터와 비교한다.
     if (frames.activated) {
       var currentSize = frames.activated.width * frames.activated.height,
         newSize = data.width * data.height;
       
       // 어떤 것을 활성화할 지는 프레임의 크기로 결정한다.
-      if (newSize > currentSize) {
-        frames.activated = data;
+      // 현재 프레임이 기존 프레임보다 작다면 무시한다. 
+      if (newSize <= currentSize) {
+        return;
       }
-      
-    } else {
-      // 활성화되어 있는 프레임이 없다면, 현재 것으로 설정한다.
-      frames.activated = data;
-    }
-    
-    
-    chrome.tabs.sendRequest(tabId, {
-      "command": "frameActivated",
-      "data": frames.activated.id
-    });
-    
+    } 
+   
+    // 현재 프레임이 활성화 프레임보다 크거나,
+    // 활성화되어 있는 프레임이 없다면, 현재 것으로 설정한다.
+    frames.activated = data;
+ 
+    activatedCallback(data.frameId);
   }
   
   /**
-   * 현재 프레임이 존재하지 않으면, 프레임을 리셋한다.
-   */
-  function checkFrameExist(data, tabId) {
-    var frameId = data;
-    
-    if (isNotExist(frameId, tabId)) {
-      resetFrame(tabId);
-    }
-  }
-  
-  /**
-   * 탭 내 프레임 목록에 요청한 프레임 아이디가 존재하는지 확인한다.
+   * 탭이 가지고 있는 프레임 목록 중에,
+   * 요청한 프레임 아이디가 존재하는지 확인한다.
    */
   function isNotExist(frameId, tabId) {
-    var frames = _map[tabId];
+    var frames = _repos[tabId];
     
     if ( ! frames) { return true; }
     
-    var frameList = frames.list;
-    
-    for (var i = 0, len = frameList.length; i < len; i++) {
-      if (frameList[i] === frameId) {
-        return false;
-      }
-    }
-    
-    return true;
+    return frames.list.indexOf(frameId) === -1;
   }
   
   /**
-   * 프레임 정보를 리셋하고, 컨텐츠에 프레임 정보 초기화 메세지를 보낸다.
+   * 프레임 정보를 모두 비운다. 
+   * @param {string} tabId
    */
   function resetFrame(tabId) {
-    delete _map[tabId];
+    if ( ! _repos[tabId]) { return; }
     
-    chrome.tabs.sendRequest(tabId, {
-      "command": "needFrameInfo"
-    }); 
+    _repos[tabId].activated = null;
+    _repos[tabId].list.length = 0;
+    _repos[tabId].list = null;
+
+    delete _repos[tabId];
   }
   
   return {
+    /**
+     * 현재 프레임이 존재하지 않으면, 프레임을 리셋한다.
+     * 프레임이 존재하지 않는 경우는 아래 두 경우이다.
+     * 1. 탭을 처음으로 연 경우
+     * 2. 페이지를 이동한 경우
+     * @param {object} data 
+     *    {string} frameId 프레임 아이디
+     *    {string} tabId 탭 아이디
+     * @param {function} resetCallback 리셋 콜백
+     *      프레임이 존재하지 않을 경우,
+     *      프레임 정보를 리셋하고 리셋 콜백을 호출한다.
+     */
+    checkFrameExist: function (data, resetCallback) {
+      var frameId = data.frameId,
+        tabId = data.tabId;
+
+      if (isNotExist(frameId, tabId)) {
+        resetFrame(tabId);
+        resetCallback();
+      }
+    },
     
+    /**
+     * 프레임 정보를 리파지터리에 등록하고,
+     * 활성화를 시도한다.
+     * @param {object} data 프레임 데이터
+     * @param {function (frameId)} activatedCallback 활성화 시 콜백
+     */
+    registerAndActivateFrame: function (data, activatedCallback) {
+      registerFrame(data);
+      tryToActivate(data, activatedCallback);
+    }
   };
   
 });

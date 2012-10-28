@@ -92,8 +92,10 @@ define([], function () {
   function registerListener() {
     chrome.extension.onMessage.addListener(
       function(request, sender, sendResponse) {
+        // 탭 아이디는 컨텐트 스크립트에서 보낼 때에만 존재한다.
+        request.tabId = sender.tab && sender.tab.id || ''; 
         onResponse(request);
-        // sender와 sendResponse는 사용하지 않는다.
+        // sendResponse는 사용하지 않는다.
       }
     );
   }
