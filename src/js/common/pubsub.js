@@ -23,7 +23,10 @@ define([], function () {
     //    key: [ callback, callback, ...],
     //    key: [ ... ]
     // } 형태로 보관한다.
-    _map = {};
+    _map = {},
+    
+    // 메시지 값을 저장할 스트링
+    MSG_KEY = '_key_';
 
   /**
    * 메시지를 발행(publish)한다.
@@ -39,7 +42,7 @@ define([], function () {
    */
   function pub(msg, data) {
     data = data || {};
-    data._key = msg;
+    data[MSG_KEY] = msg;
     
     // 익스텐션과 컨텐트 스크립트 양쪽으로 메시지를 보낸다.
     tryToPubToExtension(msg, data);
@@ -97,11 +100,11 @@ define([], function () {
   
   /**
    * 메시지를 받아 처리한다.
-   * 전달받은 데이터에 저장되어 있는 메시지값(_key 속성)으로
+   * 전달받은 데이터에 저장되어 있는 메시지값(KEY_MSG 속성)으로
    * 호출할 콜백을 찾는다.
    */
   function onResponse(data) {
-    var callbacks = _map[data._key];
+    var callbacks = _map[data[MSG_KEY]];
     if (callbacks) {
       callbacks.forEach(function (cb) {
         cb(data);

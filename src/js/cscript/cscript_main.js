@@ -7,7 +7,8 @@
 require([
   
   'jquery',
-  'common/pubsub'
+  'common/pubsub',
+  'cscript/frameObserver'
   
 ], function ($, pubsub) {
   
@@ -15,6 +16,15 @@ require([
   
   pubsub.sub('word-searched', function (data) {
     console.log('단어 검색이 완료됐따!', data);
+  });
+  
+  
+  pubsub.sub('user-actioned', function (data) {
+    
+    require([], function () {
+      // 필요한 코드는 실제로 사용자 액션이 발생했을 때 로드한다.  
+    });
+    
   });
   
   

@@ -9,6 +9,6 @@ requirejs.config({
   paths: {
     'common': '../common',
     'bg': '../bg',
-    'content': '../content'
+    'cscript': '../cscript'
   }
 });

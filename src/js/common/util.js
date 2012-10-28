@@ -41,6 +41,13 @@ define([], function () {
         return attr;
 
       }
+    },
+    
+    /**
+     * 임의의 고유 아이디를 생성한다.
+     */
+    guid: function () {
+      return (Math.random() * (1 << 30)).toString(32).replace('.', '');
     }
     
   };
