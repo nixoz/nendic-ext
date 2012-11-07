@@ -44,7 +44,12 @@ require([
 
   // 단어 검색이 완료된 경우
   pubsub.sub('word-searched', function (data) {
-    console.log('검색 완료됨. 뷰어를 띄운다.', data);
+    if (frameObserver.isActivated()) {
+      // 프레임이 활성화 된 경우에만 뷰어를 로드한다.
+      require(['cscript/viewer/viewer'], function (viewer) {
+        viewer.open(data);
+      });
+    }
   });
   
   

@@ -24,14 +24,14 @@ require([
     "contexts": ["selection"],
     "onclick": function (info) {
       pubsub.pub('word-selected', {
-        word: info.selectionText
+        query: info.selectionText
       });
     }
   });
   
   // 검색할 단어가 선택된 경우
   pubsub.sub('word-selected', function (data) {
-    wordSearcher.searchWord(data, function (data) {
+    wordSearcher.searchWord(data.query, function (data) {
       console.log('word-searched', data);
       pubsub.pub('word-searched', data);
     });
