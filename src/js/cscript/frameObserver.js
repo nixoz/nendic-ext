@@ -28,20 +28,10 @@ define([
 ], function ($, util) {
   
   var _frameId = util.guid(),
-    _handlers = [],
     _activated = false,
     _$doc = $(document);
   
   
-  // 프레임에 움직임이 관찰되었을 때 핸들러를 호출한다.
-  // 사용자가 마우스를 클릭한 시점이다.
-  $(document).mousedown(function (e) {
-    _handlers.forEach(function (handler) {
-      handler(_frameId);
-    });
-  });  
-
-
   /**
    * 프레임 정보를 가져온다.
    */
@@ -55,14 +45,12 @@ define([
   
   return {
     /**
-     * 프레임 내에 액션이 관찰되었을 때 호출할
-     * 핸들러를 등록한다.
-     * @param {function (frameId)} handler
+     * 현재 프레임의 아이디를 리턴한다.
      */
-    onObserve: function (handler) {
-      _handlers.push(handler);
+    getFrameId: function () {
+      return _frameId;
     },
-
+    
     /**
      * 현재 프레임 정보를 가져온다.
      * @return {object} info

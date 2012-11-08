@@ -12,45 +12,60 @@ require([
   
 ], function ($, pubsub, frameObserver) {
   
-  console.log('cscri3pt_main');
- 
-  // 프레임 관찰자 
-  //--------------
+  // 메시지 규칙
+  // 1. 완료형으로만 보낸다.
+  // 2. 소문자와 대시(-)를 사용한다.
+  // 3. 컨텐트 스크립트에서 보낸 경우, 앞에 @- 를 붙인다.
+  // 4. 백그라운드에서 보낸 경우, 앞에 *- 를 붙인다.
+  
+  var viewer; // 뷰어는 프레임이 활성화된 경우에 로드되며,
+              // 로드되었을 때에 변수에 할당한다.
 
-  // 프레임 관찰자에 핸들러를 등록한다.
-  frameObserver.onObserve(function (frameId) {
-    console.log('frameId: ', frameId);
-    pubsub.pub('frame-observed', {
-      frameId: frameId
+  $(document).mousedown(function (e) {
+    // 프레임 내에 액션이 관찰되었을 때 메시지를 보낸다.
+    pubsub.pub('@-frame-observed', {
+      frameId: frameObserver.getFrameId()
     });
+    
+    if ( ! (viewer && viewer.hasElement(e.target))) {
+      // 뷰어가 아닌 영역을 클릭한 경우,
+      // 뷰어를 닫아줘야 한다.
+      // 뷰어가 포함되지 않은 프레임에서도
+      // 클릭 이벤트가 발생할 수 있으므로,
+      // 익스텐션에서 이벤트를 받아 모든 프레임으로 보낸다.
+      pubsub.pub('@-outofviewer-clicked');
+    }
   });
 
-  // 프레임 매니저의 리파지터리가 초기화된 경우,
   // 현재 프레임 정보를 수집해 전송한다. 
-  pubsub.sub('frame-repos-reseted', function () {
+  pubsub.sub('*-frame-repos-reseted', function () {
     var frameInfo = frameObserver.getInfo();
-    pubsub.pub('frame-info-collected', frameInfo);
+    pubsub.pub('@-frame-info-collected', frameInfo);
   });
 
   // 활성화할 프레임을 찾았다는 정보를 받은 경우,
   // 해당 정보로 프레임을 활성화/비활성화한다.
-  pubsub.sub('frame-newly-activated', function (data) {
+  pubsub.sub('*-frame-newly-activated', function (data) {
     frameObserver.activate(data.frameId);  
   });
 
-
-  // 사전 뷰어
-  //----------
+  // 뷰어 바깐 영역에 마우스 이벤트가 발생한 경우
+  pubsub.sub('*-outofviewer-clicked', function () {
+    // 뷰어가 존재하는 경우 닫는다.
+    if (viewer) {
+      viewer.close();
+    }
+  });
 
   // 단어 검색이 완료된 경우
-  pubsub.sub('word-searched', function (data) {
+  pubsub.sub('*-word-searched', function (data) {
     if (frameObserver.isActivated()) {
       // 프레임이 활성화 된 경우에만 뷰어를 로드한다.
-      require(['cscript/viewer/viewer'], function (viewer) {
+      require(['cscript/viewer/viewer'], function (v) {
+        viewer = v;
         viewer.open(data);
       });
     }
   });
-  
   
 });

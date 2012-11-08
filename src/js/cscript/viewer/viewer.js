@@ -11,7 +11,9 @@ define([
 
 ], function ($, template) {
 
-  var _$wrapper = $('<div>')
+  var _isOpened = false,
+    
+    _$wrapper = $('<div>')
       .attr('id', 'endic_ext_wrapper')
       .appendTo(document.body);
   
@@ -21,25 +23,30 @@ define([
    */
   function open(dicData) {
     if (dicData) {
-      console.log(dicData);
-      console.log('--', template.getHtml(dicData));
       _$wrapper.html(template.getHtml(dicData));
     }
     
     _$wrapper.show();
+    _isOpened = true;
   }
  
   /**
    * 사전을 닫는다.
    */
   function close() {
-    _$wrapper.hide().empty();
+    if (_isOpened) {
+      _$wrapper.hide().empty();
+      _isOpened = false;
+    }
   }
 
   return {
 
     open: open, 
-    close: close
+    close: close,
+    hasElement: function (el) {
+      return _$wrapper.has(el).length > 0;
+    }
 
   };
 
