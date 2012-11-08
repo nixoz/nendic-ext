@@ -82,8 +82,6 @@ define([], function () {
   function sub(msg, callback) {
     _map[msg] = _map[msg] || [];
     _map[msg].push(callback);
-    
-    console.log('map:', _map);
   }
   
   /**

@@ -21,6 +21,8 @@ require([
   var viewer; // 뷰어는 프레임이 활성화된 경우에 로드되며,
               // 로드되었을 때에 변수에 할당한다.
 
+
+  // 문서에 마우스다운 이벤트 발생 시
   $(document).mousedown(function (e) {
     // 프레임 내에 액션이 관찰되었을 때 메시지를 보낸다.
     pubsub.pub('@-frame-observed', {
@@ -34,6 +36,25 @@ require([
       // 클릭 이벤트가 발생할 수 있으므로,
       // 익스텐션에서 이벤트를 받아 모든 프레임으로 보낸다.
       pubsub.pub('@-outofviewer-clicked');
+    }
+  });
+
+  // 더블 클릭으로 텍스트 선택 시 단어를 검색한다.
+  $(document).dblclick(function (e) {
+    var target = e.target;
+
+    // input 이나 textarea 인 경우 무시한다.
+    if (/(input|textarea)/i.test(target.tagName)) {
+      return;
+    }
+   
+    // 현재 선택한 문자열을 가져온다.
+    var selectionText = window.getSelection().toString().trim();
+
+    if (selectionText) {
+      pubsub.pub('@-word-selected', {
+        query: selectionText
+      });
     }
   });
 

@@ -52,7 +52,7 @@ define([], function () {
       // toggle ee dic button
       '<% if (result.length > 0) { %>',
         '<div class="endic_ext_toggle_dic_type">',
-          '<button nede-cmd="toggleDicType">한영/영영 전환</button>',
+          '<button data-cmd="toggleDicType">한영/영영 전환</button>',
         '</div>',
       '<% } %>',
       // end toggle ee dic button
@@ -77,7 +77,7 @@ define([], function () {
     
           // audio button
           '<% if (word.pronunciation) { %>',
-            '<button id="endic_ext_audio_btn_<%= i %>" class="endic_ext_play_audio_btn" nede-cmd="playAudio" nede-cmd-value="<%=i %>">Play Audio</button>',
+            '<button id="endic_ext_audio_btn_<%= i %>" class="endic_ext_play_audio_btn" data-cmd="playAudio" data-cmdval="<%= i %>">Play Audio</button>',
             '<audio id="endic_ext_audio_<%= i %>" src="<%= word.pronunciation %>"></audio>',
           '<% } %>',
           // end audio button
@@ -142,7 +142,7 @@ define([], function () {
   
       // guide area
       '<div class="endic_ext_guide_group">',
-        '<button class="endic_ext_show_shortcut_guide_btn" nede-cmd="showShortcutGuide">단축키 도움말</button>',
+        '<button class="endic_ext_show_shortcut_guide_btn" data-cmd="showShortcutGuide">단축키 도움말</button>',
       '</div>',
       // end guide area
   

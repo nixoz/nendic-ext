@@ -11,7 +11,6 @@ require([
   'bg/frameManager'
   
 ], function (pubsub, wordSearcher, frameManager) {
-  console.log('bg_main');
 
   // 메시지 규칙
   // 1. 완료형으로만 보낸다.
@@ -24,8 +23,8 @@ require([
     "title": "네이버 영어사전에서 '%s' 검색",
     "contexts": ["selection"],
     "onclick": function (info) {
-      pubsub.pub('*-word-selected', {
-        query: info.selectionText
+      wordSearcher.searchWord(info.selectionText, function (data) {
+        pubsub.pub('*-word-searched', data);
       });
     }
   });
@@ -40,7 +39,7 @@ require([
   });
 
   // 검색할 단어가 선택된 경우
-  pubsub.sub('*-word-selected', function (data) {
+  pubsub.sub('@-word-selected', function (data) {
     wordSearcher.searchWord(data.query, function (data) {
       pubsub.pub('*-word-searched', data);
     });
