@@ -38,7 +38,7 @@ define([
   function getInfo() {
     return {
       frameId: _frameId,
-      wframeIdth: _$doc.width(),
+      width: _$doc.width(),
       height: _$doc.height()
     };
   }
