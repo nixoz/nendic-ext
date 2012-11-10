@@ -8,9 +8,10 @@ define([
 
   'jquery',
   'cscript/viewer/template',
-  'cscript/viewer/action'
+  'cscript/viewer/action',
+  'cscript/viewer/shortcut'
 
-], function ($, template, action) {
+], function ($, template, action, shortcut) {
 
   var _isOpened = false,
     // 사전을 표시할 래퍼 엘리먼트
@@ -40,6 +41,27 @@ define([
     e.preventDefault();
   });
   
+  
+  // 단축키 이벤트를 바인딩한다.
+  shortcut.on('esc', function () {
+    close();
+  }, function () {
+    return _isOpened;
+  });
+
+  // 액션에 정의된 단축키를 가져와 할당한다.
+  var shortcutMap = action.getShortcutMap();
+  for (var key in shortcutMap) {
+    (function (k) {
+      shortcut.on(k, function () {
+        var cmd = shortcutMap[k];
+        action.doAction(cmd);
+      }, function () {
+        return _isOpened;
+      });
+    }(key));
+  }
+
   /**
    * 사전을 연다.
    * @param {object} dicData 사전 데이터

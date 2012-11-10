@@ -33,6 +33,15 @@ define([
         $guide.toggle();
       }
 
+    },
+    
+    /**
+     * 단축키와 액션의 맵
+     */
+    _shortcutToCommandMap = {
+      's': 'toggleDicType',
+      'h': 'toggleShortcutGuide',
+      'a': 'playAudio'
     };
 
   /**
@@ -61,6 +70,10 @@ define([
       if (typeof action === 'function') {
         action(value);
       }
+    },
+
+    getShortcutMap: function (key) {
+      return _shortcutToCommandMap; 
     }
 
   };
