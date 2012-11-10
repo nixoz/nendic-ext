@@ -70,7 +70,7 @@ require([
     frameObserver.activate(data.frameId);  
   });
 
-  // 뷰어 바깐 영역에 마우스 이벤트가 발생한 경우
+  // 뷰어 바깥 영역에 마우스 이벤트가 발생한 경우
   pubsub.sub('*-outofviewer-clicked', function () {
     // 뷰어가 존재하는 경우 닫는다.
     if (viewer) {
@@ -84,9 +84,19 @@ require([
       // 프레임이 활성화 된 경우에만 뷰어를 로드한다.
       require(['cscript/viewer/viewer'], function (v) {
         viewer = v;
+        bindViewerEventHandler();
         viewer.open(data);
       });
     }
   });
+  
+  // 뷰어에 이벤트 핸들러를 설정한다. 
+  // 뷰어가 로드된 이후에 붙인다.
+  function bindViewerEventHandler() {
+    // 한/영 전환     
+    viewer.onAction('toggleDicType', function () {
+      pubsub.pub('@-dic-type-toggle-btn-clicked');
+    });
+  }
   
 });

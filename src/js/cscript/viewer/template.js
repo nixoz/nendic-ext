@@ -142,7 +142,7 @@ define([], function () {
   
       // guide area
       '<div class="endic_ext_guide_group">',
-        '<button class="endic_ext_show_shortcut_guide_btn" data-cmd="showShortcutGuide">단축키 도움말</button>',
+        '<button class="endic_ext_show_shortcut_guide_btn" data-cmd="toggleShortcutGuide">단축키 도움말</button>',
       '</div>',
       // end guide area
   

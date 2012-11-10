@@ -8,9 +8,10 @@ require([
   
   'common/pubsub',
   'bg/wordSearcher',
-  'bg/frameManager'
+  'bg/frameManager',
+  'bg/dicTypeToggler'
   
-], function (pubsub, wordSearcher, frameManager) {
+], function (pubsub, wordSearcher, frameManager, dicTypeToggler) {
 
   // 메시지 규칙
   // 1. 완료형으로만 보낸다.
@@ -57,7 +58,6 @@ require([
 
   // 프레임 정보가 수집된 경우
   pubsub.sub('@-frame-info-collected', function (data) {
-    console.log('collected', data);
     // 받아온 프레임 정보를 매니저에 등록한다.
     frameManager.registerAndActivateFrame(data, function (frameId) {
       pubsub.pub('*-frame-newly-activated', {
@@ -66,5 +66,13 @@ require([
     });
   });
 
+  // 영/한 사전 토글 시
+  pubsub.sub('@-dic-type-toggle-btn-clicked', function (data) {
+    dicTypeToggler.toggle(function () {
+      wordSearcher.searchWordWithRecentQuery(function (data) {
+        pubsub.pub('*-word-searched', data);
+      });
+    });
+  });
   
 });
