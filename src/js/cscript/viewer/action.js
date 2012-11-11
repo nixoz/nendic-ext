@@ -30,7 +30,17 @@ define([
       // 단축키 가이드를 토글한다.
       toggleShortcutGuide: function () {
         var $guide = $('#endic_ext_shortcut_guide');
-        $guide.toggle();
+        $guide.slideToggle("fast");
+      },
+
+      // 사전 페이지로 이동한다.
+      goToDictionaryPage: function () {
+        var $title = $('#endic_ext_title'),
+          href = $title.attr('href');
+
+        if (href) {
+          window.open(href);
+        }
       }
 
     },
@@ -41,7 +51,8 @@ define([
     _shortcutToCommandMap = {
       's': 'toggleDicType',
       'h': 'toggleShortcutGuide',
-      'a': 'playAudio'
+      'a': 'playAudio',
+      'g': 'goToDictionaryPage'
     };
 
   /**

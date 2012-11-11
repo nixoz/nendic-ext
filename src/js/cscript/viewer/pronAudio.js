@@ -8,18 +8,19 @@ define([
   'jquery'
 ], function ($) {
 
-  var AUDIO_SELECTOR = '#endic_ext_audio_',
-    BTN_SELECTOR = '#endic_ext_audio_btn_';
+  var BTN_SELECTOR = '#endic_ext_audio_';
 
   function play(audioIdx) {
     // 인덱스가 없는 경우 0으로 설정 (첫번째 엘리먼트를 찾는다) 
     audioIdx = audioIdx || 0;
-
-    var $audio = $(AUDIO_SELECTOR + audioIdx),
-      $button = $(BTN_SELECTOR + audioIdx);
+    
+    var $button = $(BTN_SELECTOR + audioIdx);
 
     // 오디오 엘리먼트가 없을 경우 재생하지 않는다.
-    if ( ! $audio.length) { return; } 
+    if ( ! $button.length) { return; } 
+
+    var audioSrc = $button.data('audio-src'),
+      $audio = $('<audio>').attr('src', audioSrc);
 
     // 오디오 재생에 따른 이벤트
     // 한 번만 실행하고 삭제한다.

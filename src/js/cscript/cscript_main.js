@@ -18,20 +18,23 @@ require([
   // 3. 컨텐트 스크립트에서 보낸 경우, 앞에 @- 를 붙인다.
   // 4. 백그라운드에서 보낸 경우, 앞에 *- 를 붙인다.
   
-  var viewer; // 뷰어는 프레임이 활성화된 경우에 로드되며,
+  var _$doc = $(document), 
+    viewer; // 뷰어는 프레임이 활성화된 경우에 로드되며,
               // 로드되었을 때에 변수에 할당한다.
 
 
-  // 문서에 마우스다운 이벤트 발생 시
-  $(document).mousedown(function (e) {
-    // 프레임 내에 액션이 관찰되었을 때 메시지를 보낸다.
+  // 프레임에 마우스액션이 감지되었을 때
+  // 프레임 활성화를 위한 메시지를 보낸다.
+  // 이 메시지는 최초 한 번만 보낸다.
+  _$doc.one('mousedown', function (e) {
     pubsub.pub('@-frame-observed', {
       frameId: frameObserver.getFrameId()
     });
-    
+  });
+  
+  // 뷰어가 아닌 영역을 클릭한 경우, 뷰어를 닫는다. 
+  _$doc.mousedown(function (e) {
     if ( ! (viewer && viewer.hasElement(e.target))) {
-      // 뷰어가 아닌 영역을 클릭한 경우,
-      // 뷰어를 닫아줘야 한다.
       // 뷰어가 포함되지 않은 프레임에서도
       // 클릭 이벤트가 발생할 수 있으므로,
       // 익스텐션에서 이벤트를 받아 모든 프레임으로 보낸다.

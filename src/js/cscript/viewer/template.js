@@ -71,14 +71,13 @@ define([], function () {
 
         // word title
         '<h3>',
-          '<strong><a href="<%= word.url %>" class="endic_ext_title" target="_blank"><%= word.title %></a></strong>',
+          '<strong><a id="endic_ext_title" href="<%= word.url %>" class="endic_ext_title" target="_blank"><%= word.title %></a></strong>',
           '<sup class="endic_ext_number"><%= word.number %></sup>',
           '<span class="endic_ext_phonetic_symbol"><%= word["phonetic_symbol"] %></span>',
     
           // audio button
           '<% if (word.pronunciation) { %>',
-            '<button id="endic_ext_audio_btn_<%= i %>" class="endic_ext_play_audio_btn" data-cmd="playAudio" data-cmdval="<%= i %>">Play Audio</button>',
-            '<audio id="endic_ext_audio_<%= i %>" src="<%= word.pronunciation %>"></audio>',
+            '<button id="endic_ext_audio_<%= i %>" class="endic_ext_play_audio_btn" data-cmd="playAudio" data-cmdval="<%= i %>" data-audio-src="<%= word.pronunciation %>">Play Audio</button>',
           '<% } %>',
           // end audio button
         
@@ -149,18 +148,18 @@ define([], function () {
       // shortcut guide
       '<div id="endic_ext_shortcut_guide">',
         '<ul>',
-          '<li><strong>s</strong> : 한영/영영 전환(Switch dictionary)</li>',
-          '<li><strong>a</strong> : 발음듣기(Audio)</li>',
-          '<li><strong>g</strong> : 현재 단어의 영어사전 페이지로 이동(Go to)</li>',
-          '<li><strong>c</strong> : 닫기(Close)</li>',
-          '<li><strong>h</strong> : 단축키 도움말(Help)</li>',
+          '<li><strong>ESC</strong> : 닫기</li>',
+          '<li><strong>S</strong> : 한영/영영 전환(<strong>S</strong>witch dictionary)</li>',
+          '<li><strong>A</strong> : 발음듣기(Play <strong>A</strong>udio)</li>',
+          '<li><strong>G</strong> : 영어사전 페이지로 이동(<strong>G</strong>o to original page)</li>',
+          '<li><strong>H</strong> : 단축키 도움말(Shortcut <strong>H</strong>elp)</li>',
         '</ul>',
       '</div>',
       // end shortcut guide
   
     '</div>'
     // end footer 
-  ].join("");
+  ].join('');
 
   return {
     /**

@@ -71,7 +71,7 @@ define([
       _$wrapper.html(template.getHtml(dicData));
     }
     
-    _$wrapper.show();
+    _$wrapper.show('fast');
     _isOpened = true;
   }
  
@@ -80,7 +80,9 @@ define([
    */
   function close() {
     if (_isOpened) {
-      _$wrapper.hide().empty();
+      _$wrapper.hide('fast', function () {
+        $(this).empty(); 
+      });
       _isOpened = false;
     }
   }
