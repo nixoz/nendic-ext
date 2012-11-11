@@ -1,2 +1,0 @@
-J.init();
-J.startAll();

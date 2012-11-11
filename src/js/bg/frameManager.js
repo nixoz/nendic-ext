@@ -118,6 +118,7 @@ define([
      * 프레임이 존재하지 않는 경우는 아래 두 경우이다.
      * 1. 탭을 처음으로 연 경우
      * 2. 페이지를 이동한 경우
+     *
      * @param {object} data 
      *    {string} frameId 프레임 아이디
      *    {string} tabId 탭 아이디

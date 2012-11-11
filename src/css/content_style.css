@@ -24,7 +24,7 @@ div#endic_ext_header {width:300px; border-width:1px 1px 0 1px; border-color:#1e6
 #endic_ext_header a.endic_ext_endic_main {display:inline-block; margin:3px 8px 0 0; color:#fff; text-decoration:none}
 #endic_ext_header a.endic_ext_endic_main:hover {text-decoration:underline}
 
-#endic_ext_header div.endic_ext_toggle_dic_type {position:absolute; top:28px; right:8px; text-align:right}
+#endic_ext_header div.endic_ext_toggle_dic_type {position:absolute; top:28px; right:8px; text-align:right; color:#666}
 
 /* body */
 div#endic_ext_body {width:300px; border-width:1px 1px 0 1px; border-style:solid; border-color:#1e6d04; background:#fafafa}
