@@ -14,6 +14,13 @@ define([
 ], function ($, template, action, shortcut) {
 
   var _isOpened = false,
+
+    // 열고 닫을 때 적용할 타이머
+    // 사전이 열린 상태에서 바로 사전을 열 때에
+    // 열린 상태에서 내용만 바뀔 수 있도록 타이머를 적용한다.
+    // 매 클릭마다 열리고 닫히는 것이 반복되면 정신이 없다.
+    _timer = null,
+
     // 사전을 표시할 래퍼 엘리먼트
     _$wrapper = $('<div>')
       .attr('id', 'endic_ext_wrapper')
@@ -67,6 +74,9 @@ define([
    * @param {object} dicData 사전 데이터
    */
   function open(dicData) {
+    clearTimeout(_timer);
+    _timer = null;
+
     if (dicData) {
       _$wrapper.html(template.getHtml(dicData));
     }
@@ -80,10 +90,18 @@ define([
    */
   function close() {
     if (_isOpened) {
-      _$wrapper.hide('fast', function () {
-        $(this).empty(); 
-      });
-      _isOpened = false;
+
+      clearTimeout(_timer);
+
+      // 사전이 들어갔다 나오는 경우를 방지하기 위해 타이머를 둔다.
+      // 재빠르게 사전을 닫고 여는 경우,
+      // 사전이 닫히지 않고 내용만 변경되도록 한다.
+      _timer = setTimeout(function () {
+        _$wrapper.hide('fast', function () {
+          $(this).empty(); 
+        });
+        _isOpened = false;
+      }, 200);
     }
   }
 
