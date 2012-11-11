@@ -5,7 +5,7 @@
  * @author ohgyun@gmail.com
  */
 @charset "utf-8";
-#endic_ext_wrapper {display:block; position:fixed; top:2px; right:2px; width:302px; z-index:999999999999}
+#endic_ext_wrapper {display:block; position:fixed; top:2px; right:2px; width:302px; z-index:2147483647}
 
 /* reset */
 #endic_ext_wrapper div,
