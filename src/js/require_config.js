@@ -9,6 +9,7 @@ requirejs.config({
   paths: {
     'common': '../common',
     'bg': '../bg',
+    'baction': '../baction',
     'cscript': '../cscript'
   }
 });

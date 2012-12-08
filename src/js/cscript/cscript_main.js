@@ -85,13 +85,26 @@ require([
   pubsub.sub('*-word-searched', function (data) {
     if (frameObserver.isActivated()) {
       // 프레임이 활성화 된 경우에만 뷰어를 로드한다.
-      require(['cscript/viewer/viewer'], function (v) {
-        viewer = v;
-        bindViewerEventHandler();
+      loadViewer(function () {
         viewer.open(data);
-      });
+      });      
     }
   });
+
+  // 뷰어를 로드하고 로드가 완료되면 콜백을 실행한다.
+  function loadViewer(callback) {
+    if (viewer) {
+      callback();
+      return;
+    }
+
+    require(['cscript/viewer/viewer'], function (v) {
+      viewer = v;
+      bindViewerEventHandler();
+      pubsub.pub('@-viewer-activated');
+      callback();
+    });
+  }
   
   // 뷰어에 이벤트 핸들러를 설정한다. 
   // 뷰어가 로드된 이후에 붙인다.
@@ -101,5 +114,21 @@ require([
       pubsub.pub('@-dic-type-toggle-btn-clicked');
     });
   }
-  
+
+  // 탭이 업데이트 된 경우
+  // 뷰어 활성화 여부에 대한 메시지를 던져준다.
+  pubsub.sub('*-tab-updated', function () {
+    if (viewer) {
+      pubsub.pub('@-viewer-activated');
+    } else {
+      pubsub.pub('@-viewer-inactivated');
+    }
+  });  
+
+  // 익스텐션 아이콘을 클릭한 경우
+  pubsub.sub('*-extension-icon-clicked', function () {
+    // 이 메시지는 뷰어가 활성화되어 있는 경우에만 전달된다.
+    viewer.open();
+  });
+
 });
