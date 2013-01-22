@@ -81,7 +81,7 @@ define([
       _$wrapper.html(template.getHtml(dicData));
     }
     
-    _$wrapper.show('fast');
+    _$wrapper.show();
     _isOpened = true;
   }
  
@@ -90,18 +90,9 @@ define([
    */
   function close() {
     if (_isOpened) {
-
-      clearTimeout(_timer);
-
-      // 사전이 들어갔다 나오는 경우를 방지하기 위해 타이머를 둔다.
-      // 재빠르게 사전을 닫고 여는 경우,
-      // 사전이 닫히지 않고 내용만 변경되도록 한다.
-      _timer = setTimeout(function () {
-        _$wrapper.hide('fast', function () {
-          $(this).empty(); 
-        });
-        _isOpened = false;
-      }, 200);
+      _$wrapper.hide(function () {
+        $(this).empty(); 
+      });
     }
   }
 

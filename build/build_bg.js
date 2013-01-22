@@ -8,6 +8,7 @@
  * # Build file example: https://github.com/jrburke/r.js/blob/master/build/example.build.js
  */
 ({
+  optimize: "none",
   baseUrl: "../src/js/lib",
   paths: {
     "requireLib": "./require",
@@ -21,7 +22,7 @@
   include: "requireLib", 
 
   // main module
-  name: "../bg/bg_main",
+  name: "bg/bg_main",
   
   // output filename
   out: "../release/js/bg.min.js"
