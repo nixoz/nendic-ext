@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# use extended globs
+shopt -s extglob
+
+release_path='../release'
+src_path='../src'
+
+# 0. release 폴더를 초기화한다.
+rm -r "$release_path" 2> /dev/null
+mkdir "$release_path"
+
+# 1. 소스 폴더의 css를 복사한다.
+mkdir "${release_path}/css"
+cp ${src_path}/css/*.css ${release_path}/css/
+
+# 2. 소스 폴더의 이미지를 복사한다.
+mkdir "${release_path}/img"
+cp ${src_path}/img/*(*.jpg|*.png|*.gif) ${release_path}/img/ 
+
+# 3. 스크립트 파일을 압축한다. (requiejs optimizer)
+r.js -o build_bg.js
+r.js -o build_cscript.js
+
+# 4. 매니페스트 파일을 릴리즈 폴더로 복사한다.
+#    이 때, 스크립트 부분은 압축한 코드를 바라보도록 한다.
+source replace_manifest "${src_path}" "${release_path}"
