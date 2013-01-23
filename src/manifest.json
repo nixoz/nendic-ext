@@ -30,12 +30,6 @@
       "js/baction/baction_main.js"
     ]
   },
-  "browser_action": {
-    "default_icon": {
-      "19": "img/icon48.png",
-      "38": "img/icon48.png"
-    }
-  },
   "permissions": [
     "<all_urls>", "tabs", "contextMenus", "cookies"
   ],

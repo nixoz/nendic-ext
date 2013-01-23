@@ -29,12 +29,16 @@ echo '[3] 스크립트 압축 완료'
 
 # 4. 매니페스트 파일을 릴리즈 폴더로 복사한다.
 #    이 때, 스크립트 부분은 압축한 코드를 바라보도록 한다.
-source replace_manifest "${src_path}" "${release_path}"
+source replace_manifest.bash "${src_path}" "${release_path}"
 echo '[4] 매니페스트 파일 수정/복사 완료'
 
 # 5. 압축해서 package 폴더로 이동한다.
 version_line=$(grep '"version"' ${src_path}/manifest.json)
 r_version='"version": "(.+)"'
 [[ "$version_line" =~ $r_version ]] && version=${BASH_REMATCH[1]}
-zip -r ${package_path}/naver_endic_${version}.zip ${release_path}/*
+(
+  # zip release directory in sub shell
+  cd ${release_path}
+  zip -r ${package_path}/naver_endic_${version}.zip .
+)
 echo "[5] 릴리즈 폴더 압축 완료: v.$version"
