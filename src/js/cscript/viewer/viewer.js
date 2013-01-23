@@ -90,7 +90,7 @@ define([
    */
   function close() {
     if (_isOpened) {
-      _$wrapper.hide(function () {
+      _$wrapper.hide(0, function () {
         $(this).empty(); 
       });
     }
