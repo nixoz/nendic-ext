@@ -93,6 +93,7 @@ define([
       _$wrapper.hide(0, function () {
         $(this).empty(); 
       });
+      _isOpened = false;
     }
   }
 
