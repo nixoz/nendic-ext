@@ -64,6 +64,15 @@ define([], function () {
    * @param {object} data 전달할 데이터
    */
   function tryToPubToContentScript(msg, data) {
+    // 크롬이 업데이트 되면서 컨텐트 스크립트에서 `chrome.tabs` 변수에
+    // 접근하기만 해도 오류를 발생한다.
+    // https://github.com/ohgyun/nendic-ext/issues/17
+
+    // cscript_main 에서 현재 샌드박스가 컨텐트 스크립트인지 여부를 설정한다.
+    if (typeof gIsContentScript !== 'undefined') {
+      return;
+    }
+
     if (chrome.tabs) { // chrome.tabs 속성은 익스텐션에서만 갖는다.
       // 현재 활성화되어 있는 탭에만 메시지를 보낸다.
       chrome.tabs.getSelected(null, function(tab) {

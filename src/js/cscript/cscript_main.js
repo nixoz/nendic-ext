@@ -1,3 +1,7 @@
+// pubsub 모듈에서 chrome.tabs 이슈를 해결하기 위한 패치 코드
+// https://github.com/ohgyun/nendic-ext/issues/17
+var gIsContentScript = true;
+
 /**
  * 컨텐트 스크립트의 메인 모듈
  * 
