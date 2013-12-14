@@ -24,8 +24,22 @@ module.exports = function(grunt) {
             cwd: 'src/css',
             src: ['*.css'],
             dest: 'build/css'
+          },
+          {
+            expand: true,
+            cwd: 'src/font',
+            src: ['*.woff'],
+            dest: 'build/font'
           }
         ]
+      }
+    },
+
+    less: {
+      develop: {
+        files: {
+          'src/css/content_style.css': 'src/css/content_style.less'
+        }
       }
     },
 
@@ -115,8 +129,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks(task);
   });
 
+  grunt.registerTask('default', ['less']);
+
   // 빌드 디렉토리로 스크립트를 압축한다.
-  grunt.registerTask('build', ['clean', 'copy', 'requirejs', 'string-replace']);
+  grunt.registerTask('build', ['default', 'clean', 'copy', 'requirejs', 'string-replace']);
 
   // 빌드 후 서비스 배포를 위한 `zip` 파일을 생성한다.
   grunt.registerTask('release', ['build', 'compress']);

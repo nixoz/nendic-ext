@@ -1,4 +1,5 @@
 release/
 build/
 node_modules/
+*.css
 *.zip

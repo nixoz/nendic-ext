@@ -9,7 +9,8 @@ define([
   'jquery',
   'cscript/viewer/template',
   'cscript/viewer/action',
-  'cscript/viewer/shortcut'
+  'cscript/viewer/shortcut',
+  'cscript/viewer/webFont'
 
 ], function ($, template, action, shortcut) {
 

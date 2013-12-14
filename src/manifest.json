@@ -33,6 +33,6 @@
     "<all_urls>", "tabs", "contextMenus", "cookies"
   ],
   "web_accessible_resources": [
-    "js/*"
+    "js/*", "font/*"
   ]
 }
