@@ -10,23 +10,39 @@ define(function () {
   style.appendChild(document.createTextNode(''));
   document.getElementsByTagName('head')[0].appendChild(style);
 
-  style.sheet.insertRule([
+  function insertRule(def) {
+    style.sheet.insertRule(def.join(''), 0);
+  }
+
+  // Lato Normal
+  insertRule([
     '@font-face {',
       'font-family: "Lato";',
       'src: url(' + chrome.extension.getURL('font/lato-regular-webfont.woff') + ') format("woff");',
       'font-weight: normal;',
       'font-style: normal;',
     '}'
-  ].join(''), 0);
+  ]);
 
-  style.sheet.insertRule([
+  // Lato Bold
+  insertRule([
     '@font-face {',
       'font-family: "Lato";',
       'src: url(' + chrome.extension.getURL('font/lato-bold-webfont.woff') + ') format("woff");',
       'font-weight: bold;',
       'font-style: normal;',
     '}'
-  ].join(''), 0);
+  ]);
+
+  // Flat UI Icons
+  insertRule([
+    '@font-face {',
+      'font-family: "Flat-UI-Icons";',
+      'src: url(' + chrome.extension.getURL('font/flat-ui-icons.woff') + ') format("woff");',
+      'font-weight: normal;',
+      'font-style: normal;',
+    '}'
+  ]);
 
   return {};
 });

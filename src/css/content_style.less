@@ -6,6 +6,8 @@
 
 @font-size: 11px;
 @font-color: #34495E;
+@strong-color: #2C3E50;
+@weak-color: #666666;
 
 @header-bgcolor: #27AE60;
 @header-height: 23px;
@@ -70,7 +72,7 @@
       top: 30px;
       right: 10px;
       text-align: right;
-      color: #666666;
+      color: @weak-color;
     }
   }
 
@@ -97,34 +99,48 @@
       }
 
       .endic_ext_title {
-        font-size: 12px;
+        font-size: @font-size + 1;
         font-weight: bold;
-        color: #0034ac;
+        color: @strong-color;
       }
 
       .endic_ext_number {
         margin: 0;
-        color: #0034ac;
+        color: @strong-color;
         font-weight: normal;
       }
 
       .endic_ext_phonetic_symbol {
         padding-left: 2px;
-        color: #666666;
+        color: @weak-color;
         font-weight: normal;
-        font-size: 11px;
       }
 
       .endic_ext_play_audio_btn {
-        width: 11px;
-        height: 11px;
-        margin-left: 4px;
-        text-indent: -1000px;
-        background: url(data:;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAYklEQVR42mNgIBdozb/zn7Ciebf/8/ZfRlE4/cKT/3BJGJZZ8gqusOvQtf8oCkESMotfwjFuhX2X/ksvfgHHID5Whay1u//DsPSi50CFF7ErRAasNbv/8/ZewO4ZbIoZKAEAIMphKxQdtUAAAAAASUVORK5CYII=) no-repeat center center;
-      }
+        display: inline-block;
+        margin-left: 5px;
+        // Flat UI의 아이콘을 사용한다.
+        // @see /cscript/viwer/webFont.js
+        // @see https://github.com/designmodo/Flat-UI/blob/master/less/icon-font.less
+        font-family: 'Flat-UI-Icons';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        -webkit-font-smoothing: antialiased;
+        color: @weak-color;
+        text-decoration: none;
 
-      .endic_ext_play_audio_btn.on {
-        background-image: url(data:;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAYElEQVR42mNgIBdozb/zn7Ciebf/8/ZfRlH4v5jhP1wShmWWvIIrhCmAKwRJyCx+Cce4FfZd+i+9+AUcg/hYFbLW7v4Pw9KLngMVXsSuEBmw1uz+z9t7AbtnsClmoAQAADrPWVUqd2dyAAAAAElFTkSuQmCC);
+        &:before {
+          position: relative;
+          top: 1px;
+          content: "\e010";
+        }
+
+        &.on {
+          color: #D35400;
+        }
       }
 
       audio {
@@ -159,7 +175,7 @@
       }
 
       .endic_ext_keyword {
-        color: #0034ac;
+        color: @strong-color;
         font-weight: bold;
       }
     }
@@ -190,7 +206,7 @@
         padding: 0 0 0 3px;
 
         strong {
-          color: #0034ac;
+          color: @strong-color;
           font-weight: bold;
         }
       }

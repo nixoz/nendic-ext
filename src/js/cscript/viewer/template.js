@@ -77,7 +77,7 @@ define([], function () {
     
           // audio button
           '<% if (word.pronunciation) { %>',
-            '<button id="endic_ext_audio_<%= i %>" class="endic_ext_play_audio_btn" data-cmd="playAudio" data-cmdval="<%= i %>" data-audio-src="<%= word.pronunciation %>">Play Audio</button>',
+            '<button id="endic_ext_audio_<%= i %>" class="endic_ext_play_audio_btn" data-cmd="playAudio" data-cmdval="<%= i %>" data-audio-src="<%= word.pronunciation %>"></button>',
           '<% } %>',
           // end audio button
         
