@@ -29,6 +29,14 @@ module.exports = function(grunt) {
       }
     },
 
+    less: {
+      develop: {
+        files: {
+          'src/css/content_style.css': 'src/css/content_style.less'
+        }
+      }
+    },
+
     // requirejs의 상세한 옵션은 아래 링크를 참고한다.
     // https://github.com/jrburke/r.js/blob/master/build/example.build.js
     requirejs: {
@@ -114,6 +122,8 @@ module.exports = function(grunt) {
   ].forEach(function(task) {
     grunt.loadNpmTasks(task);
   });
+
+  grunt.registerTask('default', ['less']);
 
   // 빌드 디렉토리로 스크립트를 압축한다.
   grunt.registerTask('build', ['clean', 'copy', 'requirejs', 'string-replace']);
