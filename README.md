@@ -38,14 +38,18 @@ $ npm install grunt-cli -g
 
 
 ### grunt build
-`$ grunt build`
+`$ grunt build`  
 
 스크립트를 압축하고 `build` 디렉토리에 배포용 코드를 생성합니다.  
 준비한 코드는 `Load unpaced extension` 메뉴에서 `nendic-ext/build` 디렉토리를 추가해 확인할 수 있습니다.
 
 
 ### grunt release
+`$ grunt release`  
+
+
 `build` 디렉토리를 기준으로 웹스토어에 배포하기 위한 압축 파일(`zip`)을 생성합니다.
+
 
 
 
