@@ -12,7 +12,7 @@
     {
       "matches": ["<all_urls>"],
       "css": [
-        "css/content_style.css"
+        "css/content.css"
       ],
       "js": [
         "vendor/require.js",
@@ -29,6 +29,11 @@
       "js/require_config.js",
       "js/bg/bg_main.js"
     ]
+  },
+  "browser_action": {
+    "default_title": "네이버 영어사전",
+    "default_icon": "img/icon48.png",
+    "default_popup": "html/popup.html"
   },
   "permissions": [
     "<all_urls>", "tabs", "contextMenus", "cookies"
