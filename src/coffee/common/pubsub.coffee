@@ -32,7 +32,7 @@ define ->
   #   cscript.* 형태이면, 컨텐트 스크립트에서 발생한 메시지이다.
   # @param {Object} data 전달할 데이터
   pub = (msg, data) ->
-    data ||= {}
+    data or= {}
     data[MSG_KEY] = msg
     
     # 익스텐션과 컨텐트 스크립트 양쪽으로 메시지를 보낸다.
@@ -61,7 +61,7 @@ define ->
   # @param {String} msg 메시지명
   # @param {Function} callback(data)
   sub = (msg, callback) ->
-    _map[msg] ||= []
+    _map[msg] or= []
     _map[msg].push callback
   
   # 익스텐션 메시지의 리스너를 등록한다.

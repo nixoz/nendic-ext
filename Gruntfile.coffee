@@ -7,7 +7,18 @@ module.exports = (grunt) ->
     manifest: grunt.file.readJSON "src/manifest.json"
 
     clean:
-      build: ["build", "release"]
+      build: ["build", "src/js", "release"]
+
+    # 커피스크립트를 `src/js`로 컴파일한다.
+    coffee:
+      build:
+        files: [
+            expand: true
+            cwd: "src/coffee"
+            src: ["**/*.coffee"]
+            dest: "src/js"
+            ext: ".js"
+        ]
 
     copy:
       # 이미지와 CSS 파일을 빌드 디렉토리로 복사한다.
@@ -38,10 +49,10 @@ module.exports = (grunt) ->
     # https://github.com/jrburke/r.js/blob/master/build/example.build.js
     requirejs:
       options:
-        baseUrl: "src/js/lib"
+        baseUrl: "src/vendor"
         paths:
           # `require` 라이브러리도 압축 코드에 포함한다.
-          requireLib: "./require"
+          requireLib: "require"
         mainConfigFile: "src/js/require_config.js"
 
       cscript:
@@ -105,10 +116,22 @@ module.exports = (grunt) ->
 
 
   # 태스크 등록
-  grunt.registerTask "default", ["less"]
+  grunt.registerTask "default", [
+    "coffee"
+    "less"
+  ]
   
   # 빌드 디렉토리로 스크립트를 압축한다.
-  grunt.registerTask "build", ["default", "clean", "copy", "requirejs", "string-replace"]
+  grunt.registerTask "build", [
+    "clean"
+    "default"
+    "copy"
+    "requirejs"
+    "string-replace"
+  ]
   
   # 빌드 후 서비스 배포를 위한 `zip` 파일을 생성한다.
-  grunt.registerTask "release", ["build", "compress"]
+  grunt.registerTask "release", [
+    "build"
+    "compress"
+  ]

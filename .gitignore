@@ -1,4 +1,5 @@
 release/
+src/js/
 build/
 node_modules/
 *.css

@@ -1,8 +1,8 @@
 # RequireJS 모듈 설정
 requirejs.config
-  baseUrl: "js/lib"
+  baseUrl: "vendor"
   paths:
-    common: "../common"
-    bg: "../bg"
-    baction: "../baction"
-    cscript: "../cscript"
+    common: "../js/common"
+    bg: "../js/bg"
+    baction: "../js/baction"
+    cscript: "../js/cscript"

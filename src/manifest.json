@@ -15,7 +15,7 @@
         "css/content_style.css"
       ],
       "js": [
-        "js/lib/require.js",
+        "vendor/require.js",
         "js/require_content.js",
         "js/require_config.js",
         "js/cscript/cscript_main.js"
@@ -25,7 +25,7 @@
   ],
   "background": {
     "scripts": [
-      "js/lib/require.js",
+      "vendor/require.js",
       "js/require_config.js",
       "js/bg/bg_main.js"
     ]
@@ -34,6 +34,6 @@
     "<all_urls>", "tabs", "contextMenus", "cookies"
   ],
   "web_accessible_resources": [
-    "js/*", "font/*"
+    "vendor/*", "js/*", "font/*"
   ]
 }

@@ -64,8 +64,8 @@ define [
       return if $el.hasClass("last")
       
       def = util.find($el, "", "text")
-      ex_en = (util.find($el.next(), "", "text") if $el.next().id("dd")) or ""
-      ex_kr = (util.find($el.next().next(), "", "text") if $el.next().next().id("dd")) or ""
+      ex_en = (util.find($el.next(), "", "text") if $el.next().is("dd")) or ""
+      ex_kr = (util.find($el.next().next(), "", "text") if $el.next().next().is("dd")) or ""
 
       datas.push
         # 의미
