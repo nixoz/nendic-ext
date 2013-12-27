@@ -4,5 +4,4 @@ requirejs.config
   paths:
     common: "../js/common"
     bg: "../js/bg"
-    baction: "../js/baction"
     cscript: "../js/cscript"

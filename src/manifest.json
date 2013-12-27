@@ -30,11 +30,6 @@
       "js/bg/bg_main.js"
     ]
   },
-  "browser_action": {
-    "default_title": "네이버 영어사전",
-    "default_icon": "img/icon48.png",
-    "default_popup": "html/popup.html"
-  },
   "permissions": [
     "<all_urls>", "tabs", "contextMenus", "cookies"
   ],
