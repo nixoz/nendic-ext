@@ -12,7 +12,7 @@
     {
       "matches": ["<all_urls>"],
       "css": [
-        "css/content_style.css"
+        "css/content.css"
       ],
       "js": [
         "vendor/require.js",
@@ -34,6 +34,6 @@
     "<all_urls>", "tabs", "contextMenus", "cookies"
   ],
   "web_accessible_resources": [
-    "vendor/*", "js/*", "font/*"
+    "vendor/*", "js/*", "font/*", "popup/*"
   ]
 }

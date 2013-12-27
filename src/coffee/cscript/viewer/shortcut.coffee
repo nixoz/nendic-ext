@@ -9,7 +9,7 @@ define [
   
   SPECIAL =
     27: "esc"
-    191: "/"
+    13: "enter"
 
   _callbackMap = {}
   
@@ -21,9 +21,15 @@ define [
     SPECIAL[keyCode]
 
   $(document).on "keyup", (e) ->
+    target = e.target
+
+    # 텍스트 입력창이라면 무시한다. 단, 스페셜 키인 경우엔 허용한다.
+    return if /(input|textarea)/i.test(target.tagName) and
+        e.keyCode not of SPECIAL
+
     key = findKey(e.keyCode)
     cbs = _callbackMap[key] if key
-    cb() for cb in cbs if cbs
+    cb(e) for cb in cbs if cbs
 
   return (
     # 단축키 콜백을 할당한다.
@@ -32,14 +38,14 @@ define [
     # @param {Function} cond 콜백을 실행할 조건
     on: (key, callback, cond) ->
       _callbackMap[key] or= []
-      _callbackMap[key].push ->
+      _callbackMap[key].push (e) ->
         switch typeof cond
           when "undefined"
-            callback()
+            callback(e)
           when "function"
-            cond() and callback()
+            cond(e) and callback(e)
           else
-            cond and callback()
+            cond and callback(e)
 
       this
   )

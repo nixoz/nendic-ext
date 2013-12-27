@@ -23,14 +23,26 @@ define [
 
     # 단축키 가이드를 토글한다.
     toggleShortcutGuide: ->
-      $guide = $("#endic_ext_shortcut_guide")
+      $guide = _$wrapper.find ".shortcut"
       $guide.slideToggle "fast"
 
     # 사전 페이지로 이동한다.
     goToDictionaryPage: ->
-      $title = $("#endic_ext_title")
+      $title = _$wrapper.find ".title:first"
       href = $title.attr("href")
-      window.open href  if href
+      window.open href if href
+
+    # 검색창을 연다.
+    openSearchBar: ->
+      $bar = _$wrapper.find ".search"
+      $bar.addClass "show"
+      _$wrapper.find("#endic_ext_search_query").focus()
+
+    # 단어를 검색한다.
+    searchWord: (query) ->
+      query = _$wrapper.find("#endic_ext_search_query").val()
+      runCallback "searchWord", query if query
+
   
   # 단축키와 액션의 맵
   _shortcutToCommandMap =
@@ -38,11 +50,12 @@ define [
     h: "toggleShortcutGuide"
     a: "playAudio"
     g: "goToDictionaryPage"
+    f: "openSearchBar"
   
   # 액션에 할당되어 있는 콜백을 실행한다.
-  runCallback = (cmd) ->
+  runCallback = (cmd, args...) ->
     callback = _callbackMap[cmd]
-    callback() if typeof callback is "function"
+    callback.apply(callback, args) if typeof callback is "function"
   
 
   return (
@@ -54,7 +67,7 @@ define [
 
     doAction: (cmd, value) ->
       action = _actionMap[cmd]
-      action value  if typeof action is "function"
+      action value if typeof action is "function"
 
     getShortcutMap: (key) ->
       _shortcutToCommandMap

@@ -25,26 +25,37 @@ define ->
   # TODO: handlebars 로 변경한다.
   _markup = """
     <!-- header -->
-    <div id="endic_ext_header">
-      <div class="endic_ext_endic">
-        <a class="endic_ext_endic_main" href="http://endic.naver.com" target="_blank">네이버 영어사전</a>
+    <div class="header">
+      <button class="searchbar-opener" data-cmd="openSearchBar"></button>
+
+      <div class="link">
+        <a href="http://endic.naver.com" target="_blank">네이버 영어사전</a>
       </div>
-  
-      <!-- toggle ee dic button -->
-      <% if (result.length > 0) { %>
-        <div class="endic_ext_toggle_dic_type">
-          <button data-cmd="toggleDicType">한영/영영 전환</button>
+
+      <!-- search bar -->
+      <div class="search">
+        <div class="wrap">
+          <input type="text" id="endic_ext_search_query" placeholder="단어를 입력하세요">
+          <button data-cmd="searchWord">검색</button>
         </div>
-      <% } %>
-      <!-- end toggle ee dic button -->
+      </div>
+      <!-- end search bar -->
   
     </div>
     <!-- end header -->
 
     <!-- body -->
-    <div id="endic_ext_body">
+    <div class="body">
+      <!-- toggle ee dic button -->
+      <% if (result.length > 0) { %>
+        <div class="toggle-btn">
+          <button data-cmd="toggleDicType">한영/영영 전환</button>
+        </div>
+      <% } %>
+      <!-- end toggle ee dic button -->
+
       <!-- body wrapper -->
-      <div class="endic_ext_body_wrapper">
+      <div class="wrap">
   
       <!-- words -->
       <% for (var i = 0; i < result.length; i++) { %>
@@ -52,13 +63,13 @@ define ->
 
         <!-- word title -->
         <h3>
-          <strong><a id="endic_ext_title" href="<%= word.url %>" class="endic_ext_title" target="_blank"><%= word.title %></a></strong>
-          <sup class="endic_ext_number"><%= word.number %></sup>
-          <span class="endic_ext_phonetic_symbol"><%= word["phonetic_symbol"] %></span>
+          <strong><a href="<%= word.url %>" class="title" target="_blank"><%= word.title %></a></strong>
+          <sup class="number"><%= word.number %></sup>
+          <span class="phonetic-symbol"><%= word["phonetic_symbol"] %></span>
     
           <!-- audio button -->
           <% if (word.pronunciation) { %>
-            <button id="endic_ext_audio_<%= i %>" class="endic_ext_play_audio_btn" data-cmd="playAudio" data-cmdval="<%= i %>" data-audio-src="<%= word.pronunciation %>"></button>
+            <button class="audio-btn audio-idx-<%= i %>" data-cmd="playAudio" data-cmdval="<%= i %>" data-audio-src="<%= word.pronunciation %>"></button>
           <% } %>
           <!-- end audio button -->
         
@@ -70,7 +81,7 @@ define ->
           <% var meaning = word.meanings[j]; %>
 
           <!-- meaning -->
-          <div class="endic_ext_meaning">
+          <div class="meaning">
             <h4 class="type"><%= meaning.type %></h4>
 
             <!-- meaning definitions -->
@@ -78,10 +89,10 @@ define ->
               <% var definition = meaning.definitions[k]; %>
 
               <!-- definition -->
-              <div class="endic_ext_defs">
-                <div class="endic_ext_definition"><%= definition.def %></div>
-                <div class="endic_ext_ex_en"><%= definition["ex_en"] %></div>
-                <div class="endic_ext_ex_kr"><%= definition["ex_kr"] %></div>
+              <div class="defs">
+                <div><%= definition.def %></div>
+                <div class="ex-en"><%= definition["ex_en"] %></div>
+                <div class="ex-kr"><%= definition["ex_kr"] %></div>
               </div>
               <!-- end definition -->
 
@@ -90,7 +101,7 @@ define ->
 
             <!-- more definition -->
             <% if (meaning.moreDefinition.count > 0) { %>
-              <div class="endic_ext_moreDefinition">
+              <div class="more-def">
                 <a href="<%= meaning.moreDefinition.url %>" target="_blank"><%= meaning.moreDefinition.count %>개 뜻 더보기</a>
               </div>
             <% } %>
@@ -107,7 +118,7 @@ define ->
 
       <!-- if no result -->
       <% if (result.length === 0) { %>
-        <div class="endic_ext_noresult"><span class="endic_ext_keyword">\'<%= query %>\'</span>에 대한 검색 결과가 없습니다.</div>
+        <div class="endic_ext_noresult"><span class="query">\'<%= query %>\'</span>에 대한 검색 결과가 없습니다.</div>
       <% } %>
       <!-- end if no result -->
 
@@ -118,18 +129,19 @@ define ->
     <!-- end body -->
 
     <!-- footer -->
-    <div id="endic_ext_footer">
+    <div class="footer">
   
       <!-- guide area -->
-      <div class="endic_ext_guide_group">
-        <button class="endic_ext_show_shortcut_guide_btn" data-cmd="toggleShortcutGuide">단축키 도움말</button>
+      <div class="guide">
+        <button data-cmd="toggleShortcutGuide">단축키 도움말</button>
       </div>
       <!-- end guide area -->
   
       <!-- shortcut guide -->
-      <div id="endic_ext_shortcut_guide">
+      <div class="shortcut">
         <ul>
           <li><strong>ESC</strong> : 닫기</li>
+          <li><strong>F</strong> : 검색창 열기(<strong>F</strong>ind word</strong>)</li>
           <li><strong>S</strong> : 한영/영영 전환(<strong>S</strong>witch dictionary)</li>
           <li><strong>A</strong> : 발음듣기(Play <strong>A</strong>udio)</li>
           <li><strong>G</strong> : 영어사전 페이지로 이동(<strong>G</strong>o to original page)</li>

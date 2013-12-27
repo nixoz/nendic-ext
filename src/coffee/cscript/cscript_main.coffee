@@ -42,6 +42,9 @@ require [
     # 한/영 전환     
     _viewer.onAction "toggleDicType", ->
       pubsub.pub "@-dic-type-toggle-btn-clicked"
+
+    _viewer.onAction "searchWord", (query) ->
+      pubsub.pub("@-word-selected", query: query)
   
 
   # 프레임에 마우스액션이 감지되었을 때
