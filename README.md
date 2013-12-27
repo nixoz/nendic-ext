@@ -51,5 +51,11 @@ $ npm install grunt-cli -g
 `build` 디렉토리를 기준으로 웹스토어에 배포하기 위한 압축 파일(`zip`)을 생성합니다.
 
 
+## 기부하기
+영어사전 익스텐션 잘 사용하고 계신가요?  
+앞으로도 잘 유지해나갈 수 있게 응원해주세요.
+
+- 페이팔로 커피 한 잔($5) 사주기  
+[![페이팔로 기부하기](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=BKCKZJK5YBC24&lc=KR&item_name=Naver%20English%20Dictionary%20Chrome%20Extension&item_number=nendic%2dext&amount=5%2e00&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted)
 
 
