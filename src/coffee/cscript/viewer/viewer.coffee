@@ -40,29 +40,37 @@ define [
     action.doAction cmd, value
     e.preventDefault()
   
-  # 단축키 이벤트를 바인딩한다.
+
+  # 단축키 이벤트
+  # ----------
+  # 창이 열려있을 때에만 동작하도록 등록한다.
+  shortcutMap = action.getShortcutMap()
+  ((k) ->
+    shortcut.on k, (->
+      cmd = shortcutMap[k]
+      action.doAction cmd
+    ), ->
+      _isOpened
+  )(key) for key of shortcutMap
+
+  # 스페셜 단축키에 대한 이벤트를 등록한다.
   shortcut.on "esc", (->
     close()
   ), ->
     _isOpened
-  
-  # 액션에 정의된 단축키를 가져와 할당한다.
-  shortcutMap = action.getShortcutMap()
-  for key of shortcutMap
-    ((k) ->
-      shortcut.on k, (->
-        cmd = shortcutMap[k]
-        action.doAction cmd
-      ), ->
-        _isOpened
-    ) key # XXX: 여기 정리하자
+
+  shortcut.on "enter", (->
+    action.doAction "searchWord"
+  ), (e) ->
+    $(e.target).is "#endic_ext_search_query"
+
   
   # 사전을 연다.
   # @param {object} dicData 사전 데이터
   open = (dicData) ->
     clearTimeout _timer
     _timer = null
-    _$wrapper.html template.getHtml(dicData)  if dicData
+    _$wrapper.html template.getHtml(dicData) if dicData
     _$wrapper.show()
     _isOpened = true
 
@@ -73,7 +81,8 @@ define [
         $(this).empty()
 
       _isOpened = false
-  
+
+ 
   return (
     open: open
     close: close

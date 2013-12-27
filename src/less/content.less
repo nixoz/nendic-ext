@@ -1,0 +1,291 @@
+@charset "utf-8";
+
+@wrapper-width: 300px;
+@wrapper-offset: 5px;
+@wrapper-shadow: #919191;
+
+@font-size: 11px;
+@font-color: #34495E;
+@strong-color: #2C3E50;
+@weak-color: #666666;
+
+@header-title-bgcolor: #27AE60;
+@header-title-height: 32px;
+@header-searchbar-bgcolor: #EDEFF1;
+
+@body-bgcolor: #EFF0F2;
+
+@footer-bgcolor: @body-bgcolor;
+
+.icon-font() {
+  // Flat UI의 아이콘을 사용한다.
+  // @see /cscript/viwer/webFont.js
+  // @see https://github.com/designmodo/Flat-UI/blob/master/less/icon-font.less
+  font-family: 'Flat-UI-Icons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  text-decoration: none;
+}
+
+#endic_ext_wrapper {
+  display: block;
+  position: fixed;
+  top: @wrapper-offset;
+  right: @wrapper-offset;
+  width: @wrapper-width;
+  z-index: 2147483647;
+  box-shadow: 0 0 5px @wrapper-shadow;
+
+  div, h3, h4, span, a, ul, li, button, input {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    color: @font-color;
+    background: none;
+    font-size: @font-size;
+    font-family: "Lato", Helvetica, Arial, sans-serif;
+    text-align: left;
+    line-height: 150%;
+    overflow: default;
+    box-shadow: none;
+    min-height: 0;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  button {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  // 헤더
+  // ---
+  .header {
+    width: @wrapper-width;
+    border: 0;
+
+    .link {
+      width: @wrapper-width;
+      height: @header-title-height;
+      background: @header-title-bgcolor;
+      text-align: right;
+
+      a {
+        display: inline-block;
+        margin: 4px 10px 0 0;
+        color: #ffffff;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .searchbar-opener {
+      display: block;
+      position: absolute;
+      top: 3px;
+      left: 10px;
+      color: #fff;
+      font-size: 17px;
+      outline: none;
+
+      .icon-font();
+
+      &:before {
+        position: relative;
+        top: 1px;
+        content: "\e01c";
+      }
+    }
+
+    .search {
+      background: @header-searchbar-bgcolor;
+      display: none;
+
+      &.show {
+        display: block;
+      }
+
+      .wrap {
+        padding: 10px 0 0 10px;
+
+        input {
+          width: 205px;
+          font-size: 14px;
+          border-radius: 4px;
+          border: 2px solid transparent;
+          background: #FFFFFF;
+          text-indent: 6px;
+          transition: border 0.25s linear;
+
+          &:focus {
+            border-color: @header-title-bgcolor;
+            outline: 0;
+          }
+        }
+
+        button {
+          width: 60px;
+          margin-left: 10px;
+          font-size: 14px;
+          text-align: center;
+          border: 2px solid transparent;
+          border-radius: 6px;
+          color: #fff;
+          background: @header-title-bgcolor;
+          text-decoration: none;
+          transition: background 0.25s linear;
+
+          &:hover {
+            background-color: lighten(@header-title-bgcolor, 5%);
+          }
+        }
+      }
+
+    }
+  }
+
+  // 바디
+  // ---
+  .body {
+    position: relative;
+    width: @wrapper-width;
+    border: 0;
+    background: @body-bgcolor;
+
+    .toggle-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      text-align: right;
+      color: @weak-color;
+    }
+
+    .wrap {
+      padding: 10px;
+
+      h3 {
+        background: none;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .title {
+        font-size: @font-size + 1;
+        font-weight: bold;
+        color: @strong-color;
+      }
+
+      .number {
+        margin: 0;
+        color: @strong-color;
+        font-weight: normal;
+      }
+
+      .phonetic-symbol {
+        padding-left: 2px;
+        color: @weak-color;
+        font-weight: normal;
+      }
+
+      .audio-btn {
+        display: inline-block;
+        margin-left: 5px;
+        color: @weak-color;
+
+        .icon-font();
+
+        &:before {
+          position: relative;
+          top: 1px;
+          content: "\e010";
+        }
+
+        &.on {
+          color: #D35400;
+        }
+      }
+
+      audio {
+        display: none;
+      }
+
+      .meaning {
+        margin: 3px 0 0 3px;
+
+        .type {
+          font-weight: bold;
+        }
+
+        .defs {
+          margin: 2px 0 0 4px;
+
+          .ex-en, .ex-kr {
+            margin: 0 0 0 8px;
+            color: #999999;
+          }
+        }
+
+        .more-def {
+          margin: 3px 0 5px 3px;
+
+          a {
+            color: #555555;
+            font-size: 10px;
+          }
+        }
+      }
+
+      .query {
+        color: @strong-color;
+        font-weight: bold;
+      }
+    }
+  }
+
+  // 푸터
+  // ---
+  .footer {
+    width: @wrapper-width;
+    background: @footer-bgcolor;
+
+    .guide {
+      padding: 5px 10px 10px 10px;
+      text-align: right;
+
+      button {
+        color: #999999;
+      }
+    }
+
+    .shortcut {
+      display: none;
+      padding: 10px;
+      border-top: 1px dashed #999999;
+
+      li {
+        margin: 0;
+        padding: 0 0 0 3px;
+
+        strong {
+          color: @strong-color;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

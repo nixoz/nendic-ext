@@ -7,7 +7,7 @@ module.exports = (grunt) ->
     manifest: grunt.file.readJSON "src/manifest.json"
 
     clean:
-      build: ["build", "src/js", "release"]
+      build: ["build", "src/js", "src/css", "release"]
 
     # 커피스크립트를 `src/js`로 컴파일한다.
     coffee:
@@ -18,6 +18,16 @@ module.exports = (grunt) ->
             src: ["**/*.coffee"]
             dest: "src/js"
             ext: ".js"
+        ]
+
+    less:
+      develop:
+        files: [
+            expand: true
+            cwd: "src/less"
+            src: ["*.less"]
+            dest: "src/css"
+            ext: ".css"
         ]
 
     copy:
@@ -39,11 +49,6 @@ module.exports = (grunt) ->
             src: ["*.woff"]
             dest: "build/font"
         ]
-
-    less:
-      develop:
-        files:
-          "src/css/content_style.css": "src/css/content_style.less"
 
     # requirejs의 상세한 옵션은 아래 링크를 참고한다.
     # https://github.com/jrburke/r.js/blob/master/build/example.build.js

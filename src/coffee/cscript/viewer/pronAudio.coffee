@@ -5,12 +5,10 @@ define [
   "jquery"
 ], ($) ->
 
-  BTN_SELECTOR = "#endic_ext_audio_"
-
   play = (audioIdx) ->
     # 인덱스가 없는 경우 0으로 설정 (첫번째 엘리먼트를 찾는다) 
     audioIdx or= 0
-    $button = $(BTN_SELECTOR + audioIdx)
+    $button = $(".audio-idx-#{audioIdx}")
     
     # 오디오 엘리먼트가 없을 경우 재생하지 않는다.
     return unless $button.length
