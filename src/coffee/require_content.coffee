@@ -37,7 +37,7 @@ require.load = (context, moduleName, path) ->
   # 반드시 web_accessible_resources에 접근할 리소스를 명시해줘야한다.
   # manifest v2부터 변경된 내용이며,
   # 자세한 사항은 아래 URL을 참고한다.
-  # http://developer.chrome.com/extensions/manifest.html#web_accessible_resources
+  # http://developer.chrome.com/extensions/manifest/web_accessible_resources.html
   url = chrome.extension.getURL(path)
   nocache = "?" + (+new Date())
   xhr.open "GET", url + nocache, true

@@ -10,12 +10,26 @@
 @weak-color: #666666;
 
 @header-title-bgcolor: #27AE60;
-@header-title-height: 23px;
+@header-title-height: 32px;
 @header-searchbar-bgcolor: #EDEFF1;
 
 @body-bgcolor: #EFF0F2;
 
 @footer-bgcolor: @body-bgcolor;
+
+.icon-font() {
+  // Flat UI의 아이콘을 사용한다.
+  // @see /cscript/viwer/webFont.js
+  // @see https://github.com/designmodo/Flat-UI/blob/master/less/icon-font.less
+  font-family: 'Flat-UI-Icons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  text-decoration: none;
+}
 
 #endic_ext_wrapper {
   display: block;
@@ -37,6 +51,8 @@
     text-align: left;
     line-height: 150%;
     overflow: default;
+    box-shadow: none;
+    min-height: 0;
   }
 
   li {
@@ -72,13 +88,30 @@
       }
     }
 
+    .searchbar-opener {
+      display: block;
+      position: absolute;
+      top: 3px;
+      left: 10px;
+      color: #fff;
+      font-size: 17px;
+      outline: none;
+
+      .icon-font();
+
+      &:before {
+        position: relative;
+        top: 1px;
+        content: "\e01c";
+      }
+    }
+
     .search {
       background: @header-searchbar-bgcolor;
-      transition: height 0.25s ease-out;
-      height: 0;
+      display: none;
 
       &.show {
-        height: 37px;
+        display: block;
       }
 
       .wrap {
@@ -91,7 +124,7 @@
           border: 2px solid transparent;
           background: #FFFFFF;
           text-indent: 6px;
-          -webkit-transition: border 0.25s linear;
+          transition: border 0.25s linear;
 
           &:focus {
             border-color: @header-title-bgcolor;
@@ -172,18 +205,9 @@
       .audio-btn {
         display: inline-block;
         margin-left: 5px;
-        // Flat UI의 아이콘을 사용한다.
-        // @see /cscript/viwer/webFont.js
-        // @see https://github.com/designmodo/Flat-UI/blob/master/less/icon-font.less
-        font-family: 'Flat-UI-Icons';
-        speak: none;
-        font-style: normal;
-        font-weight: normal;
-        font-variant: normal;
-        text-transform: none;
-        -webkit-font-smoothing: antialiased;
         color: @weak-color;
-        text-decoration: none;
+
+        .icon-font();
 
         &:before {
           position: relative;
@@ -240,7 +264,7 @@
     background: @footer-bgcolor;
 
     .guide {
-      padding: 10px;
+      padding: 5px 10px 10px 10px;
       text-align: right;
 
       button {

@@ -26,6 +26,8 @@ define ->
   _markup = """
     <!-- header -->
     <div class="header">
+      <button class="searchbar-opener" data-cmd="openSearchBar"></button>
+
       <div class="link">
         <a href="http://endic.naver.com" target="_blank">네이버 영어사전</a>
       </div>
@@ -33,8 +35,8 @@ define ->
       <!-- search bar -->
       <div class="search">
         <div class="wrap">
-          <input type="text" placeholder="단어를 입력하세요">
-          <button>검색</button>
+          <input type="text" id="endic_ext_search_query" placeholder="단어를 입력하세요">
+          <button data-cmd="searchWord">검색</button>
         </div>
       </div>
       <!-- end search bar -->
@@ -61,13 +63,13 @@ define ->
 
         <!-- word title -->
         <h3>
-          <strong><a id="endic_ext_title" href="<%= word.url %>" class="title" target="_blank"><%= word.title %></a></strong>
+          <strong><a href="<%= word.url %>" class="title" target="_blank"><%= word.title %></a></strong>
           <sup class="number"><%= word.number %></sup>
           <span class="phonetic-symbol"><%= word["phonetic_symbol"] %></span>
     
           <!-- audio button -->
           <% if (word.pronunciation) { %>
-            <button id="endic_ext_audio_<%= i %>" class="audio-btn" data-cmd="playAudio" data-cmdval="<%= i %>" data-audio-src="<%= word.pronunciation %>"></button>
+            <button class="audio-btn audio-idx-<%= i %>" data-cmd="playAudio" data-cmdval="<%= i %>" data-audio-src="<%= word.pronunciation %>"></button>
           <% } %>
           <!-- end audio button -->
         
@@ -136,9 +138,10 @@ define ->
       <!-- end guide area -->
   
       <!-- shortcut guide -->
-      <div id="endic_ext_shortcut_guide" class="shortcut">
+      <div class="shortcut">
         <ul>
           <li><strong>ESC</strong> : 닫기</li>
+          <li><strong>F</strong> : 검색창 열기(<strong>F</strong>ind word</strong>)</li>
           <li><strong>S</strong> : 한영/영영 전환(<strong>S</strong>witch dictionary)</li>
           <li><strong>A</strong> : 발음듣기(Play <strong>A</strong>udio)</li>
           <li><strong>G</strong> : 영어사전 페이지로 이동(<strong>G</strong>o to original page)</li>

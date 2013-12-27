@@ -39,6 +39,6 @@
     "<all_urls>", "tabs", "contextMenus", "cookies"
   ],
   "web_accessible_resources": [
-    "vendor/*", "js/*", "font/*"
+    "vendor/*", "js/*", "font/*", "popup/*"
   ]
 }
