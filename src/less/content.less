@@ -9,8 +9,9 @@
 @strong-color: #2C3E50;
 @weak-color: #666666;
 
-@header-bgcolor: #27AE60;
-@header-height: 23px;
+@header-title-bgcolor: #27AE60;
+@header-title-height: 23px;
+@header-searchbar-bgcolor: #EDEFF1;
 
 @body-bgcolor: #EFF0F2;
 
@@ -25,7 +26,7 @@
   z-index: 2147483647;
   box-shadow: 0 0 5px @wrapper-shadow;
 
-  div, h3, h4, span, a, ul, li, button {
+  div, h3, h4, span, a, ul, li, button, input {
     margin: 0;
     padding: 0;
     border: 0;
@@ -49,45 +50,93 @@
 
   // 헤더
   // ---
-  #endic_ext_header {
+  .header {
     width: @wrapper-width;
     border: 0;
-    background: @header-bgcolor;
 
-    .endic_ext_endic {
+    .link {
       width: @wrapper-width;
-      height: @header-height;
+      height: @header-title-height;
+      background: @header-title-bgcolor;
       text-align: right;
+
+      a {
+        display: inline-block;
+        margin: 4px 10px 0 0;
+        color: #ffffff;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
     }
 
-    a.endic_ext_endic_main {
-      display: inline-block;
-      margin: 4px 10px 0 0;
-      color: #ffffff;
-      text-decoration: none;
-    }
+    .search {
+      background: @header-searchbar-bgcolor;
+      transition: height 0.25s ease-out;
+      height: 0;
 
-    a.endic_ext_endic_main:hover {
-      text-decoration: underline;
-    }
+      &.show {
+        height: 37px;
+      }
 
-    div.endic_ext_toggle_dic_type {
-      position: absolute;
-      top: 30px;
-      right: 10px;
-      text-align: right;
-      color: @weak-color;
+      .wrap {
+        padding: 10px 0 0 10px;
+
+        input {
+          width: 205px;
+          font-size: 14px;
+          border-radius: 4px;
+          border: 2px solid transparent;
+          background: #FFFFFF;
+          text-indent: 6px;
+          -webkit-transition: border 0.25s linear;
+
+          &:focus {
+            border-color: @header-title-bgcolor;
+            outline: 0;
+          }
+        }
+
+        button {
+          width: 60px;
+          margin-left: 10px;
+          font-size: 14px;
+          text-align: center;
+          border: 2px solid transparent;
+          border-radius: 6px;
+          color: #fff;
+          background: @header-title-bgcolor;
+          text-decoration: none;
+          transition: background 0.25s linear;
+
+          &:hover {
+            background-color: lighten(@header-title-bgcolor, 5%);
+          }
+        }
+      }
+
     }
   }
 
   // 바디
   // ---
-  #endic_ext_body {
+  .body {
+    position: relative;
     width: @wrapper-width;
     border: 0;
     background: @body-bgcolor;
 
-    .endic_ext_body_wrapper {
+    .toggle-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      text-align: right;
+      color: @weak-color;
+    }
+
+    .wrap {
       padding: 10px;
 
       h3 {
@@ -102,25 +151,25 @@
         text-decoration: underline;
       }
 
-      .endic_ext_title {
+      .title {
         font-size: @font-size + 1;
         font-weight: bold;
         color: @strong-color;
       }
 
-      .endic_ext_number {
+      .number {
         margin: 0;
         color: @strong-color;
         font-weight: normal;
       }
 
-      .endic_ext_phonetic_symbol {
+      .phonetic-symbol {
         padding-left: 2px;
         color: @weak-color;
         font-weight: normal;
       }
 
-      .endic_ext_play_audio_btn {
+      .audio-btn {
         display: inline-block;
         margin-left: 5px;
         // Flat UI의 아이콘을 사용한다.
@@ -151,24 +200,23 @@
         display: none;
       }
 
-      .endic_ext_meaning {
+      .meaning {
         margin: 3px 0 0 3px;
 
-        .endic_ext_type {
+        .type {
           font-weight: bold;
-          font-size: 1em;
         }
 
-        .endic_ext_defs {
+        .defs {
           margin: 2px 0 0 4px;
 
-          .endic_ext_ex_en, .endic_ext_ex_kr {
+          .ex-en, .ex-kr {
             margin: 0 0 0 8px;
             color: #999999;
           }
         }
 
-        .endic_ext_moreDefinition {
+        .more-def {
           margin: 3px 0 5px 3px;
 
           a {
@@ -178,7 +226,7 @@
         }
       }
 
-      .endic_ext_keyword {
+      .query {
         color: @strong-color;
         font-weight: bold;
       }
@@ -187,20 +235,20 @@
 
   // 푸터
   // ---
-  #endic_ext_footer {
+  .footer {
     width: @wrapper-width;
     background: @footer-bgcolor;
 
-    .endic_ext_guide_group {
+    .guide {
       padding: 10px;
       text-align: right;
+
+      button {
+        color: #999999;
+      }
     }
 
-    .endic_ext_show_shortcut_guide_btn {
-      color: #999999;
-    }
-
-    #endic_ext_shortcut_guide {
+    .shortcut {
       display: none;
       padding: 10px;
       border-top: 1px dashed #999999;
