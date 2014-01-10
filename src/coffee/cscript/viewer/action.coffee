@@ -36,11 +36,11 @@ define [
     openSearchBar: ->
       $bar = _$wrapper.find ".search"
       $bar.addClass "show"
-      _$wrapper.find("#endic_ext_search_query").focus()
+      _$wrapper.find("#endic-ext-search-query").focus()
 
     # 단어를 검색한다.
     searchWord: (query) ->
-      query = _$wrapper.find("#endic_ext_search_query").val()
+      query = _$wrapper.find("#endic-ext-search-query").val()
       runCallback "searchWord", query if query
 
   
