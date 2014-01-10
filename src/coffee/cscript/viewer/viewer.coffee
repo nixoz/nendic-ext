@@ -19,7 +19,7 @@ define [
   
   # 사전을 표시할 래퍼 엘리먼트
   _$wrapper = $("<div>")
-      .attr("id", "endic_ext_wrapper")
+      .attr("id", "endic-ext-wrapper")
       .appendTo(document.body)
   
   # 뷰어는 사전을 열고 닫는 것만 처리한다.
@@ -62,7 +62,7 @@ define [
   shortcut.on "enter", (->
     action.doAction "searchWord"
   ), (e) ->
-    $(e.target).is "#endic_ext_search_query"
+    $(e.target).is "#endic-ext-search-query"
 
   
   # 사전을 연다.

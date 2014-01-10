@@ -21,7 +21,7 @@
   // Flat UI의 아이콘을 사용한다.
   // @see /cscript/viwer/webFont.js
   // @see https://github.com/designmodo/Flat-UI/blob/master/less/icon-font.less
-  font-family: 'Flat-UI-Icons';
+  font-family: 'Flat-UI-Icons'!important;
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -31,7 +31,7 @@
   text-decoration: none;
 }
 
-#endic_ext_wrapper {
+#endic-ext-wrapper {
   display: block;
   position: fixed;
   top: @wrapper-offset;
@@ -43,6 +43,8 @@
   div, h3, h4, span, a, ul, li, button, input {
     margin: 0;
     padding: 0;
+    width: initial;
+    height: initial;
     border: 0;
     color: @font-color;
     background: none;
@@ -66,7 +68,7 @@
 
   // 헤더
   // ---
-  .header {
+  .nendic-ext-header {
     width: @wrapper-width;
     border: 0;
 
@@ -118,6 +120,7 @@
         padding: 10px 0 0 10px;
 
         input {
+          display: inline-block;
           width: 205px;
           font-size: 14px;
           border-radius: 4px;
@@ -155,7 +158,7 @@
 
   // 바디
   // ---
-  .body {
+  .nendic-ext-body {
     position: relative;
     width: @wrapper-width;
     border: 0;
@@ -259,7 +262,7 @@
 
   // 푸터
   // ---
-  .footer {
+  .nendic-ext-footer {
     width: @wrapper-width;
     background: @footer-bgcolor;
 
