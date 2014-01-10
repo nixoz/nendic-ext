@@ -25,7 +25,7 @@ define ->
   # TODO: handlebars 로 변경한다.
   _markup = """
     <!-- header -->
-    <div class="header">
+    <div class="nendic-ext-header">
       <button class="searchbar-opener" data-cmd="openSearchBar"></button>
 
       <div class="link">
@@ -45,7 +45,7 @@ define ->
     <!-- end header -->
 
     <!-- body -->
-    <div class="body">
+    <div class="nendic-ext-body">
       <!-- toggle ee dic button -->
       <% if (result.length > 0) { %>
         <div class="toggle-btn">
@@ -129,7 +129,7 @@ define ->
     <!-- end body -->
 
     <!-- footer -->
-    <div class="footer">
+    <div class="nendic-ext-footer">
   
       <!-- guide area -->
       <div class="guide">

@@ -19,7 +19,7 @@ define [
   
   # 사전을 표시할 래퍼 엘리먼트
   _$wrapper = $("<div>")
-      .attr("id", "endic_ext_wrapper")
+      .attr("id", "endic-ext-wrapper")
       .appendTo(document.body)
   
   # 뷰어는 사전을 열고 닫는 것만 처리한다.
