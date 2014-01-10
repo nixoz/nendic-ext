@@ -21,7 +21,7 @@
   // Flat UI의 아이콘을 사용한다.
   // @see /cscript/viwer/webFont.js
   // @see https://github.com/designmodo/Flat-UI/blob/master/less/icon-font.less
-  font-family: 'Flat-UI-Icons';
+  font-family: 'Flat-UI-Icons'!important;
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -43,6 +43,8 @@
   div, h3, h4, span, a, ul, li, button, input {
     margin: 0;
     padding: 0;
+    width: initial;
+    height: initial;
     border: 0;
     color: @font-color;
     background: none;
@@ -118,6 +120,7 @@
         padding: 10px 0 0 10px;
 
         input {
+          display: inline-block;
           width: 205px;
           font-size: 14px;
           border-radius: 4px;

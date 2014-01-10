@@ -35,7 +35,7 @@ define ->
       <!-- search bar -->
       <div class="search">
         <div class="wrap">
-          <input type="text" id="endic_ext_search_query" placeholder="단어를 입력하세요">
+          <input type="text" id="endic-ext-search-query" placeholder="단어를 입력하세요">
           <button data-cmd="searchWord">검색</button>
         </div>
       </div>

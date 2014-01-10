@@ -62,7 +62,7 @@ define [
   shortcut.on "enter", (->
     action.doAction "searchWord"
   ), (e) ->
-    $(e.target).is "#endic_ext_search_query"
+    $(e.target).is "#endic-ext-search-query"
 
   
   # 사전을 연다.
