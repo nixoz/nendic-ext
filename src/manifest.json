@@ -18,8 +18,8 @@
       ],
       "js": [
         "vendor/jquery.js",
-        "js/common/constant.js",
-        "js/content/viewer.js"
+        "vendor/underscore.js",
+        "js/content/viewerManager.js"
       ]
     },
     {
@@ -28,8 +28,8 @@
       "matches": ["*://*/*"],
       "js": [
         "vendor/jquery.js",
-        "js/common/constant.js",
-        "js/content/shortcut.js"
+        "vendor/underscore.js",
+        "js/content/actionWatcher.js"
       ]
     }
   ],
