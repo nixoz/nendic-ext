@@ -18,17 +18,10 @@ createViewer = ->
 showViewer = ->
   _$viewer.addClass 'on'
 
-listenToExtension = (name, handler) ->
-  chrome.runtime.onMessage.addListener (req, sender) ->
-    handler(req.data) if req.name is name
-
-onWordSearched = _.partial listenToExtension, 'B:wordSearched'
+whenWordSearched = _.partial message.listenToExtension, 'B:wordSearched'
 
 #--------------------
 # Main Tasks
 #--------------------
 createViewer()
-
-onWordSearched ->
-  console.log '단어 선택!!'
-  showViewer()
+whenWordSearched showViewer

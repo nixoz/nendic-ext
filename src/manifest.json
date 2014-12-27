@@ -19,6 +19,7 @@
       "js": [
         "vendor/jquery.js",
         "vendor/underscore.js",
+        "js/common/message.js",
         "js/content/viewerManager.js"
       ]
     },
@@ -29,6 +30,7 @@
       "js": [
         "vendor/jquery.js",
         "vendor/underscore.js",
+        "js/common/message.js",
         "js/content/actionWatcher.js"
       ]
     }
@@ -37,6 +39,7 @@
     "scripts": [
       "vendor/jquery.js",
       "vendor/underscore.js",
+      "js/common/message.js",
       "js/background/background.js"
     ],
     "persistent": true

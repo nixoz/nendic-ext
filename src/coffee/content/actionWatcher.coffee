@@ -5,20 +5,23 @@
 #--------------------
 # Functions
 #--------------------
-sendToExtension = (name, data) ->
-  chrome.runtime.sendMessage
-    name: name
-    data: data
-
 onDocument = (eventType, handler) ->
   $(document).on eventType, handler
 
 onDocumentDoubleClick = _.partial onDocument, 'dblclick'
 
+sendWordSelectedToExtension = _.partial message.sendToExtension, 'T:wordSelected'
+
+isTextableElement = (el) ->
+  /(input|textarea)/i.test(el.tagName)
+
+getSelectedText = ->
+  window.getSelection().toString().trim()
+
 #--------------------
 # Main Tasks
 #--------------------
 onDocumentDoubleClick (e) ->
-  console.log 'dblclicked!!!'
-  sendToExtension 'T:wordSelected', 'hello extension'
-
+  unless isTextableElement(e.target)
+    selectionText = getSelectedText()
+    sendWordSelectedToExtension selectionText if selectionText
