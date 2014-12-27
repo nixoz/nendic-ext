@@ -34,7 +34,11 @@
     }
   ],
   "background": {
-    "page": "background.html",
+    "scripts": [
+      "vendor/jquery.js",
+      "vendor/underscore.js",
+      "js/background/background.js"
+    ],
     "persistent": true
   },
   "permissions": [
