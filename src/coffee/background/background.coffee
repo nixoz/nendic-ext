@@ -5,15 +5,19 @@
 #--------------------
 # Functions
 #--------------------
-whenWordSelected = _.partial message.listenToTab, 'T:wordSelected'
-sendWordSearchedToTab = _.partial message.sendToTab, 'B:wordSearched'
+whenWordSelected = message.listenToTab 'T:wordSelected'
+whenOutsideClicked = message.listenToTab 'T:outsideClicked'
+
+sendWordSearched = message.sendToTab 'B:wordSearched'
+sendOutsideClicked = message.sendToTab 'B:outsideClicked'
 
 searchWord = (word) ->
 	console.log 'searching...', word
-	sendWordSearchedToTab "SEARCHED: #{word}"
+	sendWordSearched "SEARCHED: #{word}"
 
 
 #--------------------
 # Main Tasks
 #--------------------
 whenWordSelected searchWord
+whenOutsideClicked sendOutsideClicked

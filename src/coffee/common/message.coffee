@@ -13,25 +13,29 @@
 - 메시지를 전송하는 함수명은 `sendXXXTo` 형태로 정한다.
 ###
 @message =
-  sendToExtension: (name, data) ->
-    chrome.runtime.sendMessage
-      name: name
-      data: data
-
-  listenToExtension: (name, handler) ->
-    chrome.runtime.onMessage.addListener (req, sender) ->
-      handler(req.data) if req.name is name
-
-  sendToTab: (name, data) ->
-    chrome.tabs.query
-      active: true
-      currentWindow: true
-    , (tabs) ->
-      chrome.tabs.sendMessage tabs[0].id,
+  sendToExtension: (name) ->
+    (data) ->
+      chrome.runtime.sendMessage
         name: name
         data: data
 
-  listenToTab: (name, handler) ->
-    chrome.runtime.onMessage.addListener (req, sender) ->
-      if sender.tab
+  listenToExtension: (name) ->
+    (handler) ->
+      chrome.runtime.onMessage.addListener (req, sender) ->
         handler(req.data) if req.name is name
+
+  sendToTab: (name) ->
+    (data) ->
+      chrome.tabs.query
+        active: true
+        currentWindow: true
+      , (tabs) ->
+        chrome.tabs.sendMessage tabs[0].id,
+          name: name
+          data: data
+
+  listenToTab: (name) ->
+    (handler) ->
+      chrome.runtime.onMessage.addListener (req, sender) ->
+        if sender.tab
+          handler(req.data) if req.name is name

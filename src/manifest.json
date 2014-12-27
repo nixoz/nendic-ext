@@ -20,6 +20,7 @@
         "vendor/jquery.js",
         "vendor/underscore.js",
         "js/common/message.js",
+        "js/common/f.js",
         "js/content/viewerManager.js"
       ]
     },
@@ -31,6 +32,7 @@
         "vendor/jquery.js",
         "vendor/underscore.js",
         "js/common/message.js",
+        "js/common/f.js",
         "js/content/actionWatcher.js"
       ]
     }
@@ -40,6 +42,7 @@
       "vendor/jquery.js",
       "vendor/underscore.js",
       "js/common/message.js",
+      "js/common/f.js",
       "js/background/background.js"
     ],
     "persistent": true

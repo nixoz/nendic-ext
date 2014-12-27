@@ -5,7 +5,7 @@
 #--------------------
 # Functions
 #--------------------
-whenWordSearched = _.partial message.listenToExtension, 'B:wordSearched'
+whenWordSearched = message.listenToExtension 'B:wordSearched'
 
 renderDictionary = (data) ->
   $('#result').html(_.escape(data))

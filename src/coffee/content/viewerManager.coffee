@@ -18,10 +18,15 @@ createViewer = ->
 showViewer = ->
   _$viewer.addClass 'on'
 
-whenWordSearched = _.partial message.listenToExtension, 'B:wordSearched'
+hideViewer = ->
+  _$viewer.removeClass 'on'
+
+whenWordSearched = message.listenToExtension 'B:wordSearched'
+whenOutsideClicked = message.listenToExtension 'B:outsideClicked'
 
 #--------------------
 # Main Tasks
 #--------------------
 createViewer()
 whenWordSearched showViewer
+whenOutsideClicked hideViewer
