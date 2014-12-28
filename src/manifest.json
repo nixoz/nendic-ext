@@ -43,6 +43,10 @@
       "vendor/underscore.js",
       "js/common/message.js",
       "js/common/f.js",
+      "js/background/meaningParser.js",
+      "js/background/resultHtmlParser.js",
+      "js/background/wordParser.js",
+      "js/background/wordSearcher.js",
       "js/background/background.js"
     ],
     "persistent": true

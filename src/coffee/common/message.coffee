@@ -12,19 +12,19 @@
 - 메시지 리스너를 리턴하는 함수명은 `whenXXX` 형태로 정한다.
 - 메시지를 전송하는 함수명은 `sendXXXTo` 형태로 정한다.
 ###
-@message =
-  sendToExtension: (name) ->
+@message_ =
+  createSenderToExtension: (name) ->
     (data) ->
       chrome.runtime.sendMessage
         name: name
         data: data
 
-  listenToExtension: (name) ->
+  createListenerToExtension: (name) ->
     (handler) ->
       chrome.runtime.onMessage.addListener (req, sender) ->
         handler(req.data) if req.name is name
 
-  sendToTab: (name) ->
+  createSenderToTab: (name) ->
     (data) ->
       chrome.tabs.query
         active: true
@@ -34,7 +34,7 @@
           name: name
           data: data
 
-  listenToTab: (name) ->
+  createListenerToTab: (name) ->
     (handler) ->
       chrome.runtime.onMessage.addListener (req, sender) ->
         if sender.tab

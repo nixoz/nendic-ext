@@ -21,8 +21,8 @@ showViewer = ->
 hideViewer = ->
   _$viewer.removeClass 'on'
 
-whenWordSearched = message.listenToExtension 'B:wordSearched'
-whenOutsideClicked = message.listenToExtension 'B:outsideClicked'
+whenWordSearched = message_.createListenerToExtension 'B:wordSearched'
+whenOutsideClicked = message_.createListenerToExtension 'B:outsideClicked'
 
 #--------------------
 # Main Tasks

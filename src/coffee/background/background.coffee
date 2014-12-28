@@ -5,16 +5,16 @@
 #--------------------
 # Functions
 #--------------------
-whenWordSelected = message.listenToTab 'T:wordSelected'
-whenOutsideClicked = message.listenToTab 'T:outsideClicked'
+whenWordSelected = message_.createListenerToTab 'T:wordSelected'
+whenOutsideClicked = message_.createListenerToTab 'T:outsideClicked'
 
-sendWordSearched = message.sendToTab 'B:wordSearched'
-sendOutsideClicked = message.sendToTab 'B:outsideClicked'
+sendWordSearched = message_.createSenderToTab 'B:wordSearched'
+sendOutsideClicked = message_.createSenderToTab 'B:outsideClicked'
 
 searchWord = (word) ->
-	console.log 'searching...', word
-	sendWordSearched "SEARCHED: #{word}"
-
+  wordSearcher_.searchWord word, (data) ->
+    console.log '>>>', data
+    sendWordSearched data
 
 #--------------------
 # Main Tasks

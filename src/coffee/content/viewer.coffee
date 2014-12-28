@@ -5,10 +5,11 @@
 #--------------------
 # Functions
 #--------------------
-whenWordSearched = message.listenToExtension 'B:wordSearched'
+whenWordSearched = message_.createListenerToExtension 'B:wordSearched'
 
 renderDictionary = (data) ->
-  $('#result').html(_.escape(data))
+	console.log('>>>>>>', data)
+	$('#result').html(_.escape(data))
 
 #--------------------
 # Main Tasks
