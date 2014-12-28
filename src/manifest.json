@@ -8,13 +8,13 @@
     "48": "img/icon48.png",
     "128": "img/icon128.png"
   },
-  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com; object-src 'self'",
   "content_scripts": [
     {
       "run_at": "document_start",
       "matches": ["*://*/*"],
       "css": [
-        "css/viewer.css"
+        "css/viewerManager.css"
       ],
       "js": [
         "vendor/jquery.js",

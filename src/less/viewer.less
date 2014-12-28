@@ -1,34 +1,188 @@
-#__nendic__ {
-  display: none !important;
-  visibility: visible !important;
-  position: fixed !important;
-  width: 300px !important;
-  height: 100% !important;
-  max-height: 400px !important;
-  min-height: 0 !important;
-  max-width: none !important;
-  min-width: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  top: 10px !important;
-  right: 10px !important;
-  bottom: auto !important;
-  left: auto !important;
-  background: green !important;
-  border: none !important;
-  box-shadow: none !important;
-  opacity: 0 !important;
-  box-sizing: content-box !important;
-  opacity: 1 !important;
-  outline: invert none medium !important;
-  resize: none !important;
-  vertical-align: baseline !important;
-  z-index: 2147483647 !important;
-  -webkit-animation-duration: 0 !important;
-  -webkit-user-select: none !important;
-  -webkit-transform: translate3d(0, 0, 0) !important;
+@import (reference) "common.less";
 
-  &.on {
-    display: block !important;
+@charset "utf-8";
+
+@font-size: 11px;
+@font-color: #333333;
+@strong-color: #000000;
+@weak-color: #666666;
+@body-bgcolor: #EFF0F2;
+
+body {
+  font-size: 11px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+  background: @body-bgcolor;
+}
+
+* {
+  background-repeat: no-repeat;
+  color: inherit;
+  font: inherit;
+  text-shadow: inherit;
+  -webkit-font-smoothing: inherit;
+}
+
+textarea, div[contenteditable] {
+  border: none;
+  outline: none;
+  resize: none;
+}
+
+div, h3, h4, span, a, ul, li, button, input {
+  margin: 0;
+  padding: 0;
+  width: initial;
+  height: initial;
+  border: 0;
+  color: @font-color;
+  background: none;
+  font-size: @font-size;
+  font-family: GothamMedium, NanumGothic, Helvetica, Arial, sans-serif;
+  text-align: left;
+  line-height: 150%;
+  overflow: default;
+  box-shadow: none;
+  min-height: 0;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+audio {
+  display: none;
+}
+
+.wrap {
+  margin: 10px;
+
+  .content {
+    .toggle-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      text-align: right;
+      color: @weak-color;
+    }
+
+    .line {
+      margin: 8px 0;
+      border: 0;
+      border-bottom: 1px solid #ccc;
+    }
+    
+    .title {
+      font-size: @font-size + 1;
+      font-weight: bold;
+      color: @strong-color;
+    }
+
+    .number {
+      margin: 0;
+      color: @strong-color;
+      font-weight: normal;
+    }
+
+    .phonetic-symbol {
+      padding-left: 2px;
+      color: @weak-color;
+      // 나눔고딕일 경우 발음 기호에 공백이 지나치게 생기므로 영문 폰트로 제한한다.
+      font-family: GothamMedium, Helvetica, Arial, sans-serif;
+      font-weight: normal;
+    }
+
+    .audio-btn {
+      display: inline-block;
+      margin-left: 5px;
+      color: @weak-color;
+
+      .icon-font();
+
+      &:before {
+        position: relative;
+        top: 1px;
+        content: "\e010";
+      }
+
+      &.on {
+        color: #D35400;
+      }
+    }
+
+    .meaning {
+      margin: 3px 0 0 3px;
+
+      .type {
+        font-weight: bold;
+      }
+
+      .defs {
+        margin: 2px 0 0 4px;
+
+        .ex-en, .ex-kr {
+          margin: 0 0 0 8px;
+          color: #999999;
+        }
+      }
+
+      .more-def {
+        margin: 3px 0 5px 3px;
+
+        a {
+          color: #555555;
+          font-size: 10px;
+        }
+      }
+    }
+
+    .noresult {
+      .query {
+        color: @strong-color;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .footer {
+    .guide {
+      padding: 5px 10px 10px 10px;
+      text-align: right;
+
+      button {
+        color: #999999;
+      }
+    }
+
+    .shortcut {
+      display: none;
+      padding: 10px;
+      border-top: 1px dashed #999999;
+
+      li {
+        margin: 0;
+        padding: 0 0 0 3px;
+
+        strong {
+          color: @strong-color;
+          font-weight: bold;
+        }
+      }
+    }
   }
 }

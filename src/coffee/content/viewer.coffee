@@ -7,11 +7,16 @@
 #--------------------
 whenWordSearched = message_.createListenerToExtension 'B:wordSearched'
 
-renderDictionary = (data) ->
-	console.log('>>>>>>', data)
-	$('#result').html(_.escape(data))
-
 #--------------------
 # Main Tasks
 #--------------------
-whenWordSearched renderDictionary
+angular.module('viewerApp', [])
+  .controller 'mainCtrl', ($scope) ->
+    $scope.query = ''
+    $scope.result = []
+
+    whenWordSearched (data) =>
+      $scope.query = data.query
+      $scope.result = data.result
+      # angular 범위 밖에서 호출된 것이기 때문에 apply()를 호출해줘야 한다.
+      $scope.$apply()
