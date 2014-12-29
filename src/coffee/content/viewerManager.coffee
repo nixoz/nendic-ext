@@ -37,6 +37,15 @@ showViewer = ->
   attachExpandEvent()
   preventDocumentWheelEvent()
 
+# 전체 내용을 보기 편하도록, 마우스를 올릴 때 창을 확장하고 닫을 때 기본 크기로 줄인다.
+attachExpandEvent = ->
+  # 이벤트가 한 번만 실행되도록 하기 위해 기존 이벤트는 제거한다.
+  detachExpandEvent()
+  _$viewer.one 'mouseover', expandViewerHeight
+
+detachExpandEvent = ->
+  _$viewer.off 'mouseover'
+
 expandViewerHeight = ->
   if _currentViewerHeight <= DEFAULT_HEIGHT
     properHeight = DEFAULT_HEIGHT
@@ -46,9 +55,18 @@ expandViewerHeight = ->
 
   _$viewer.attr 'style', "height: #{properHeight}px !important"
 
+# 뷰어 iframe 위에서 스크롤 시, 문서의 스크롤을 막는다.
+preventDocumentWheelEvent = ->
+  allowDocumentWheelEvent()
+  $(document).on "wheel.#{constant_.ID}", (e) ->
+    e.preventDefault() if e.target.id is constant_.ID
+
 restoreViewerHeight = ->
   _$viewer.removeAttr 'style'
   
+allowDocumentWheelEvent = ->
+  $(document).off "wheel.#{constant_.ID}"
+
 hideViewer = ->
   return unless _$viewer
   return unless _isViewerOpened
@@ -62,24 +80,6 @@ hideViewer = ->
     detachExpandEvent()
     allowDocumentWheelEvent()
   , 300
-
-# 전체 내용을 보기 편하도록, 마우스를 올릴 때 창을 확장하고 닫을 때 기본 크기로 줄인다.
-attachExpandEvent = ->
-  # 이벤트가 한 번만 실행되도록 하기 위해 기존 이벤트는 제거한다.
-  detachExpandEvent()
-  _$viewer.one 'mouseover', expandViewerHeight
-
-detachExpandEvent = ->
-  _$viewer.off 'mouseover'
-
-# 뷰어 iframe 위에서 스크롤 시, 문서의 스크롤을 막는다.
-preventDocumentWheelEvent = ->
-  allowDocumentWheelEvent()
-  $(document).on "wheel.#{constant_.ID}", (e) ->
-    e.preventDefault() if e.target.id is constant_.ID
-
-allowDocumentWheelEvent = ->
-  $(document).off "wheel.#{constant_.ID}"
 
 setCurrentViewerHeight = (height) ->
   _currentViewerHeight = height
