@@ -1,5 +1,11 @@
 @import "icon.less";
 
+@font-size: 11px;
+@font-color: #333333;
+@strong-color: #000000;
+@weak-color: #666666;
+@body-bgcolor: #EFF0F2;
+
 /* latin */
 @font-face {
   font-family: 'Montserrat';
@@ -27,4 +33,66 @@
   font-style: normal;
   font-weight: 700;
   src: url(../font/NanumGothic-Bold.woff) format('woff');
+}
+
+* {
+  background-repeat: no-repeat;
+  color: inherit;
+  font: inherit;
+  text-shadow: inherit;
+  -webkit-font-smoothing: inherit;
+}
+
+body {
+  font-size: @font-size;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+  background: @body-bgcolor;
+}
+
+textarea, div[contenteditable] {
+  border: none;
+  outline: none;
+  resize: none;
+}
+
+div, h3, h4, span, a, ul, li, button, input {
+  margin: 0;
+  padding: 0;
+  width: initial;
+  height: initial;
+  border: 0;
+  color: @font-color;
+  background: none;
+  font-size: @font-size;
+  font-family: GothamMedium, NanumGothic, Helvetica, Arial, sans-serif;
+  text-align: left;
+  line-height: 150%;
+  overflow: default;
+  box-shadow: none;
+  min-height: 0;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  outline: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+audio {
+  display: none;
 }
