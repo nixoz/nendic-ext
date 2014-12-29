@@ -20,13 +20,21 @@ isTextableElement = (e) ->
 getSelectedText = ->
   window.getSelection().toString().trim()
 
+isAlphabetic = (str) ->
+  /^[a-z ]+$/i.test str
+
+underThreeWords = (str) ->
+  str.match(/\S+/g).length <= 3
+
+isValidWord = f_.validator(isAlphabetic, underThreeWords)
+
 #--------------------
 # Main Tasks
 #--------------------
 onDoubleClick (e) ->
   unless isTextableElement(e)
     selectionText = getSelectedText()
-    sendWordSelected selectionText if selectionText
+    sendWordSelected selectionText if isValidWord(selectionText)
 
 # 뷰어가 포함되지 않은 프레임에서도 클릭 이벤트가 발생할 수 있으므로,
 # 익스텐션에서 이벤트를 받아 모든 프레임으로 보낸다.
