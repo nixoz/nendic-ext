@@ -19,7 +19,10 @@
         <strong><a href="{{word.url}}" class="title" target="_blank">{{word.title}}</a></strong>
         <sup class="number">{{word.number}}</sup>
         <span class="phonetic-symbol">{{word.phonetic_symbol}}</span>
-        <button class="audio-btn audio-idx-{{$index}}" data-cmd="playAudio" data-cmdval="{{$index}}" data-audio-src="{{word.pronunciation}}" ng-if="word.pronunciation"></button>
+        <button class="fui-volume audio-btn"
+          ng-class="{on:isPlayingAudio}"
+          ng-if="word.pronunciation"
+          ng-click="playAudio(word.pronunciation)"></button>
       </h3>
       <div class="meaning" ng-repeat="meaning in word.meanings">
         <h4 class="type">{{meaning.type}}</h4>
@@ -33,6 +36,11 @@
             <a href="{{meaning.moreDefinition.url}}" target="_blank">{{meaning.moreDefinition.count}}개 뜻 더보기</a>
           </div>
         </div>
+      </div>
+      <div class="toggle">
+        <button class="toggle-btn"
+          ng-class="{'on': isEE, 'fui-checkbox-checked': isEE, 'fui-checkbox-unchecked': !isEE}"
+          ng-click="toggleDicType()">영영사전</button> 
       </div>
     </div>
     <div class="noresult" ng-if="!result.length">

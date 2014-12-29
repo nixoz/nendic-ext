@@ -11,6 +11,8 @@ sendViewerInitialized = message_.createSenderToExtension 'T:viewerInitialized'
 # 뷰가 렌더링 되었다고 알린다. iframe의 사이즈를 지정하는데 사용된다.
 # @param {Number} height
 sendViewerRenderered = message_.createSenderToExtension 'T:viewerRendered'
+sendDicTypeToggled = message_.createSenderToExtension 'T:dicTypeToggled'
+
 
 #--------------------
 # Main Tasks
@@ -19,6 +21,28 @@ angular.module('viewerApp', [])
   .controller 'mainCtrl', ($scope) ->
     $scope.query = ''
     $scope.result = []
+    $scope.isPlayingAudio = false
+    $scope.isEE = false # 영영사전인지 여부
+
+    $scope.playAudio = (playUrl) ->
+      return if $scope.isPlayingAudio
+
+      $scope.isPlayingAudio = true
+      $audio = $('<audio>').attr('src', playUrl)
+      
+      # 오디오 재생에 따른 이벤트
+      # 한 번만 실행하고 삭제한다.
+      $audio.one
+        ended: ->
+          $scope.isPlayingAudio = false
+          $scope.$apply()
+          $audio[0].pause() # 재생이 종료되면 pause 상태로 만든다.
+          $audio.remove()
+
+      $audio[0].play()
+
+    $scope.toggleDicType = ->
+      sendDicTypeToggled(!$scope.isEE)
 
     # viewer.html은 처음 사전을 검색했을 때, 문서에 추가되면서 로드된다.
     # 페이지가 시작할 때 iframe을 만들어두면 되긴 하지만, 사전 검색이 필요없는 페이지라면 비효율적이다.
@@ -28,6 +52,7 @@ angular.module('viewerApp', [])
     whenWordSearched (data) ->
       $scope.query = data.query
       $scope.result = data.result
+      $scope.isEE = data.isEE
       # angular 범위 밖에서 호출된 것이기 때문에 apply()를 호출해줘야 한다.
       $scope.$apply()
 

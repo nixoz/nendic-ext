@@ -15,11 +15,25 @@ _responseCache = cache_.create()
 # 사전 타입 여부를 포함해 캐시 키를 설정한다.
 # @return {Promise}
 createCacheKey = (query) ->
+  getDicTypeFromCookie().then (isEE) ->
+    "#{query}_#{isEE}"
+
+# @return {Promise}
+getDicTypeFromCookie = () ->
   cookie_.get(constant_.DIC_TYPE_COOKIE_NAME).then (value = 'N') ->
-    "#{query}_#{value}"
+    value is 'Y'
 
 getQueryFromCacheKey = (cacheKey) ->
-  _.first(cacheKey.split('_'))
+  _.first(cacheKey.split('_')) if cacheKey
+
+getIsEeFromCacheKey = (cacheKey) ->
+  if cacheKey
+    return _.last(cacheKey.split('_')) is 'true'
+  false
+
+# @return {Promise}
+setDicTypeCookie = (isEE) ->
+  cookie_.set(constant_.DIC_TYPE_COOKIE_NAME, if isEE then 'Y' else 'N')
 
 # 단어를 검색한다.
 # 응답이 캐시에 존재하면 캐시의 것을 사용한다.
@@ -39,6 +53,7 @@ searchWord = (query, callback) ->
       success: (data) ->
         parsedData = resultHtmlParser_.parse(data)
         parsedData.query = query
+        parsedData.isEE = getIsEeFromCacheKey(cacheKey)
 
         # 응답을 캐시해둔다
         _responseCache.add cacheKey, parsedData
@@ -55,4 +70,8 @@ searchWord = (query, callback) ->
   # 최근 검색했던 단어로 검색한다.
   # @param {Function} callback(parsedData)
   searchWordWithRecentQuery: (callback) ->
-    searchWord getQueryFromCacheKey(_responseCache.getLastKey()), callback
+    searchWord(getQueryFromCacheKey(_responseCache.getLastKey()), callback)
+
+  toggleDicType: (isEE, callback) ->
+    setDicTypeCookie(isEE).then =>
+      @searchWordWithRecentQuery callback
