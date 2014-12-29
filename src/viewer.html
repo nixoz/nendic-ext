@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="wrap" ng-controller="mainCtrl">
-  <div class="content">
+  <div class="content" ng-if="query">
     <div ng-repeat="word in result" ng-if="result.length">
       <hr class="line" ng-if="$index"/>
       <h3>

@@ -22,6 +22,7 @@ showViewer = ->
   unless _isAttached
     _$viewer.appendTo document.documentElement
     _isAttached = true
+
   _$viewer.addClass 'on'
   attachExpandEvent()
   preventDocumentWheelEvent()

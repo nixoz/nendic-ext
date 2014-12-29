@@ -6,9 +6,9 @@
 # Functions
 #--------------------
 onDocument = (eventType, handler) ->
-  $(document).on eventType, handler
+  $(document).on eventType, _.debounce(handler, 200)
 
-onDoubleClick = _.partial onDocument, 'dblclick'
+onMouseUp = _.partial onDocument, 'mouseup'
 onMouseDown = _.partial onDocument, 'mousedown'
 
 sendWordSelected = message_.createSenderToExtension 'T:wordSelected'
@@ -21,7 +21,7 @@ getSelectedText = ->
   window.getSelection().toString().trim()
 
 isAlphabetic = (str) ->
-  /^[a-z ]+$/i.test str
+  /^[a-z -.]+$/i.test str
 
 underThreeWords = (str) ->
   str.match(/\S+/g).length <= 3
@@ -31,7 +31,7 @@ isValidWord = f_.validator(isAlphabetic, underThreeWords)
 #--------------------
 # Main Tasks
 #--------------------
-onDoubleClick (e) ->
+onMouseUp (e) ->
   unless isTextableElement(e)
     selectionText = getSelectedText()
     sendWordSelected selectionText if isValidWord(selectionText)
