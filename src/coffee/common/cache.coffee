@@ -19,9 +19,11 @@ class Cache
   get: (key) ->
     @map[key]
 
+  getLastKey: ->
+    _.last(@keys)
+
   getLast: ->
-    lastKey = _.last(@keys)
-    @get lastKey
+    @get @getLastKey()
 
 @cache_ =
   create: (options) ->

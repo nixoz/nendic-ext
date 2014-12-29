@@ -2,11 +2,16 @@
 사전을 보여줄 iframe을 생성하고, iframe의 on/off를 담당한다.
 페이지가 시작될 때 최상위 프레임에 추가한다.
 ###
+DEFAULT_HEIGHT = 168
 
 _$viewer = null
 _isAttached = false
 _currentViewerHeight = 0
-DEFAULT_HEIGHT = 168
+_isViewerOpened = false
+
+# 뷰어가 닫히자 마자 다시 열리는 경우를 대비해 (사전 전환이나 빠른 클릭 등)
+# 닫을 때 딜레이를 준다.
+_hideTimer = null
 
 #--------------------
 # Functions
@@ -23,7 +28,12 @@ showViewer = ->
     _$viewer.appendTo document.documentElement
     _isAttached = true
 
+  clearTimeout _hideTimer
+  _hideTimer = null
+
   _$viewer.addClass 'on'
+  _isViewerOpened = true
+
   attachExpandEvent()
   preventDocumentWheelEvent()
 
@@ -41,11 +51,17 @@ restoreViewerHeight = ->
   
 hideViewer = ->
   return unless _$viewer
-  _$viewer.removeClass 'on'
+  return unless _isViewerOpened
 
-  restoreViewerHeight()
-  detachExpandEvent()
-  allowDocumentWheelEvent()
+  _isViewerOpened = false
+
+  _hideTimer = _.delay ->
+    _$viewer.removeClass 'on'
+
+    restoreViewerHeight()
+    detachExpandEvent()
+    allowDocumentWheelEvent()
+  , 300
 
 # 전체 내용을 보기 편하도록, 마우스를 올릴 때 창을 확장하고 닫을 때 기본 크기로 줄인다.
 attachExpandEvent = ->

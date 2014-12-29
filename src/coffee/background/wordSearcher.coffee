@@ -9,46 +9,41 @@ TODO 현재는 네이버 영어사전을 쓰고 있지만, 추후 저작권이 �
 # 본문의 단어를 클릭했을 때 동적으로 뜨는 보조사전 API를 이용한다.
 API_URL = "http://endic.naver.com/searchAssistDict.nhn?query="
 
-# 최근 검색한 단어
-# 재검색하거나 한/영 단어 전환 시 사용한다.
-_recentQuery = ""
+_responseCache = cache_.create()
+
+# 영영/영한 여부를 쿠키로 설정하기 때문에,
+# 사전 타입 여부를 포함해 캐시 키를 설정한다.
+# @return {Promise}
+createCacheKey = (query) ->
+  cookie_.get(constant_.DIC_TYPE_COOKIE_NAME).then (value = 'N') ->
+    "#{query}_#{value}"
+
+getQueryFromCacheKey = (cacheKey) ->
+  _.first(cacheKey.split('_'))
 
 # 단어를 검색한다.
+# 응답이 캐시에 존재하면 캐시의 것을 사용한다.
 # @param {String} query
+# @param {Function} callback(parsedData) 응답 콜백
 searchWord = (query, callback) ->
-  cacheRecentQuery query
-  requestQuery query, callback
+  createCacheKey(query).then (cacheKey) ->
+    if _responseCache.get(cacheKey)
+      return callback _responseCache.get(cacheKey)
 
-# 최근 검색어를 캐시해둔다.
-# @param {String} query
-cacheRecentQuery = (query) ->
-  _recentQuery = query
+    $.ajax
+      url: "#{constant_.API_URL}?query=#{query}"
+      # 도메인은 다르지만 익스텐션에서 프록시 역할을 하므로
+      # 비동기 요청을 보내도 문제 없다.
+      crossDomain: false
+      dataType: 'html' # 서버에서 html 형태로 내려준다.
+      success: (data) ->
+        parsedData = resultHtmlParser_.parse(data)
+        parsedData.query = query
 
-# 단어를 ajax로 요청해 가져온다.
-# @param {String} query
-# @param {Function} callback(parsedData) 응답 콜백
-requestQuery = (query, callback) ->
-  url = API_URL + query
-
-  $.ajax
-    url: url
-    # 도메인은 다르지만 익스텐션에서 프록시 역할을 하므로
-    # 비동기 요청을 보내도 문제 없다.
-    crossDomain: false
-    dataType: "html" # 서버에서 html 형태로 내려준다.
-    success: (data) ->
-      response data, query, callback
-
-# 결과에 대한 응답을 보낸다.
-# @param {Object} data
-# @param {String} query
-# @param {Function} callback(parsedData) 응답 콜백
-response = (data, query, callback) ->
-  parsedData = resultHtmlParser_.parse(data)
-  
-  # 데이터에 쿼리를 포함해 응답한다.
-  parsedData.query = query
-  callback parsedData
+        # 응답을 캐시해둔다
+        _responseCache.add cacheKey, parsedData
+        # 데이터에 쿼리를 포함해 응답한다.
+        callback parsedData
 
 @wordSearcher_ =
   # 단어를 검색한다.
@@ -60,4 +55,4 @@ response = (data, query, callback) ->
   # 최근 검색했던 단어로 검색한다.
   # @param {Function} callback(parsedData)
   searchWordWithRecentQuery: (callback) ->
-    searchWord _recentQuery, callback
+    searchWord getQueryFromCacheKey(_responseCache.getLastKey()), callback

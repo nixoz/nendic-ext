@@ -6,10 +6,14 @@
 # Functions
 #--------------------
 onDocument = (eventType, handler) ->
-  $(document).on eventType, _.debounce(handler, 200)
+  $(document).on eventType, handler
 
-onMouseUp = _.partial onDocument, 'mouseup'
-onMouseDown = _.partial onDocument, 'mousedown'
+# mouse up 시점에 선택된 단어를 보고 처리한다.
+# 연속해서 마우스를 클릭하는 경우를 대비해 debounce를 준다.
+onMouseUp = _.debounce(_.partial(onDocument, 'mouseup'), 200)
+# mouse down 시점에 창을 닫는다.
+# 최초 클릭 시 창을 닫고, 이후의 연속적인 액션은 무시한다.
+onMouseDown = _.debounce(_.partial(onDocument, 'mousedown'), 200, true)
 
 sendWordSelected = message_.createSenderToExtension 'T:wordSelected'
 sendOutsideClicked = message_.createSenderToExtension 'T:outsideClicked'
@@ -33,8 +37,11 @@ isValidWord = f_.validator(isAlphabetic, underThreeWords)
 #--------------------
 onMouseUp (e) ->
   unless isTextableElement(e)
-    selectionText = getSelectedText()
-    sendWordSelected selectionText if isValidWord(selectionText)
+    # fix: 선택된 단어 위에서 마우스 클릭 시, 선택 해제되었는데도 단어가 선택된 것처럼 되는 경우가 있다.
+    # 다음 틱에서 수행하는 방법으로 우회한다.
+    _.defer ->
+      selectionText = getSelectedText()
+      sendWordSelected selectionText if isValidWord(selectionText)
 
 # 뷰어가 포함되지 않은 프레임에서도 클릭 이벤트가 발생할 수 있으므로,
 # 익스텐션에서 이벤트를 받아 모든 프레임으로 보낸다.

@@ -43,10 +43,12 @@
     "scripts": [
       "vendor/jquery.js",
       "vendor/underscore.js",
+      "vendor/q.js",
       "js/common/constant.js",
       "js/common/message.js",
       "js/common/f.js",
       "js/common/cache.js",
+      "js/common/cookie.js",
       "js/background/meaningParser.js",
       "js/background/resultHtmlParser.js",
       "js/background/wordParser.js",
