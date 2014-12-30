@@ -11,25 +11,30 @@ whenViewerInitialized = message_.createListenerToTab 'T:viewerInitialized'
 whenViewerRendered = message_.createListenerToTab 'T:viewerRendered'
 whenDicTypeToggled = message_.createListenerToTab 'T:dicTypeToggled'
 
+whenDicTypeToggledOnPopup = message_.createListenerToPopup 'P:dicTypeToggled'
+whenQuerySubmitted = message_.createListenerToPopup 'P:querySubmitted'
+
 sendWordSearched = message_.createSenderToTab 'B:wordSearched'
 sendOutsideClicked = message_.createSenderToTab 'B:outsideClicked'
 sendViewerRendered = message_.createSenderToTab 'B:viewerRendered'
 
-searchWord = (word) ->
-  wordSearcher_.searchWord(word, sendWordSearched)
-
-searchWordWithRecentQuery = () ->
-  wordSearcher_.searchWordWithRecentQuery(sendWordSearched)
-
-toggleDicType = (isEE) ->
-  wordSearcher_.toggleDicType(isEE, sendWordSearched)
+sendWordSearchedToPopup = message_.createSenderToPopup 'P:wordSearched'
 
 #--------------------
 # Main Tasks
 #--------------------
-whenViewerInitialized searchWordWithRecentQuery
 whenViewerRendered sendViewerRendered
 whenOutsideClicked sendOutsideClicked
 
-whenWordSelected searchWord
-whenDicTypeToggled toggleDicType
+whenWordSelected (word) ->
+  wordSearcher_.searchWord(word, sendWordSearched)
+whenDicTypeToggled (isEE) ->
+  wordSearcher_.toggleDicType(isEE, sendWordSearched)
+
+whenViewerInitialized ->
+  wordSearcher_.searchWordWithRecentQuery(sendWordSearched)
+
+whenQuerySubmitted (word) ->
+  wordSearcher_.searchWord(word, sendWordSearchedToPopup)  
+whenDicTypeToggledOnPopup (isEE) ->
+  wordSearcher_.toggleDicType(isEE, sendWordSearchedToPopup)

@@ -6,12 +6,17 @@
 # Functions
 #--------------------
 whenWordSearched = message_.createListenerToExtension 'B:wordSearched'
+whenWordSearchedFromPopup = message_.createListenerToWindow 'P:wordSearched'
 
 sendViewerInitialized = message_.createSenderToExtension 'T:viewerInitialized'
 # 뷰가 렌더링 되었다고 알린다. iframe의 사이즈를 지정하는데 사용된다.
 # @param {Number} height
 sendViewerRenderered = message_.createSenderToExtension 'T:viewerRendered'
+sendViewerRendereredToWindow = message_.createSenderToWindow(window.top, 'T:viewerRendered')
 sendDicTypeToggled = message_.createSenderToExtension 'T:dicTypeToggled'
+# 팝업에서 iframe으로 뷰어가 열리는 경우, 백그라운드에서 팝업에 있는 iframe에 메시지를 보낼 수 없다.
+# 팝업과는 윈도우 메시지로 통신하고, 팝업의 결과를 다시 받아 렌더링하는 방식으로 처리한다.
+sendDicTypeToggledToWindow = message_.createSenderToWindow(window.top, 'T:dicTypeToggled')
 
 
 #--------------------
@@ -43,13 +48,9 @@ angular.module('viewerApp', [])
 
     $scope.toggleDicType = ->
       sendDicTypeToggled(!$scope.isEE)
+      sendDicTypeToggledToWindow(!$scope.isEE)
 
-    # viewer.html은 처음 사전을 검색했을 때, 문서에 추가되면서 로드된다.
-    # 페이지가 시작할 때 iframe을 만들어두면 되긴 하지만, 사전 검색이 필요없는 페이지라면 비효율적이다.
-    # 검색이 일어날 때 뷰를 추가하면, 검색 결과보다 뷰가 더 늦게 로드되기 때문에 초기엔 데이터가 없다.
-    # 뷰는 초기화되었음을 알리고, 백그라운드에선 기존 결과를 다시 보내주는 방식으로 우회한다.
-    sendViewerInitialized()
-    whenWordSearched (data) ->
+    renderViewer = (data) ->
       $scope.query = data.query
       $scope.result = data.result
       $scope.isEE = data.isEE
@@ -58,3 +59,15 @@ angular.module('viewerApp', [])
 
       window.scrollTo(0, 0); # 같은 윈도우를 재활용하므로 렌더링 이후에 스크롤을 초기화한다
       sendViewerRenderered document.documentElement.scrollHeight
+      sendViewerRendereredToWindow document.documentElement.scrollHeight
+
+    # viewer.html은 처음 사전을 검색했을 때, 문서에 추가되면서 로드된다.
+    # 페이지가 시작할 때 iframe을 만들어두면 되긴 하지만, 사전 검색이 필요없는 페이지라면 비효율적이다.
+    # 검색이 일어날 때 뷰를 추가하면, 검색 결과보다 뷰가 더 늦게 로드되기 때문에 초기엔 데이터가 없다.
+    # 뷰는 초기화되었음을 알리고, 백그라운드에선 기존 결과를 다시 보내주는 방식으로 우회한다.
+    sendViewerInitialized()
+    whenWordSearched (data) ->
+      renderViewer data
+    whenWordSearchedFromPopup (data) ->
+      renderViewer data
+

@@ -39,3 +39,31 @@
       chrome.runtime.onMessage.addListener (req, sender) ->
         if sender.tab
           handler(req.data) if req.name is name
+
+  createSenderToPopup: (name) ->
+    (data) ->
+      chrome.runtime.sendMessage
+        name: name
+        data: data
+
+  createListenerToPopup: (name) ->
+    (handler) ->
+      chrome.runtime.onMessage.addListener (req, sender) ->
+        handler(req.data) if req.name is name
+
+  createSenderToWindow: (win, name) ->
+    (data) ->
+      win.postMessage
+        name: name 
+        data: data
+      , chrome.extension.getURL('')
+
+  createListenerToWindow: (name) ->
+    (handler) ->
+      window.addEventListener 'message', (e) ->
+        # 크롬 익스텐션에서 온 요청만 허용한다.
+        # 익스텐션의 getURL()에는 슬래시가 붙어있어서 오리진과 비교하기 위해 제거한다.
+        return unless e.origin is chrome.extension.getURL('').replace(/\/$/, '')
+
+        if e.data and e.data.name is name
+          handler e.data.data
