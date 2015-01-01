@@ -1,7 +1,7 @@
 <!doctype html>
-<html ng-app="viewerApp">
+<html ng-clock ng-app="viewerApp">
 <head>
-  <title>English Dictionary</title>
+  <title>사전</title>
   <meta charset="utf-8" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/viewer.css">
 </head>
-<body>
+<body class="viewer">
 <div class="wrap" ng-controller="mainCtrl">
   <div class="content" ng-if="query">
     <div ng-repeat="word in result" ng-if="result.length">

@@ -20,7 +20,7 @@ createViewer = ->
   _$viewer = $('<iframe>')
     .attr
       id: $$constant.ID
-      src: chrome.extension.getURL 'viewer.html'
+      src: chrome.extension.getURL 'viewer.html?init=true' # 초기화 옵션을 전달한다
 
 showViewer = ->
   # DOM에는 최초에 한 번만 추가한다.

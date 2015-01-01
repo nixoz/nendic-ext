@@ -1,23 +1,35 @@
+.btn {
+  padding: 4px 10px;
+  border: none;
+  border-radius: 4px;
+  -webkit-transition: border .25s linear,color .25s linear,background-color .25s linear;
+  transition: border .25s linear,color .25s linear,background-color .25s linear;
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: #fff;
+  background-color: #999;
+  border-color: #999;
+}
+
 .wrap {
-  padding: 20px 40px;
+  padding: 10px 40px;
 
   h2 {
     position: relative;
-    margin: 10px 0 20px 0;
-    font-size: 20px;
+    margin: 20px 0 0 0;
+    font-size: 160%;
     font-weight: bold;
 
     &:before {
       position: relative;
-      top: 2px;
+      top: 1px;
       padding-right: 5px;
     }
   }
 
   h3 {
     position: relative;
-    margin: 10px 0;
-    font-size: 16px;
+    margin: 25px 0 5px 0;
+    font-size: 130%;
     font-weight: bold;
 
     &:before {
@@ -27,7 +39,15 @@
     }
   }
 
+  h4 {
+    font-size: 110%;
+    font-weight: bold;
+  }
+
   .noti {
+    position: absolute;
+    top: 30px;
+    right: 60px;
     padding: 10px;
     font-weight: bold;
     border-radius: 5px;
@@ -52,4 +72,40 @@
     }
   }
 
+  .shortcut-list {
+    position: relative;
+    margin-top: 5px;
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+    padding: 10px 25px;
+
+    h4 {
+      margin-bottom: 5px;
+
+      &:before {
+        position: relative;
+        top: 1px;
+        padding-right: 5px;
+        font-weight: normal; 
+      }
+    }
+  }
+
+  .font-size {
+    .btn:before {
+      padding-right: 5px;
+    }
+
+    .current-font-size {
+      padding: 0 10px;
+      font-size: 105%;
+    }
+
+    #viewer {
+      margin: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      width: 320px;
+      height: 180px;
+      overflow: hidden;
+    }
+  }
 }

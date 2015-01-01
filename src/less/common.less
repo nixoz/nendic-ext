@@ -1,6 +1,6 @@
 @import "icon.less";
 
-@font-size: 11px;
+@font-size: 12px;
 @font-color: #333333;
 @strong-color: #000000;
 @weak-color: #666666;
@@ -45,7 +45,8 @@
 
 body {
   font-size: @font-size;
-  font-style: normal;
+  font-family: GothamMedium, NanumGothic, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   margin: 0;
   padding: 0;
@@ -61,15 +62,9 @@ textarea, div[contenteditable] {
 div, h3, h4, span, a, ul, li, button, input {
   margin: 0;
   padding: 0;
-  width: initial;
-  height: initial;
   border: 0;
   color: @font-color;
   background: none;
-  font-size: @font-size;
-  font-family: GothamMedium, NanumGothic, Helvetica, Arial, sans-serif;
-  text-align: left;
-  line-height: 150%;
   overflow: default;
   box-shadow: none;
   min-height: 0;
@@ -81,6 +76,10 @@ div, h3, h4, span, a, ul, li, button, input {
 
 li {
   list-style: none;
+}
+
+strong {
+  font-weight: bold;
 }
 
 button {

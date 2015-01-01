@@ -26,6 +26,8 @@ TRIGGER_METHODS = (->
 
 DEFAULT_OPTIONS =
   triggerMethod: TRIGGER_METHODS[0].value
+  fontSize: 100
+  useShortcut: false
 
 @$$options =
   TRIGGER_METHODS: TRIGGER_METHODS

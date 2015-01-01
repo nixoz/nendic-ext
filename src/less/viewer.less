@@ -1,5 +1,10 @@
 @import (reference) "common.less";
 
+body.viewer {
+  // 뷰어의 폰트는 11px을 100%로 옵션에 따라 처리한다.
+  font-size: 11px;
+}
+
 .wrap {
   margin: 10px;
 
@@ -11,7 +16,7 @@
     }
     
     .title {
-      font-size: @font-size + 1;
+      font-size: 120%;
       font-weight: bold;
       color: @strong-color;
     }
@@ -25,8 +30,6 @@
     .phonetic-symbol {
       padding-left: 2px;
       color: @weak-color;
-      // 나눔고딕일 경우 발음 기호에 공백이 지나치게 생기므로 영문 폰트로 제한한다.
-      font-family: GothamMedium, Helvetica, Arial, sans-serif;
       font-weight: normal;
     }
 
@@ -49,15 +52,19 @@
       margin: 3px 0 0 3px;
 
       .type {
-        font-weight: bold;
+        font-weight: normal;
+        color: @weak-color;
       }
 
       .defs {
         margin: 2px 0 0 4px;
+        font-size: 110%;
+        font-weight: bold;
 
         .ex-en, .ex-kr {
           margin: 0 0 0 8px;
-          color: #999999;
+          font-weight: normal;
+          color: @weak-color;
         }
       }
 
@@ -65,8 +72,8 @@
         margin: 3px 0 5px 3px;
 
         a {
-          color: #555555;
-          font-size: 10px;
+          color: @weak-color;
+          font-size: 0.9em;
         }
       }
     }
@@ -96,33 +103,6 @@
       .query {
         color: @strong-color;
         font-weight: bold;
-      }
-    }
-  }
-
-  .footer {
-    .guide {
-      padding: 5px 10px 10px 10px;
-      text-align: right;
-
-      button {
-        color: #999999;
-      }
-    }
-
-    .shortcut {
-      display: none;
-      padding: 10px;
-      border-top: 1px dashed #999999;
-
-      li {
-        margin: 0;
-        padding: 0 0 0 3px;
-
-        strong {
-          color: @strong-color;
-          font-weight: bold;
-        }
       }
     }
   }

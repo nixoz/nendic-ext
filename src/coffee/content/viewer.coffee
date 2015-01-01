@@ -18,12 +18,20 @@ sendDicTypeToggled = $$message.createSenderToExtension 'T:dicTypeToggled'
 # 팝업과는 윈도우 메시지로 통신하고, 팝업의 결과를 다시 받아 렌더링하는 방식으로 처리한다.
 sendDicTypeToggledToWindow = $$message.createSenderToWindow(window.top, 'T:dicTypeToggled')
 
+# 옵션을 불러온다.
+$$options.get().then (options) ->
+  $('.wrap').css('font-size', "#{options.fontSize}%")
 
 #--------------------
 # Main Tasks
 #--------------------
 angular.module('viewerApp', [])
-  .controller 'mainCtrl', ($scope) ->
+  .config ($locationProvider) ->
+    $locationProvider.html5Mode
+      enabled: true
+      requireBase: false
+
+  .controller 'mainCtrl', ($scope, $location) ->
     $scope.query = ''
     $scope.result = []
     $scope.isPlayingAudio = false
@@ -65,7 +73,10 @@ angular.module('viewerApp', [])
     # 페이지가 시작할 때 iframe을 만들어두면 되긴 하지만, 사전 검색이 필요없는 페이지라면 비효율적이다.
     # 검색이 일어날 때 뷰를 추가하면, 검색 결과보다 뷰가 더 늦게 로드되기 때문에 초기엔 데이터가 없다.
     # 뷰는 초기화되었음을 알리고, 백그라운드에선 기존 결과를 다시 보내주는 방식으로 우회한다.
-    sendViewerInitialized()
+    # 이 옵션은 파라미터로 `init=true` 를 전달했을 떄에만 처리한다.
+    if $location.search().init is 'true'
+      sendViewerInitialized()
+
     whenWordSearched (data) ->
       renderViewer data
     whenWordSearchedFromPopup (data) ->
