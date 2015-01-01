@@ -53,10 +53,21 @@
 
   createSenderToWindow: (win, name) ->
     (data) ->
-      win.postMessage
-        name: name 
-        data: data
-      , chrome.extension.getURL('')
+      isValidTargetWindow = true
+      try
+        # 크로스 도메인 이슈로 대상 window에 접근할 수 없다면 메시지를 보내지 않는다.
+        # 원래 `targetOrigin`이 동일하지 않으면 메시지를 보내지 않는데,
+        # `postMessage()` 호출 시 에러가 발생해버린다.
+        # 더군다가 이 에러가 try catch로 잡히지 않아, 다른 속성을 조회하는 방법으로 우회한다.
+        win.location.href
+      catch error
+        isValidTargetWindow = false
+      
+      if isValidTargetWindow
+        win.postMessage
+          name: name 
+          data: data
+        , chrome.extension.getURL('')
 
   createListenerToWindow: (name) ->
     (handler) ->

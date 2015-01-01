@@ -3,14 +3,24 @@
 ###
 # @return {Promise}
 TRIGGER_METHODS = (->
-  ctrlKeyName = if navigator.platform is 'MacIntel' then '<Cmd>' else '<Ctrl>'
+  isMac = navigator.platform is 'MacIntel'
+  ctrlKeyName = if isMac then '<Cmd>' else '<Ctrl>'
   altKeyName = '<Alt>'
   mouseMethodDesc = '<더블클릭 또는 마우스로 드래그>'
   
   [
-    { value: 0, desc: "#{mouseMethodDesc}" }
-    { value: 1, desc: "#{ctrlKeyName} + #{mouseMethodDesc}"}
-    { value: 2, desc: "#{altKeyName} + #{mouseMethodDesc}"}
+    {
+      value: 'mouse', desc: "#{mouseMethodDesc}",
+      handler: (e) -> true
+    }
+    {
+      value: 'ctrl_mouse', desc: "#{ctrlKeyName} + #{mouseMethodDesc}",
+      handler: (e) -> if isMac then e.metaKey else e.ctrlKey
+    }
+    {
+      value: 'alt_mouse', desc: "#{altKeyName} + #{mouseMethodDesc}",
+      handler: (e) -> e.altKey
+    }
   ]
 )()
 
