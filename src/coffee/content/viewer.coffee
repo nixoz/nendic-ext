@@ -5,18 +5,18 @@
 #--------------------
 # Functions
 #--------------------
-whenWordSearched = message_.createListenerToExtension 'B:wordSearched'
-whenWordSearchedFromPopup = message_.createListenerToWindow 'P:wordSearched'
+whenWordSearched = $$message.createListenerToExtension 'B:wordSearched'
+whenWordSearchedFromPopup = $$message.createListenerToWindow 'P:wordSearched'
 
-sendViewerInitialized = message_.createSenderToExtension 'T:viewerInitialized'
+sendViewerInitialized = $$message.createSenderToExtension 'T:viewerInitialized'
 # 뷰가 렌더링 되었다고 알린다. iframe의 사이즈를 지정하는데 사용된다.
 # @param {Number} height
-sendViewerRenderered = message_.createSenderToExtension 'T:viewerRendered'
-sendViewerRendereredToWindow = message_.createSenderToWindow(window.top, 'T:viewerRendered')
-sendDicTypeToggled = message_.createSenderToExtension 'T:dicTypeToggled'
+sendViewerRenderered = $$message.createSenderToExtension 'T:viewerRendered'
+sendViewerRendereredToWindow = $$message.createSenderToWindow(window.top, 'T:viewerRendered')
+sendDicTypeToggled = $$message.createSenderToExtension 'T:dicTypeToggled'
 # 팝업에서 iframe으로 뷰어가 열리는 경우, 백그라운드에서 팝업에 있는 iframe에 메시지를 보낼 수 없다.
 # 팝업과는 윈도우 메시지로 통신하고, 팝업의 결과를 다시 받아 렌더링하는 방식으로 처리한다.
-sendDicTypeToggledToWindow = message_.createSenderToWindow(window.top, 'T:dicTypeToggled')
+sendDicTypeToggledToWindow = $$message.createSenderToWindow(window.top, 'T:dicTypeToggled')
 
 
 #--------------------

@@ -15,8 +15,8 @@ onMouseUp = _.debounce(_.partial(onDocument, 'mouseup'), 200)
 # 최초 클릭 시 창을 닫고, 이후의 연속적인 액션은 무시한다.
 onMouseDown = _.debounce(_.partial(onDocument, 'mousedown'), 200, true)
 
-sendWordSelected = message_.createSenderToExtension 'T:wordSelected'
-sendOutsideClicked = message_.createSenderToExtension 'T:outsideClicked'
+sendWordSelected = $$message.createSenderToExtension 'T:wordSelected'
+sendOutsideClicked = $$message.createSenderToExtension 'T:outsideClicked'
 
 isTextableElement = (e) ->
   /(input|textarea)/i.test(e.target.tagName)
@@ -30,7 +30,7 @@ isAlphabetic = (str) ->
 underThreeWords = (str) ->
   str.match(/\S+/g).length <= 3
 
-isValidWord = f_.validator(isAlphabetic, underThreeWords)
+isValidWord = $$f.validator(isAlphabetic, underThreeWords)
 
 #--------------------
 # Main Tasks

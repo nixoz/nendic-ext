@@ -1,10 +1,10 @@
-@cookie_ =
+@$$cookie =
   # @return {Promise}
   get: (name) ->
     deferred = Q.defer()
 
     chrome.cookies.get
-      url: constant_.API_URL
+      url: $$constant.API_URL
       name: name
     , (cookie) ->
       cookieValue = (cookie and cookie.value) or null
@@ -19,11 +19,11 @@
     # fix: Mac OS에서 쿠키가 삭제되지 않고 append 되는 문제가 있어
     # 명시적으로 삭제 후 다시 설정한다.
     chrome.cookies.remove
-      url: constant_.API_URL
+      url: $$constant.API_URL
       name: name
     , ->
       chrome.cookies.set
-        url: constant_.API_URL
+        url: $$constant.API_URL
         name: name
         value: value
       , (cookie) ->

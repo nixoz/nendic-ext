@@ -25,6 +25,6 @@ class Cache
   getLast: ->
     @get @getLastKey()
 
-@cache_ =
+@$$cache =
   create: (options) ->
     new Cache options

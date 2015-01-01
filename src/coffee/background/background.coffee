@@ -5,20 +5,20 @@
 #--------------------
 # Functions
 #--------------------
-whenWordSelected = message_.createListenerToTab 'T:wordSelected'
-whenOutsideClicked = message_.createListenerToTab 'T:outsideClicked'
-whenViewerInitialized = message_.createListenerToTab 'T:viewerInitialized'
-whenViewerRendered = message_.createListenerToTab 'T:viewerRendered'
-whenDicTypeToggled = message_.createListenerToTab 'T:dicTypeToggled'
+whenWordSelected = $$message.createListenerToTab 'T:wordSelected'
+whenOutsideClicked = $$message.createListenerToTab 'T:outsideClicked'
+whenViewerInitialized = $$message.createListenerToTab 'T:viewerInitialized'
+whenViewerRendered = $$message.createListenerToTab 'T:viewerRendered'
+whenDicTypeToggled = $$message.createListenerToTab 'T:dicTypeToggled'
 
-whenDicTypeToggledOnPopup = message_.createListenerToPopup 'P:dicTypeToggled'
-whenQuerySubmitted = message_.createListenerToPopup 'P:querySubmitted'
+whenDicTypeToggledOnPopup = $$message.createListenerToPopup 'P:dicTypeToggled'
+whenQuerySubmitted = $$message.createListenerToPopup 'P:querySubmitted'
 
-sendWordSearched = message_.createSenderToTab 'B:wordSearched'
-sendOutsideClicked = message_.createSenderToTab 'B:outsideClicked'
-sendViewerRendered = message_.createSenderToTab 'B:viewerRendered'
+sendWordSearched = $$message.createSenderToTab 'B:wordSearched'
+sendOutsideClicked = $$message.createSenderToTab 'B:outsideClicked'
+sendViewerRendered = $$message.createSenderToTab 'B:viewerRendered'
 
-sendWordSearchedToPopup = message_.createSenderToPopup 'P:wordSearched'
+sendWordSearchedToPopup = $$message.createSenderToPopup 'P:wordSearched'
 
 #--------------------
 # Main Tasks

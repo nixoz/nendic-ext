@@ -1,0 +1,39 @@
+<!doctype html>
+<html ng-cloak ng-app="optionsApp">
+<head>
+  <title>설정</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/options.css">
+</head>
+<body>
+<div class="wrap" ng-controller="mainCtrl">
+  <h2 class="fui-gear">설정</h2>
+  <div class="noti" ng-if="isChanged">
+    변경한 설정을 적용했습니다. 새로운 설정은 새 창을 열거나, 기존 창을 새로고침 하면 적용됩니다.
+  </div>
+  <h3 class="fui-arrow-right">사전 선택 방법</h3>
+  <p class="desc">페이지에서 사전을 불러오는 방법에 대한 설정입니다.</p>
+  <ul class="box">
+    <li class="item" ng-repeat="method in TRIGGER_METHODS">
+      <input type="radio" name="triggerMethod" id="method_{{$index}}"
+        ng-model="options.triggerMethod" value="{{method.value}}" ng-change="save()"><label for="method_{{$index}}">{{method.desc}}</label>
+    </li>
+  </ul>
+</div>
+
+<script src="vendor/jquery.js"></script>
+<script src="vendor/underscore.js"></script>
+<script src="vendor/angular.js"></script>
+<script src="vendor/q.js"></script>
+<script src="js/common/constant.js"></script>
+<script src="js/common/message.js"></script>
+<script src="js/common/storage.js"></script>
+<script src="js/common/options.js"></script>
+<script src="js/common/f.js"></script>
+<script src="js/options/options.js"></script>
+</body>
+</html>

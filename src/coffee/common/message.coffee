@@ -12,7 +12,7 @@
 - 메시지 리스너를 리턴하는 함수명은 `whenXXX` 형태로 정한다.
 - 메시지를 전송하는 함수명은 `sendXXXTo` 형태로 정한다.
 ###
-@message_ =
+@$$message =
   createSenderToExtension: (name) ->
     (data) ->
       chrome.runtime.sendMessage

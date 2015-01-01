@@ -21,6 +21,7 @@
         "vendor/underscore.js",
         "js/common/constant.js",
         "js/common/message.js",
+        "js/common/storage.js",
         "js/common/f.js",
         "js/content/viewerManager.js"
       ]
@@ -34,6 +35,7 @@
         "vendor/underscore.js",
         "js/common/constant.js",
         "js/common/message.js",
+        "js/common/storage.js",
         "js/common/f.js",
         "js/content/actionWatcher.js"
       ]
@@ -46,6 +48,7 @@
       "vendor/q.js",
       "js/common/constant.js",
       "js/common/message.js",
+      "js/common/storage.js",
       "js/common/f.js",
       "js/common/cache.js",
       "js/common/cookie.js",
@@ -66,7 +69,7 @@
     "default_popup": "popup.html"
   },
   "permissions": [
-    "<all_urls>", "tabs", "contextMenus", "cookies"
+    "<all_urls>", "tabs", "contextMenus", "cookies", "storage"
   ],
   "web_accessible_resources": [
     "css/*",

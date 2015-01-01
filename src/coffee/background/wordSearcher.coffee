@@ -9,7 +9,7 @@ TODO 현재는 네이버 영어사전을 쓰고 있지만, 추후 저작권이 �
 # 본문의 단어를 클릭했을 때 동적으로 뜨는 보조사전 API를 이용한다.
 API_URL = "http://endic.naver.com/searchAssistDict.nhn?query="
 
-_responseCache = cache_.create()
+_responseCache = $$cache.create()
 
 # 영영/영한 여부를 쿠키로 설정하기 때문에,
 # 사전 타입 여부를 포함해 캐시 키를 설정한다.
@@ -20,7 +20,7 @@ createCacheKey = (query) ->
 
 # @return {Promise}
 getDicTypeFromCookie = () ->
-  cookie_.get(constant_.DIC_TYPE_COOKIE_NAME).then (value = 'N') ->
+  $$cookie.get($$constant.DIC_TYPE_COOKIE_NAME).then (value = 'N') ->
     value is 'Y'
 
 getQueryFromCacheKey = (cacheKey) ->
@@ -33,7 +33,7 @@ getIsEeFromCacheKey = (cacheKey) ->
 
 # @return {Promise}
 setDicTypeCookie = (isEE) ->
-  cookie_.set(constant_.DIC_TYPE_COOKIE_NAME, if isEE then 'Y' else 'N')
+  $$cookie.set($$constant.DIC_TYPE_COOKIE_NAME, if isEE then 'Y' else 'N')
 
 # 단어를 검색한다.
 # 응답이 캐시에 존재하면 캐시의 것을 사용한다.
@@ -45,7 +45,7 @@ searchWord = (query, callback) ->
       return callback _responseCache.get(cacheKey)
 
     $.ajax
-      url: "#{constant_.API_URL}?query=#{query}"
+      url: "#{$$constant.API_URL}?query=#{query}"
       # 도메인은 다르지만 익스텐션에서 프록시 역할을 하므로
       # 비동기 요청을 보내도 문제 없다.
       crossDomain: false

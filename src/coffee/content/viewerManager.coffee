@@ -19,7 +19,7 @@ _hideTimer = null
 createViewer = ->
   _$viewer = $('<iframe>')
     .attr
-      id: constant_.ID
+      id: $$constant.ID
       src: chrome.extension.getURL 'viewer.html'
 
 showViewer = ->
@@ -58,14 +58,14 @@ expandViewerHeight = ->
 # 뷰어 iframe 위에서 스크롤 시, 문서의 스크롤을 막는다.
 preventDocumentWheelEvent = ->
   allowDocumentWheelEvent()
-  $(document).on "wheel.#{constant_.ID}", (e) ->
-    e.preventDefault() if e.target.id is constant_.ID
+  $(document).on "wheel.#{$$constant.ID}", (e) ->
+    e.preventDefault() if e.target.id is $$constant.ID
 
 restoreViewerHeight = ->
   _$viewer.removeAttr 'style'
   
 allowDocumentWheelEvent = ->
-  $(document).off "wheel.#{constant_.ID}"
+  $(document).off "wheel.#{$$constant.ID}"
 
 hideViewer = ->
   return unless _$viewer
@@ -84,9 +84,9 @@ hideViewer = ->
 setCurrentViewerHeight = (height) ->
   _currentViewerHeight = height
 
-whenWordSearched = message_.createListenerToExtension 'B:wordSearched'
-whenOutsideClicked = message_.createListenerToExtension 'B:outsideClicked'
-whenViewerRendered = message_.createListenerToExtension 'B:viewerRendered'
+whenWordSearched = $$message.createListenerToExtension 'B:wordSearched'
+whenOutsideClicked = $$message.createListenerToExtension 'B:outsideClicked'
+whenViewerRendered = $$message.createListenerToExtension 'B:viewerRendered'
 
 #--------------------
 # Main Tasks

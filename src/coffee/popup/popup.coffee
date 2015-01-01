@@ -7,14 +7,14 @@ VIEWER_MAX_HEIGHT = 400
 #--------------------
 # Functions
 #--------------------
-whenWordSearched = message_.createListenerToExtension 'P:wordSearched'
-whenDicTypeToggled = message_.createListenerToWindow 'T:dicTypeToggled'
-whenViewerRendered = message_.createListenerToWindow 'T:viewerRendered'
+whenWordSearched = $$message.createListenerToExtension 'P:wordSearched'
+whenDicTypeToggled = $$message.createListenerToWindow 'T:dicTypeToggled'
+whenViewerRendered = $$message.createListenerToWindow 'T:viewerRendered'
 
-sendQuerySubmitted = message_.createSenderToExtension 'P:querySubmitted'
-sendWordSearchedToIframe = message_.createSenderToWindow(
+sendQuerySubmitted = $$message.createSenderToExtension 'P:querySubmitted'
+sendWordSearchedToIframe = $$message.createSenderToWindow(
   document.getElementById('viewer').contentWindow, 'P:wordSearched')
-sendDicTypeToggled = message_.createSenderToExtension 'P:dicTypeToggled'
+sendDicTypeToggled = $$message.createSenderToExtension 'P:dicTypeToggled'
 
 #--------------------
 # Main Tasks
