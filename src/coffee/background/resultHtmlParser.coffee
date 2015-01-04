@@ -8,60 +8,60 @@
 임의의 DOM을 생성해 HTML을 넣은 후,
 jquery 셀렉터로 값을 가져오는 방식으로 파싱한다.
 ###
+@define 'resultHtmlParser', ($$wordParser, $$meaningParser) ->
+  # 결과를 담을 래퍼 엘리먼트
+  _$wrapper = null
 
-# 결과를 담을 래퍼 엘리먼트
-_$wrapper = null
-
-# 단어 부분 래퍼
-_$word = null
-
-# 의미 부분 래퍼
-_$meaning = null
-
-# 파싱하기 위한 HTML을 넣을 임의의 래퍼 DOM을 생성한다.
-init = ->
-  _$wrapper = $("<div>")
-
-# HTML을 파싱하기 위해 DOM을 생성하고 할당한다.
-# @param {String} html
-readyParsing = (html) ->
-  _$wrapper.html html
-  
-  # 단어 제목(h3)과 타입별 의미(.box_a)가 쌍으로 존재한다.
-  _$word = _$wrapper.find("h3")
-  _$meaning = _$wrapper.find(".box_a")
-
-# HTML을 파싱한다.
-# wordParser_와 meaningParser_로 파싱하고, 각각의 결과를 데이터로 담아 리턴한다.
-parseHtmlToData = ->
-  result = []
-  
-  for i in [0..._$word.length]
-    wordParser_.setWrapper _$word.get(i)
-    meaningParser_.setWrapper _$meaning.get(i)
-    
-    wordData = wordParser_.parse()
-    wordData.meanings = meaningParser_.parse()
-    
-    result.push wordData
-
-  result: result
-
-# DOM을 초기화하고 메모리 해제한다.
-reset = ->
-  _$wrapper.remove()
+  # 단어 부분 래퍼
   _$word = null
+
+  # 의미 부분 래퍼
   _$meaning = null
 
-# 모듈이 로드되면 초기화한다.
-init()
+  # 파싱하기 위한 HTML을 넣을 임의의 래퍼 DOM을 생성한다.
+  init = ->
+    _$wrapper = $("<div>")
 
-@resultHtmlParser_ =
-  # 사전 검색 결과 html을 json을 파싱한다.
+  # HTML을 파싱하기 위해 DOM을 생성하고 할당한다.
   # @param {String} html
-  # @return {Object} 파싱한 결과
-  parse: (html) ->
-    readyParsing html
-    parsed = parseHtmlToData()
-    reset()
-    parsed
+  readyParsing = (html) ->
+    _$wrapper.html html
+    
+    # 단어 제목(h3)과 타입별 의미(.box_a)가 쌍으로 존재한다.
+    _$word = _$wrapper.find("h3")
+    _$meaning = _$wrapper.find(".box_a")
+
+  # HTML을 파싱한다.
+  # $$wordParser와 $$meaningParser로 파싱하고, 각각의 결과를 데이터로 담아 리턴한다.
+  parseHtmlToData = ->
+    result = []
+    
+    for i in [0..._$word.length]
+      $$wordParser.setWrapper _$word.get(i)
+      $$meaningParser.setWrapper _$meaning.get(i)
+      
+      wordData = $$wordParser.parse()
+      wordData.meanings = $$meaningParser.parse()
+      
+      result.push wordData
+
+    result: result
+
+  # DOM을 초기화하고 메모리 해제한다.
+  reset = ->
+    _$wrapper.remove()
+    _$word = null
+    _$meaning = null
+
+  # 모듈이 로드되면 초기화한다.
+  init()
+
+  @exports =
+    # 사전 검색 결과 html을 json을 파싱한다.
+    # @param {String} html
+    # @return {Object} 파싱한 결과
+    parse: (html) ->
+      readyParsing html
+      parsed = parseHtmlToData()
+      reset()
+      parsed
