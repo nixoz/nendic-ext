@@ -19,7 +19,7 @@
   <h3 class="fui-arrow-right">사전 선택 방법</h3>
   <p class="desc">페이지에서 사전을 불러오는 방법에 대한 설정입니다.</p>
   <ul class="box">
-    <li class="item" ng-repeat="method in TRIGGER_METHODS">
+    <li class="item" ng-repeat="method in TRIGGER_METHODS" data-analytics-event="options:triggerMethod:{{method.value}}">
       <input type="radio" name="triggerMethod" id="method-{{$index}}"
         ng-model="options.triggerMethod" value="{{method.value}}" ng-change="save()">
       <label for="method-{{$index}}">{{method.desc}}</label>
@@ -65,6 +65,7 @@
 <script src="vendor/underscore.js"></script>
 <script src="vendor/angular.js"></script>
 <script src="vendor/q.js"></script>
+<script src="js/common/analytics.js"></script>
 <script src="js/common/constant.js"></script>
 <script src="js/common/message.js"></script>
 <script src="js/common/storage.js"></script>

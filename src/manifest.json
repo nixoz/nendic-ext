@@ -8,7 +8,7 @@
     "48": "img/icon48.png",
     "128": "img/icon128.png"
   },
-  "content_security_policy": "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com; object-src 'self'",
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.google-analytics.com; object-src 'self'",
   "content_scripts": [
     {
       "run_at": "document_start",
@@ -50,6 +50,7 @@
       "vendor/jquery.js",
       "vendor/underscore.js",
       "vendor/q.js",
+      "js/common/analytics.js",
       "js/common/constant.js",
       "js/common/message.js",
       "js/common/storage.js",
