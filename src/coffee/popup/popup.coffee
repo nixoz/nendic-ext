@@ -1,7 +1,7 @@
 ###
 브라우저에 액션에 의해 노출되는 팝업 페이지
 ###
-@define 'popup', ($$message) ->
+@define 'popup', ($$message, $$analytics) ->
   VIEWER_TOP_OFFSET = 46
   VIEWER_MAX_HEIGHT = 400
 
@@ -46,6 +46,8 @@
         # 그렇지 않으면, iframe의 scrollHeight가 부모의 scrollHeight를 리턴한다.
         $('.viewer-wrap').show()
         sendQuerySubmitted $scope.query
+
+        $$analytics.track('popup:search')
       
       $scope.selectQuery = ($event) ->
         $event.target.select() 

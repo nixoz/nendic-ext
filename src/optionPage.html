@@ -19,7 +19,7 @@
   <h3 class="fui-arrow-right">사전 선택 방법</h3>
   <p class="desc">페이지에서 사전을 불러오는 방법에 대한 설정입니다.</p>
   <ul class="box">
-    <li class="item" ng-repeat="method in TRIGGER_METHODS" data-analytics-event="options:triggerMethod:{{method.value}}">
+    <li class="item" ng-repeat="method in TRIGGER_METHODS" data-analytics-event="options:changeTriggerMethod:{{method.value}}">
       <input type="radio" name="triggerMethod" id="method-{{$index}}"
         ng-model="options.triggerMethod" value="{{method.value}}" ng-change="save()">
       <label for="method-{{$index}}">{{method.desc}}</label>
@@ -30,34 +30,11 @@
   <p class="desc">사전의 글자 크기를 설정합니다.</p>
   <div class="box font-size">
     <div>
-      <button class="btn fui-triangle-down" ng-click="setSmaller()">작게</button>
+      <button class="btn fui-triangle-down" ng-click="setSmaller()" data-analytics-event="options:changeFontSize:{{options.fontSize - 5}}">작게</button>
       <strong class="current-font-size">{{options.fontSize}}%</strong>
-      <button class="btn fui-triangle-up" ng-click="setLarger()">크게</button>
+      <button class="btn fui-triangle-up" ng-click="setLarger()" data-analytics-event="options:changeFontSize:{{options.fontSize + 5}}">크게</button>
     </div>
     <iframe id="viewer" src="viewer.html"></iframe>
-  </div>
-
-  <h3 class="fui-arrow-right">단축키 사용 여부</h3>
-  <p class="desc">단축키를 사용할 지에 대한 설정입니다. 단축키는 페이지에서 사전이 열렸을 때에만 동작합니다.</p>
-  <div class="box">
-    <div class="item">
-      <input type="checkbox" id="use-shortcut" ng-model="options.useShortcut" ng-checked="options.useShortcut">
-      <label for="use-shortcut">단축키 사용하기</label>
-    </div>
-    <div class="shortcut-list" ng-if="options.useShortcut">
-      <h4 class="fui-list-bulleted">단축키 목록</h4>
-      <ul>
-        <li class="item">
-          <strong>S</strong>: 영한/영영 사전 전환하기
-        </li>
-        <li class="item">
-          <strong>A</strong>: 오디오 재생하기
-        </li>
-        <li class="item">
-          <strong>E</strong>: 사전 창 펼치기
-        </li>
-      </ul>
-    </div>
   </div>
 </div>
 
@@ -66,12 +43,12 @@
 <script src="vendor/angular.js"></script>
 <script src="vendor/q.js"></script>
 <script src="js/common/define.js"></script>
-<script src="js/common/analytics.js"></script>
 <script src="js/common/constant.js"></script>
 <script src="js/common/message.js"></script>
 <script src="js/common/storage.js"></script>
 <script src="js/common/options.js"></script>
 <script src="js/common/f.js"></script>
+<script src="js/common/analytics.js"></script>
 <script src="js/options/optionPage.js"></script>
 </body>
 </html>

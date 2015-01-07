@@ -26,6 +26,7 @@
         "js/common/storage.js",
         "js/common/options.js",
         "js/common/f.js",
+        "js/common/analytics.js",
         "js/content/viewerManager.js"
       ]
     },
@@ -43,6 +44,7 @@
         "js/common/storage.js",
         "js/common/options.js",
         "js/common/f.js",
+        "js/common/analytics.js",
         "js/content/actionWatcher.js"
       ]
     }
@@ -53,7 +55,7 @@
       "vendor/underscore.js",
       "vendor/q.js",
       "js/common/define.js",
-      "js/common/analytics.js",
+      "js/common/uuid.js",
       "js/common/constant.js",
       "js/common/message.js",
       "js/common/storage.js",
@@ -65,7 +67,8 @@
       "js/background/meaningParser.js",
       "js/background/resultHtmlParser.js",
       "js/background/wordSearcher.js",
-      "js/background/background.js"
+      "js/background/background.js",
+      "js/background/analyticsTracker.js"
     ],
     "persistent": true
   },

@@ -1,7 +1,7 @@
 ###
 각 프레임에서 마우스, 키보드 액션을 관찰하고, 이벤트 발생 시 적합한 작업을 수행한다.
 ###
-@define 'actionWatcher', ($$options, $$message, $$f) ->
+@define 'actionWatcher', ($$options, $$message, $$f, $$analytics) ->
   #--------------------
   # Functions
   #--------------------
@@ -10,11 +10,13 @@
 
   # 스크립트가 로드될 때, 단어 호출 옵션을 가져온다.
   _isOptionMatched = null
+  _triggerMethod = null
   (->
     $$options.get().then (options) ->
       triggerOption = _.find $$options.TRIGGER_METHODS, (option) ->
         option.value is options.triggerMethod
 
+      _triggerMethod = options.triggerMethod
       _isOptionMatched = triggerOption.handler if triggerOption
   )()
 
@@ -39,13 +41,13 @@
   getSelectedText = ->
     window.getSelection().toString().trim()
 
-  isAlphabetic = (str) ->
-    /^[a-z. -]+$/i.test str
+  isValidCharacter = (str) ->
+    /^[0-9a-zㄱ-ㅎ가-힣. -]+$/i.test str
 
   underThreeWords = (str) ->
     str.match(/\S+/g).length <= 3
 
-  isValidWord = $$f.validator(isAlphabetic, underThreeWords)
+  isValidWord = $$f.validator(isValidCharacter, underThreeWords)
 
   _startX = 0
   _startY = 0
@@ -70,13 +72,15 @@
     diffY = Math.abs(_startY - e.pageY)
 
     if diffX >= DRAG_THRESHOLD or diffY >= DRAG_THRESHOLD
-      sendWordSelectedToSearch(e)
+      sendWordSelectedToSearch(e, "drag + #{_triggerMethod}")
 
   onDoubleClick (e) ->
-    sendWordSelectedToSearch(e)
+    sendWordSelectedToSearch(e, "dblclick + #{_triggerMethod}")
 
-  sendWordSelectedToSearch = (e) ->
+  sendWordSelectedToSearch = (e, method) ->
     # 트리거 옵션을 불러온 후에만 동작하며, 일반 엘리먼트에서만 수행한다.
     if _.isFunction(_isOptionMatched) and _isOptionMatched(e) and !isTextableElement(e)
       selectionText = getSelectedText()
-      sendWordSelected selectionText if isValidWord(selectionText)
+      if isValidWord(selectionText)
+        sendWordSelected selectionText
+        $$analytics.track("actionWatcher:trigger:#{method}")

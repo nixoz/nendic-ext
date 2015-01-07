@@ -28,12 +28,12 @@
           showUpdated()
 
       $scope.setSmaller = ->
-        $scope.options.fontSize -= 5
+        $scope.options.fontSize -= 5 if $scope.options.fontSize > 60
         reloadViewer()
         $scope.save()
 
       $scope.setLarger = ->
-        $scope.options.fontSize += 5
+        $scope.options.fontSize += 5 if $scope.options.fontSize < 140
         reloadViewer()
         $scope.save()
 

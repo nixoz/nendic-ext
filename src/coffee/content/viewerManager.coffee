@@ -2,7 +2,7 @@
 사전을 보여줄 iframe을 생성하고, iframe의 on/off를 담당한다.
 페이지가 시작될 때 최상위 프레임에 추가한다.
 ###
-@define 'viewerManager', ($$constant, $$message) ->
+@define 'viewerManager', ($$constant, $$message, $$analytics) ->
   DEFAULT_HEIGHT = 168
 
   _$viewer = null
@@ -55,6 +55,8 @@
       properHeight = Math.min(_currentViewerHeight, maxHeight)
 
     _$viewer.attr 'style', "height: #{properHeight}px !important"
+
+    $$analytics.track('viewer:expand')
 
   # 뷰어 iframe 위에서 스크롤 시, 문서의 스크롤을 막는다.
   preventDocumentWheelEvent = ->

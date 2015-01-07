@@ -18,7 +18,7 @@ _rArgSplit = /,/
 _rModulePrefix = /^\$\$/
 _rComment = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg
 
-getDependencies = (currentModuleName, fn) =>
+getDependencies = (currentModuleName, fn) ->
   fnText = fn.toString().replace(_rComment, '')
   argDecl = fnText.match(_rArg)
   modules = []
