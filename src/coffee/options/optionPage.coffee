@@ -10,7 +10,7 @@
   # Main Tasks
   #--------------------
   angular.module('optionsApp', [])
-    .controller 'mainCtrl', ($scope) ->
+    .controller 'optionCtrl', ($scope) ->
       $scope.TRIGGER_METHODS = $$options.TRIGGER_METHODS
       $scope.options = {}
       $scope.isChanged = false

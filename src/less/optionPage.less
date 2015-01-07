@@ -12,19 +12,46 @@
 
 .wrap {
   padding: 10px 40px;
+}
 
-  h2 {
+.nav {
+  position: absolute;
+  left: 0;
+  width: 150px;
+  height: 100%;
+  border-right: 1px solid #ddd;
+
+  .menu {
+    display: block;
     position: relative;
-    margin: 20px 0 0 0;
+    width: 100%;
+    padding: 10px 30px;
     font-size: 160%;
     font-weight: bold;
+    color: #999;
+    text-align: left;
+
+    &:first-child {
+      margin-top: 15px;
+    }
 
     &:before {
       position: relative;
       top: 1px;
       padding-right: 5px;
     }
+
+    &.on {
+      background: #333;
+      color: #fff;
+    }
   }
+  
+}
+
+.content {
+  margin-left: 120px;
+  padding-left: 20px;
 
   h3 {
     position: relative;
