@@ -1,0 +1,109 @@
+@import (reference) "common.less";
+
+body.viewer {
+  // 뷰어의 폰트는 11px을 100%로 옵션에 따라 처리한다.
+  font-size: 11px;
+}
+
+.wrap {
+  margin: 10px;
+
+  .content {
+    .line {
+      margin: 8px 0;
+      border: 0;
+      border-bottom: 1px solid #ccc;
+    }
+    
+    .title {
+      font-size: 120%;
+      font-weight: bold;
+      color: @strong-color;
+    }
+
+    .number {
+      margin: 0;
+      color: @strong-color;
+      font-weight: normal;
+    }
+
+    .phonetic-symbol {
+      padding-left: 2px;
+      color: @weak-color;
+      font-weight: normal;
+    }
+
+    .audio-btn {
+      display: inline-block;
+      margin-left: 5px;
+      color: @weak-color;
+
+      &.on {
+        color: #D35400;
+      }
+
+      &:before {
+        position: relative;
+        top: 1px;
+      }
+    }
+
+    .meaning {
+      margin: 3px 0 0 3px;
+
+      .type {
+        font-weight: normal;
+        color: @weak-color;
+      }
+
+      .defs {
+        margin: 2px 0 0 4px;
+        font-size: 110%;
+        font-weight: bold;
+
+        .ex-en, .ex-kr {
+          margin: 0 0 0 8px;
+          font-weight: normal;
+          color: @weak-color;
+        }
+      }
+
+      .more-def {
+        margin: 3px 0 5px 3px;
+
+        a {
+          color: @weak-color;
+          font-size: 0.9em;
+        }
+      }
+    }
+
+    .toggle {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+
+      .toggle-btn {
+        text-align: right;
+        color: @weak-color;
+
+        &:before {
+          position: relative;
+          top: 1px;
+          margin-right: 4px;
+        }
+
+        &.on {
+          color: #D35400;
+        }
+      }
+    }
+
+    .noresult {
+      .query {
+        color: @strong-color;
+        font-weight: bold;
+      }
+    }
+  }
+}

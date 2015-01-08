@@ -1,0 +1,161 @@
+.btn {
+  padding: 4px 10px;
+  border: none;
+  border-radius: 4px;
+  -webkit-transition: border .25s linear,color .25s linear,background-color .25s linear;
+  transition: border .25s linear,color .25s linear,background-color .25s linear;
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: #fff;
+  background-color: #999;
+  border-color: #999;
+}
+
+.wrap {
+  padding: 10px 40px;
+}
+
+.nav {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 150px;
+  height: 100%;
+  border-right: 1px solid #ddd;
+
+  .menu {
+    display: block;
+    position: relative;
+    width: 100%;
+    padding: 10px 30px;
+    font-size: 160%;
+    font-weight: bold;
+    color: #999;
+    text-align: left;
+
+    &:first-child {
+      margin-top: 35px;
+    }
+
+    &:before {
+      position: relative;
+      top: 1px;
+      padding-right: 5px;
+    }
+
+    &.on {
+      background: #333;
+      color: #fff;
+    }
+  }
+  
+}
+
+.content {
+  margin-left: 120px;
+  padding-left: 20px;
+  margin-top: 37px;
+
+  h3 {
+    position: relative;
+    margin: 25px 0 5px 0;
+    font-size: 130%;
+    font-weight: bold;
+
+    &:before {
+      position: relative;
+      top: 1px;
+      padding-right: 3px;
+    }
+  }
+
+  h4 {
+    font-size: 110%;
+    font-weight: bold;
+  }
+
+  .noti {
+    position: absolute;
+    top: 0px;
+    left: 180px;
+    padding: 8px 10px;
+    font-weight: bold;
+    border-radius: 0 0 5px 5px;
+    background: orange;
+  }
+
+  .desc {
+    margin: 5px 20px;
+  }
+
+  .box {
+    margin: 5px 20px;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+
+    .item {
+      line-height: 20px;
+    }
+
+    label {
+      padding-left: 8px;
+    }
+  }
+
+  .shortcut-list {
+    position: relative;
+    margin-top: 5px;
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+    padding: 10px 25px;
+
+    h4 {
+      margin-bottom: 5px;
+
+      &:before {
+        position: relative;
+        top: 1px;
+        padding-right: 5px;
+        font-weight: normal; 
+      }
+    }
+  }
+
+  .font-size {
+    .btn:before {
+      padding-right: 5px;
+    }
+
+    .current-font-size {
+      padding: 0 10px;
+      font-size: 105%;
+    }
+
+    #viewer {
+      margin: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      width: 320px;
+      height: 180px;
+      overflow: hidden;
+    }
+  }
+
+  #todo {
+    margin: 10px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    width: 500px;
+    height: 250px;
+    overflow: hidden;
+  }
+
+  .outlink {
+    margin-top: 10px;
+    margin-left: 20px;
+    display: inline-block;
+    padding: 8px 16px;
+    text-decoration: underline;
+    border-radius: 5px;
+    font-size: 120%;
+    background: #727272;
+    color: #fff;
+    font-weight: bold;
+  }
+}

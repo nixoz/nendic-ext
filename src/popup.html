@@ -1,0 +1,42 @@
+<!doctype html>
+<html ng-app="popupApp">
+<head>
+  <title>English Dictionary</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/popup.css">
+</head>
+<body>
+<div class="wrap" ng-controller="mainCtrl">
+  <div class="search">
+    <form ng-submit="search()">
+      <div class="query">
+        <input type="text" placeholder="검색할 단어를 입력하세요" ng-model="query" ng-focus="selectQuery($event)">
+      </div>
+      <button type="submit" class="btn fui-search"></button>
+    </form>
+  </div>
+  <div class="options"><a class="btn fui-gear" href="optionPage.html" target="options"  data-analytics-event="popup:goToOptionPage"></a></div>
+  <div class="viewer-wrap" style="display:none;">
+    <hr>
+    <iframe id="viewer" src="viewer.html"></iframe>
+  </div>
+</div>
+
+<script src="vendor/jquery.js"></script>
+<script src="vendor/underscore.js"></script>
+<script src="vendor/angular.js"></script>
+<script src="vendor/q.js"></script>
+<script src="js/common/define.js"></script>
+<script src="js/common/constant.js"></script>
+<script src="js/common/message.js"></script>
+<script src="js/common/storage.js"></script>
+<script src="js/common/options.js"></script>
+<script src="js/common/f.js"></script>
+<script src="js/common/analytics.js"></script>
+<script src="js/popup/popup.js"></script>
+</body>
+</html>
