@@ -8,6 +8,7 @@ API에 단어를 요청해 검색한다.
   API_URL = "http://endic.naver.com/searchAssistDict.nhn?query="
 
   _responseCache = $$cache.create()
+  _recentQuery = ''
 
   # 영영/영한 여부를 쿠키로 설정하기 때문에,
   # 사전 타입 여부를 포함해 캐시 키를 설정한다.
@@ -40,6 +41,7 @@ API에 단어를 요청해 검색한다.
   searchWord = (query, callback) ->
     createCacheKey(query).then (cacheKey) ->
       if _responseCache.get(cacheKey)
+        _recentQuery = getQueryFromCacheKey(cacheKey)
         return callback _responseCache.get(cacheKey)
 
       $.ajax
@@ -55,6 +57,7 @@ API에 단어를 요청해 검색한다.
 
           # 응답을 캐시해둔다
           _responseCache.add cacheKey, parsedData
+          _recentQuery = query
           # 데이터에 쿼리를 포함해 응답한다.
           callback parsedData
 
@@ -68,7 +71,7 @@ API에 단어를 요청해 검색한다.
     # 최근 검색했던 단어로 검색한다.
     # @param {Function} callback(parsedData)
     searchWordWithRecentQuery: (callback) ->
-      searchWord(getQueryFromCacheKey(_responseCache.getLastKey()), callback)
+      searchWord(_recentQuery, callback)
 
     toggleDicType: (isEE, callback) ->
       setDicTypeCookie(isEE).then =>

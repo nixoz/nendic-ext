@@ -15,7 +15,7 @@
 ## DOING
 개선 내용에 대한 엑셀 파일을 설정 페이지에 추가하기
   - https://docs.google.com/spreadsheets/d/19eSjHMtyF_RsF8EYa655SPjYB8EQFplfmPA_dozfIB0/edit#gid=0
-
+  - 앵귤러에서 선택해서 컨트롤러를 변경하는 방법에 대해 알아봐야 함
 
 
 ## Complete

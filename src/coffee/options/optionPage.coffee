@@ -1,16 +1,19 @@
 ###
 옵션 페이지
 ###
-@define 'optionPage', ($$message, $$options) ->
+@define 'optionPage', ($$constant, $$message, $$options) ->
   sendWordSelected = $$message.createSenderToExtension 'T:wordSelected'
-  # 옵션 페이지 로드 후, 폰트 사이즈의 샘플 페이지를 보여주기 위해 `example`로 검색을 수행한다.
-  sendWordSelected 'example'
-
+  
   #--------------------
   # Main Tasks
   #--------------------
   angular.module('optionsApp', [])
+
+    .controller 'mainCtrl', ($scope) ->
+      $scope.menu = 'option'
+
     .controller 'optionCtrl', ($scope) ->
+      console.log 'xxx'
       $scope.TRIGGER_METHODS = $$options.TRIGGER_METHODS
       $scope.options = {}
       $scope.isChanged = false
@@ -41,4 +44,10 @@
       $$options.get().then (options) ->
         $scope.options = options
         $scope.$apply()
+        # 옵션 페이지 로드 후, 폰트 사이즈의 샘플 페이지를 보여주기 위해 `example`로 검색을 수행한다.
+        sendWordSelected 'example'
 
+    .controller 'feedbackCtrl', ($scope) ->
+      $('#todo').attr('src', $$constant.TODO_DOC_URL)
+      $scope.bugUrl = $$constant.BUG_DOC_URL
+      $scope.feedbackUrl = $$constant.FEEDBACK_DOC_URL
