@@ -83,4 +83,4 @@
       selectionText = getSelectedText()
       if isValidWord(selectionText)
         sendWordSelected selectionText
-        $$analytics.track("actionWatcher:trigger:#{method}")
+        $$analytics.trackEvent("actionWatcher:trigger:#{method}")

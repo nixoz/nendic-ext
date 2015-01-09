@@ -56,7 +56,7 @@
 
     _$viewer.attr 'style', "height: #{properHeight}px !important"
 
-    $$analytics.track('viewer:expand')
+    $$analytics.trackEvent('viewer:expand')
 
   # 뷰어 iframe 위에서 스크롤 시, 문서의 스크롤을 막는다.
   preventDocumentWheelEvent = ->

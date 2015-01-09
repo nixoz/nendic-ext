@@ -47,7 +47,7 @@
         $('.viewer-wrap').show()
         sendQuerySubmitted $scope.query
 
-        $$analytics.track('popup:search')
+        $$analytics.trackEvent('popup:search')
       
       $scope.selectQuery = ($event) ->
         $event.target.select() 

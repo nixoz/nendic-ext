@@ -1,7 +1,7 @@
 ###
 사전이 렌더링되는 페이지의 스크립트
 ###
-@define 'viewer', ($$message, $$options) ->
+@define 'viewer', ($$message, $$options, $$analytics) ->
   #--------------------
   # Functions
   #--------------------
@@ -64,6 +64,11 @@
         $scope.isEE = data.isEE
         # angular 범위 밖에서 호출된 것이기 때문에 apply()를 호출해줘야 한다.
         $scope.$apply()
+
+        # 쿼리가 있을 경우, 페이지 렌더링 결과를 보낸다.
+        # `query` 파라미터는 애널리틱스에서 검색어 파악을 위해 사용한다.
+        if data.query
+          $$analytics.trackPage "viewer.html?query=#{data.query.replace(/\s/g, '+')}"
 
         window.scrollTo(0, 0); # 같은 윈도우를 재활용하므로 렌더링 이후에 스크롤을 초기화한다
         sendViewerRenderered document.documentElement.scrollHeight
