@@ -13,9 +13,7 @@
 <div class="wrap" ng-controller="mainCtrl" ng-switch="menu">
   <div class="nav" ng-class="">
     <button class="fui-gear menu" ng-click="menu = 'option'" ng-class="{on: menu === 'option'}">설정</button>
-    <button class="fui-user menu" ng-click="menu = 'feedback'" ng-class="{on: menu === 'feedback'}">
-      피드백<span class="new-badge" data-new-badge>N</span>
-    </button>
+    <button class="fui-user menu" ng-click="menu = 'feedback'" ng-class="{on: menu === 'feedback'}">피드백<span class="new-badge" data-new-badge>N</span></button>
   </div>
   <div class="content" ng-switch-when="option" ng-controller="optionCtrl">
     <div class="noti" ng-if="isChanged">
