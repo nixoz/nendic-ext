@@ -1,7 +1,7 @@
 ###
 브라우저에 액션에 의해 노출되는 팝업 페이지
 ###
-@define 'popup', ($$message, $$analytics) ->
+@define 'popup', ($$message, $$analytics, $$storage) ->
   VIEWER_TOP_OFFSET = 46
   VIEWER_MAX_HEIGHT = 400
 
@@ -34,7 +34,13 @@
         properHeight = if height > VIEWER_MAX_HEIGHT then VIEWER_MAX_HEIGHT else height
         $('#viewer').height(properHeight)
         $(document.documentElement).css('height', "#{VIEWER_TOP_OFFSET + properHeight}px")
-      
+
+      showNewBadge = ->
+        $$storage.get('version').then (version) ->
+          currentVersion = chrome.runtime.getManifest().version
+          unless version is currentVersion
+            $scope.$apply()
+ 
       whenWordSearched (data) ->
         sendWordSearchedToIframe data
 
@@ -57,3 +63,4 @@
 
       # 페이지가 로드되면 쿼리 엘리먼트에 포커스를 준다.
       $('#query').focus()
+      showNewBadge()

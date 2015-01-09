@@ -63,6 +63,7 @@
       "js/common/f.js",
       "js/common/cache.js",
       "js/common/cookie.js",
+      "js/common/newBadge.js",
       "js/background/wordParser.js",
       "js/background/meaningParser.js",
       "js/background/resultHtmlParser.js",

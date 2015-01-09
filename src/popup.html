@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="popupApp">
+<html ng-cloak ng-app="popupApp">
 <head>
   <title>English Dictionary</title>
   <meta charset="utf-8" />
@@ -19,7 +19,11 @@
       <button type="submit" class="btn fui-search"></button>
     </form>
   </div>
-  <div class="options"><a class="btn fui-gear" href="optionPage.html" target="options"  data-analytics-event="popup:goToOptionPage"></a></div>
+  <div class="options">
+    <a class="btn fui-gear" href="optionPage.html" target="options"  data-analytics-event="popup:goToOptionPage">
+      <span class="new-badge" data-new-badge>N</span>
+    </a>
+  </div>
   <div class="viewer-wrap" style="display:none;">
     <hr>
     <iframe id="viewer" src="viewer.html"></iframe>
@@ -37,6 +41,7 @@
 <script src="js/common/options.js"></script>
 <script src="js/common/f.js"></script>
 <script src="js/common/analytics.js"></script>
+<script src="js/common/newBadge.js"></script>
 <script src="js/popup/popup.js"></script>
 </body>
 </html>
