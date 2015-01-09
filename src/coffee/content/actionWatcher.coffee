@@ -65,7 +65,10 @@
   onMouseDown (e) ->
     _startX = e.pageX
     _startY = e.pageY
-    sendOutsideClicked()
+
+    # 뷰어 내에서 클릭이 일어난 경우엔, 이벤트를 전달하지 않는다.
+    unless location.pathname is '/viewer.html'
+      sendOutsideClicked()
 
   onMouseUp (e) ->
     diffX = Math.abs(_startX - e.pageX)
