@@ -1,9 +1,7 @@
 ## TODO
 
 설정 정보에 이후 개선 내용에 대한 슬라이드 추가하기
-
 창이 열려있는 상태에서 렌더링 시 창 크기 변경하기
-
 페이스북 페이지 임베드하기
 단축키 입력 시 사전 동작하게 하기 (백그라운드로 메시지 보내기)
 단어장 페이지 만들기
@@ -13,9 +11,7 @@
 
 
 ## DOING
-개선 내용에 대한 엑셀 파일을 설정 페이지에 추가하기
-  - https://docs.google.com/spreadsheets/d/19eSjHMtyF_RsF8EYa655SPjYB8EQFplfmPA_dozfIB0/edit#gid=0
-  - 앵귤러에서 선택해서 컨트롤러를 변경하는 방법에 대해 알아봐야 함
+
 
 
 ## Complete
@@ -46,3 +42,6 @@
 지표 코드 추가하기
 사용하지 않는 파일 정리하기
 빌드 코드 정리하기
+개선 내용에 대한 엑셀 파일을 설정 페이지에 추가하기
+  - https://docs.google.com/spreadsheets/d/19eSjHMtyF_RsF8EYa655SPjYB8EQFplfmPA_dozfIB0/edit#gid=0
+  - 앵귤러에서 선택해서 컨트롤러를 변경하는 방법에 대해 알아봐야 함

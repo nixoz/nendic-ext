@@ -42,6 +42,9 @@
       whenViewerRendered resizePopup
 
       $scope.search = ->
+        # 검색어가 없으면 아무 동작을 하지 않는다.
+        return unless $scope.query
+
         # 검색 결과 응답이 오기 전에 iframe을 보이도록 설정한다.
         # 그렇지 않으면, iframe의 scrollHeight가 부모의 scrollHeight를 리턴한다.
         $('.viewer-wrap').show()
@@ -51,3 +54,6 @@
       
       $scope.selectQuery = ($event) ->
         $event.target.select() 
+
+      # 페이지가 로드되면 쿼리 엘리먼트에 포커스를 준다.
+      $('#query').focus()

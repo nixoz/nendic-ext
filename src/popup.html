@@ -14,7 +14,7 @@
   <div class="search">
     <form ng-submit="search()">
       <div class="query">
-        <input type="text" placeholder="검색할 단어를 입력하세요" ng-model="query" ng-focus="selectQuery($event)">
+        <input id="query" type="text" placeholder="검색할 단어를 입력하세요" ng-model="query" ng-focus="selectQuery($event)">
       </div>
       <button type="submit" class="btn fui-search"></button>
     </form>
