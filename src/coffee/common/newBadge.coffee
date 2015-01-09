@@ -18,9 +18,7 @@
   # 버전이 다를 경우 뉴 뱃지를 보여준다.
   # 뱃지의 스타일은 각 뷰에서 처리하되, 기본값은 display:none; 처리한다.
   $$storage.get('version').then (version) ->
-    console.log '>>>>', version, _currentVersion
     unless version is _currentVersion
-      console.log '헐?'
       _isVersionDifferent = true
 
       # 백그라운드 페이지일 경우, 브라우저 액션의 뱃지를 보여주고 컨텐트일 경우 문서를 검색한다.
