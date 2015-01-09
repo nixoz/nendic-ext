@@ -6,7 +6,8 @@
 ###
 @define 'analyticsTracker', ($$constant, $$uuid, $$storage, $$message) ->
 
-  whenTrackingRequested = $$message.createListenerToExtension 'A:trackingRequested'
+  whenEventTrackingRequested = $$message.createListenerToExtension 'A:eventTrackingRequested'
+  whenPageTrackingRequested = $$message.createListenerToExtension 'A:pageTrackingRequested'
 
   startTracking = (clientId) ->
     # @ga_debug = true
@@ -32,8 +33,10 @@
 
   # 이벤트를 전송한다.
   # @param {String} eventString 이벤트 문자열 '카테고리:액션:레이블'
-  track = (eventString) ->
+  # @param {String} [referrer] 이벤트가 발생한 페이지 URL
+  trackEvent = (eventString, referrer = '') ->
     [category, action, label] = eventString.split(':')
+    @ga 'set', 'referrer', referrer
     @ga 'send', 'event', category, action, label, useBeacon: true 
 
   $$storage.get('clientId')
@@ -45,4 +48,7 @@
 
     .then (clientId) ->
       startTracking clientId
-      whenTrackingRequested track
+      whenEventTrackingRequested (data) ->
+        trackEvent data.eventString, data.referrer
+      whenPageTrackingRequested (pageUrl) ->
+        @ga 'send', 'pageview', pageUrl, useBeacon: true

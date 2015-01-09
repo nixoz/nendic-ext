@@ -1,7 +1,7 @@
 ###
 옵션 페이지
 ###
-@define 'optionPage', ($$constant, $$message, $$options) ->
+@define 'optionPage', ($$constant, $$message, $$options, $$notice, $$newBadge) ->
   sendWordSelected = $$message.createSenderToExtension 'T:wordSelected'
   
   #--------------------
@@ -13,7 +13,6 @@
       $scope.menu = 'option'
 
     .controller 'optionCtrl', ($scope) ->
-      console.log 'xxx'
       $scope.TRIGGER_METHODS = $$options.TRIGGER_METHODS
       $scope.options = {}
       $scope.isChanged = false
@@ -51,3 +50,7 @@
       $('#todo').attr('src', $$constant.TODO_DOC_URL)
       $scope.bugUrl = $$constant.BUG_DOC_URL
       $scope.feedbackUrl = $$constant.FEEDBACK_DOC_URL
+      $scope.notice = $$notice.getCurrentVersionNotice()
+
+      # 업데이트 뱃지를 제거한다.
+      $$newBadge.updateToCurrentVersion()

@@ -38,3 +38,10 @@
     $$wordSearcher.searchWord(word, sendWordSearchedToPopup)  
   whenDicTypeToggledOnPopup (isEE) ->
     $$wordSearcher.toggleDicType(isEE, sendWordSearchedToPopup)
+
+  # 컨텍스트 메뉴에 영어사전 검색을 추가한다.
+  chrome.contextMenus.create
+    title: "네이버 영어사전에서 '%s' 검색"
+    contexts: ["selection"]
+    onclick: (info) ->
+      $$wordSearcher.searchWord(info.selectionText, sendWordSearched)

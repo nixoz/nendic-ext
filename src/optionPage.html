@@ -13,7 +13,9 @@
 <div class="wrap" ng-controller="mainCtrl" ng-switch="menu">
   <div class="nav" ng-class="">
     <button class="fui-gear menu" ng-click="menu = 'option'" ng-class="{on: menu === 'option'}">설정</button>
-    <button class="fui-user menu" ng-click="menu = 'feedback'" ng-class="{on: menu === 'feedback'}">피드백</button>
+    <button class="fui-user menu" ng-click="menu = 'feedback'" ng-class="{on: menu === 'feedback'}">
+      피드백<span class="new-badge" data-new-badge>N</span>
+    </button>
   </div>
   <div class="content" ng-switch-when="option" ng-controller="optionCtrl">
     <div class="noti" ng-if="isChanged">
@@ -43,6 +45,9 @@
   </div>
 
   <div class="content" ng-switch-when="feedback" ng-controller="feedbackCtrl">
+    <h3 class="fui-arrow-right">공지사항</h3>
+    <pre class="notice">{{notice}}</pre>
+
     <h3 class="fui-arrow-right">개발 예정 목록</h3>
     <p class="desc">현재 진행 중인 작업 목록입니다. 피드백 주실 때 참고해주세요.</p>
     <iframe id="todo" src="about:blank"></iframe>
@@ -64,6 +69,8 @@
 <script src="js/common/options.js"></script>
 <script src="js/common/f.js"></script>
 <script src="js/common/analytics.js"></script>
+<script src="js/common/newBadge.js"></script>
+<script src="js/options/notice.js"></script>
 <script src="js/options/optionPage.js"></script>
 </body>
 </html>
