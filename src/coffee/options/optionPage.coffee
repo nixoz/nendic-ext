@@ -13,7 +13,7 @@
       $scope.menu = 'option'
 
     .controller 'optionCtrl', ($scope) ->
-      $scope.TRIGGER_METHODS = $$options.TRIGGER_METHODS
+      $scope.TRIGGER_METHODS = $$options.TRIGGER_METHODS      
       $scope.options = {}
       $scope.isChanged = false
 
