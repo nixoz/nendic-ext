@@ -179,9 +179,50 @@
 
   .notice {
     margin-left: 20px;
-    padding: 20px;
-    background: #fff;
-    word-break: break-word;
-    border-radius: 5px;
+
+    .notice-item {
+      margin: 10px 0;
+
+      .notice-title {
+        display: block;
+        width: 100%;
+        cursor: pointer;
+        border-radius: 5px 5px 0 0;
+        background: #727272;
+
+        span {
+          display: inline-block;
+          margin: 5px 0 5px 10px;
+          color: #fff;
+          font-size: 120%;
+          font-weight: bold;
+        }
+      }
+
+      .notice-desc {
+        margin: 0;
+        padding: 20px;
+        background: #fff;
+        word-break: break-word;
+        border-radius: 0 0 5px 5px;
+      }
+    }
+  }
+
+  .other {
+    .otherVersion {
+      margin-left: 20px;
+      font-weight: bold;
+    }
+
+    .version {
+      display: inline-block;
+      padding: 5px 10px;
+      margin: 0px 5px;
+      color: #fff;
+      font-weight: bold;
+      background: #727272;
+      border-radius: 5px;
+    }    
   }
 }

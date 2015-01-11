@@ -50,7 +50,12 @@
       $('#todo').attr('src', $$constant.TODO_DOC_URL)
       $scope.bugUrl = $$constant.BUG_DOC_URL
       $scope.feedbackUrl = $$constant.FEEDBACK_DOC_URL
-      $scope.notice = $$notice.getCurrentVersionNotice()
+      $scope.notices = [_.first $$notice.getAll()]
+      $scope.otherNotices = _.rest $$notice.getAll()
+
+      $scope.showNotice = (index) ->
+        notice = $scope.otherNotices.splice(index, 1)[0]
+        $scope.notices.push(notice)
 
       # 업데이트 뱃지를 제거한다.
       $$newBadge.updateToCurrentVersion()

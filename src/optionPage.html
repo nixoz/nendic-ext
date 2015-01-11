@@ -49,8 +49,17 @@
 
   <div class="content" ng-switch-when="feedback" ng-controller="feedbackCtrl">
     <h3 class="fui-arrow-right">공지사항</h3>
-    <pre class="notice">{{notice}}</pre>
-
+    <ul class="notice" ng-model="notices">
+      <li class="notice-item" ng-repeat="notice in notices">
+        <div class="notice-title"><span>{{notice.version}} 버전</span></div>
+        <pre class="notice-desc">{{notice.desc}}</pre>
+      </li>
+    </ul>
+    <div class="other" ng-model="otherNotices" ng-if="otherNotices.length">
+      <span class="otherVersion">다른 버전 공지보기: </span>
+      <button class="version" ng-repeat="notice in otherNotices" ng-click="showNotice($index)">{{notice.version}}</button>
+    </div>
+     
     <h3 class="fui-arrow-right">개발 예정 목록</h3>
     <p class="desc">현재 진행 중인 작업 목록입니다. 피드백 주실 때 참고해주세요.</p>
     <iframe id="todo" src="about:blank"></iframe>
