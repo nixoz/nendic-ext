@@ -9,15 +9,18 @@
     $(document).on eventType, handler
 
   # 스크립트가 로드될 때, 단어 호출 옵션을 가져온다.
-  _isOptionMatched = null
+  _isTriggerOptionMatched = null
   _triggerMethod = null
+  _useDrag = false
   (->
     $$options.get().then (options) ->
       triggerOption = _.find $$options.TRIGGER_METHODS, (option) ->
         option.value is options.triggerMethod
 
       _triggerMethod = options.triggerMethod
-      _isOptionMatched = triggerOption.handler if triggerOption
+      _isTriggerOptionMatched = triggerOption.handler if triggerOption
+
+      _useDrag = options.useDrag
   )()
 
   # mouse up 시점에 선택된 단어를 보고 처리한다.
@@ -71,6 +74,9 @@
       sendOutsideClicked()
 
   onMouseUp (e) ->
+    # 드래그 선택을 사용한 경우에만 처리한다.
+    return unless _useDrag
+
     diffX = Math.abs(_startX - e.pageX)
     diffY = Math.abs(_startY - e.pageY)
 
@@ -82,7 +88,7 @@
 
   sendWordSelectedToSearch = (e, method) ->
     # 트리거 옵션을 불러온 후에만 동작하며, 일반 엘리먼트에서만 수행한다.
-    if _.isFunction(_isOptionMatched) and _isOptionMatched(e) and !isTextableElement(e)
+    if _.isFunction(_isTriggerOptionMatched) and _isTriggerOptionMatched(e) and !isTextableElement(e)
       selectionText = getSelectedText()
       if isValidWord(selectionText)
         sendWordSelected selectionText

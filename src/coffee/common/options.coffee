@@ -7,25 +7,33 @@
     isMac = navigator.platform is 'MacIntel'
     ctrlKeyName = if isMac then '<Cmd>' else '<Ctrl>'
     altKeyName = '<Alt>'
-    mouseMethodDesc = '<더블클릭 또는 마우스로 드래그>'
+    useDragDesc = '또는 마우스로 드래그'
+    doubleClickDesc = '더블클릭'
     
     [
       {
-        value: 'mouse', desc: "#{mouseMethodDesc}",
+        value: 'mouse'
+        desc: (useDrag) ->
+          "<#{doubleClickDesc} #{if useDrag then useDragDesc else ''}>"
         handler: (e) -> true
       }
       {
-        value: 'ctrl_mouse', desc: "#{ctrlKeyName} + #{mouseMethodDesc}",
+        value: 'ctrl_mouse'
+        desc: (useDrag) ->
+          "#{ctrlKeyName} + <#{doubleClickDesc} #{if useDrag then useDragDesc else ''}>"
         handler: (e) -> if isMac then e.metaKey else e.ctrlKey
       }
       {
-        value: 'alt_mouse', desc: "#{altKeyName} + #{mouseMethodDesc}",
+        value: 'alt_mouse'
+        desc: (useDrag) ->
+          "#{altKeyName} + <#{doubleClickDesc} #{if useDrag then useDragDesc else ''}>"
         handler: (e) -> e.altKey
       }
     ]
   )()
 
   DEFAULT_OPTIONS =
+    useDrag: false # 드래그 해서 선택할 것인지 여부
     triggerMethod: TRIGGER_METHODS[0].value
     fontSize: 100
     useShortcut: false
