@@ -44,13 +44,16 @@
   getSelectedText = ->
     window.getSelection().toString().trim()
 
+  containsCharacters = (str) ->
+    /[a-zㄱ-ㅎㄱ-힣]+/i.test str
+
   isValidCharacter = (str) ->
     /^[0-9a-zㄱ-ㅎ가-힣. -]+$/i.test str
 
   underThreeWords = (str) ->
     str.match(/\S+/g).length <= 3
 
-  isValidWord = $$f.validator(isValidCharacter, underThreeWords)
+  isValidWord = $$f.validator(containsCharacters, isValidCharacter, underThreeWords)
 
   _startX = 0
   _startY = 0
