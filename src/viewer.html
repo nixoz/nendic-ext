@@ -15,10 +15,10 @@
     <div ng-repeat="word in result" ng-if="result.length">
       <hr class="line" ng-if="$index"/>
       <h3>
-        <strong><a href="{{word.url}}" class="title" target="_blank" data-analytics-event="viewer:goToOriginPage">{{word.title}}</a></strong>
+        <strong><a href="{{word.url}}" class="_title title" target="_blank" data-analytics-event="viewer:goToOriginPage">{{word.title}}</a></strong>
         <sup class="number">{{word.number}}</sup>
         <span class="phonetic-symbol">{{word.phonetic_symbol}}</span>
-        <button class="fui-volume audio-btn"
+        <button class="_audioBtn fui-volume audio-btn"
           ng-class="{on:isPlayingAudio}"
           ng-if="word.pronunciation"
           ng-click="playAudio(word.pronunciation)"
@@ -38,7 +38,7 @@
         </div>
       </div>
       <div class="toggle">
-        <button class="toggle-btn"
+        <button class="_toggleBtn toggle-btn"
           ng-class="{'on': isEE, 'fui-checkbox-checked': isEE, 'fui-checkbox-unchecked': !isEE}"
           ng-click="toggleDicType()"
            data-analytics-event="viewer:toggleDicType:{{!isEE}}">영영사전</button> 

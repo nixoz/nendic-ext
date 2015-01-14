@@ -9,16 +9,23 @@
     $(document).on eventType, handler
 
   # 스크립트가 로드될 때, 단어 호출 옵션을 가져온다.
-  _isTriggerOptionMatched = null
-  _triggerMethod = null
+  _isDblclickOptionMatched = null
+  _isDragOptionMatched = null
+  _dblclickMethod = null
+  _dragMethod = null
   _useDrag = false
   (->
     $$options.get().then (options) ->
-      triggerOption = _.find $$options.TRIGGER_METHODS, (option) ->
-        option.value is options.triggerMethod
+      dblclickOption = _.find $$options.DBLCLICK_METHODS, (option) ->
+        option.value is options.dblclickMethod
 
-      _triggerMethod = options.triggerMethod
-      _isTriggerOptionMatched = triggerOption.handler if triggerOption
+      dragOption = _.find $$options.DRAG_METHODS, (option) ->
+        option.value is options.dragMethod
+
+      _dblclickMethod = options.dblclickMethod
+      _dragMethod = options.dragMethod
+      _isDblclickOptionMatched = dblclickOption?.handler
+      _isDragOptionMatched = dragOption?.handler
 
       _useDrag = options.useDrag
   )()
@@ -44,13 +51,16 @@
   getSelectedText = ->
     window.getSelection().toString().trim()
 
+  containsCharacters = (str) ->
+    /[a-zㄱ-ㅎㄱ-힣]+/i.test str
+
   isValidCharacter = (str) ->
     /^[0-9a-zㄱ-ㅎ가-힣. -]+$/i.test str
 
   underThreeWords = (str) ->
     str.match(/\S+/g).length <= 3
 
-  isValidWord = $$f.validator(isValidCharacter, underThreeWords)
+  isValidWord = $$f.validator(containsCharacters, isValidCharacter, underThreeWords)
 
   _startX = 0
   _startY = 0
@@ -76,19 +86,20 @@
   onMouseUp (e) ->
     # 드래그 선택을 사용한 경우에만 처리한다.
     return unless _useDrag
+    return unless (_.isFunction(_isDragOptionMatched) and _isDragOptionMatched(e))
 
     diffX = Math.abs(_startX - e.pageX)
     diffY = Math.abs(_startY - e.pageY)
 
     if diffX >= DRAG_THRESHOLD or diffY >= DRAG_THRESHOLD
-      sendWordSelectedToSearch(e, "drag + #{_triggerMethod}")
+      sendWordSelectedToSearch(e, _dragMethod)
 
   onDoubleClick (e) ->
-    sendWordSelectedToSearch(e, "dblclick + #{_triggerMethod}")
+    sendWordSelectedToSearch(e, _dblclickMethod)
 
   sendWordSelectedToSearch = (e, method) ->
     # 트리거 옵션을 불러온 후에만 동작하며, 일반 엘리먼트에서만 수행한다.
-    if _.isFunction(_isTriggerOptionMatched) and _isTriggerOptionMatched(e) and !isTextableElement(e)
+    if _.isFunction(_isDblclickOptionMatched) and _isDblclickOptionMatched(e) and !isTextableElement(e)
       selectionText = getSelectedText()
       if isValidWord(selectionText)
         sendWordSelected selectionText

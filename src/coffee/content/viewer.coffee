@@ -6,6 +6,7 @@
   # Functions
   #--------------------
   whenWordSearched = $$message.createListenerToExtension 'B:wordSearched'
+  whenShortcutPressed = $$message.createListenerToExtension 'B:shortcutPressed'
   whenWordSearchedFromPopup = $$message.createListenerToWindow 'P:wordSearched'
 
   sendViewerInitialized = $$message.createSenderToExtension 'T:viewerInitialized'
@@ -21,6 +22,18 @@
   # 옵션을 불러온다.
   $$options.get().then (options) ->
     $('.wrap').css('font-size', "#{options.fontSize}%")
+
+  # 단축키를 선택했을 때의 액션
+  # 구현의 단순화를 위해 엘리먼트를 찾아 클릭하는 방법으로 처리한다.
+  shortcutActions =
+    'g': ->
+      # jQuery의 클릭은 물리적인 클릭과는 동일하지 않다.
+      # 물리적인 클릭을 발생하기 위해 엘리먼트의 클릭 메서드를 활용한다.
+      $('._title')[0]?.click()
+    'a': ->
+      $('._audioBtn').click() 
+    's': ->
+      $('._toggleBtn').click()
 
   #--------------------
   # Main Tasks
@@ -86,4 +99,6 @@
         renderViewer data
       whenWordSearchedFromPopup (data) ->
         renderViewer data
+      whenShortcutPressed (key) ->
+        shortcutActions[key]?()
 

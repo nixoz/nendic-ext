@@ -10,6 +10,7 @@
   whenViewerInitialized = $$message.createListenerToTab 'T:viewerInitialized'
   whenViewerRendered = $$message.createListenerToTab 'T:viewerRendered'
   whenDicTypeToggled = $$message.createListenerToTab 'T:dicTypeToggled'
+  whenShortcutPressed = $$message.createListenerToTab 'T:shortcutPressed'
 
   whenDicTypeToggledOnPopup = $$message.createListenerToPopup 'P:dicTypeToggled'
   whenQuerySubmitted = $$message.createListenerToPopup 'P:querySubmitted'
@@ -17,6 +18,7 @@
   sendWordSearched = $$message.createSenderToTab 'B:wordSearched'
   sendOutsideClicked = $$message.createSenderToTab 'B:outsideClicked'
   sendViewerRendered = $$message.createSenderToTab 'B:viewerRendered'
+  sendShortcutPressed = $$message.createSenderToTab 'B:shortcutPressed'
 
   sendWordSearchedToPopup = $$message.createSenderToPopup 'P:wordSearched'
 
@@ -25,6 +27,7 @@
   #--------------------
   whenViewerRendered sendViewerRendered
   whenOutsideClicked sendOutsideClicked
+  whenShortcutPressed sendShortcutPressed
 
   whenWordSelected (word) ->
     $$wordSearcher.searchWord(word, sendWordSearched)
