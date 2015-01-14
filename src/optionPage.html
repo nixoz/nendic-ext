@@ -44,8 +44,8 @@
         <hr class="line">
         <h4>단축키 목록</h4>
         <ul>
-          <li class="item">
-            <strong>A:</strong>발음 듣기
+          <li class="item" ng-repeat="(key, value) in SHORTCUTS">
+            - <strong>{{key.toUpperCase()}}</strong>: {{value}}
           </li>
         </ul>
       </div>
@@ -77,7 +77,7 @@
     </div>
      
     <h3 class="fui-arrow-right">개발 예정 목록</h3>
-    <p class="desc">현재 진행 중인 작업 목록입니다. 피드백 주실 때 참고해주세요.</p>
+    <p class="desc">현재 진행 중인 작업 목록입니다.<br>중요하거나 긴급한 순서대로 A,B,C로 우선순위를 나누어뒀고, 우선순위가 높은 건부터 적용될 예정입니다.<br>많은 분들이 의견주신 건은 우선순위를 높여 진행하려고 합니다. 피드백 주실 때 참고해주세요.</p>
     <iframe id="todo" src="about:blank"></iframe>
 
     <h3 class="fui-arrow-right">버그 신고 및 개선 의견 주기</h3>

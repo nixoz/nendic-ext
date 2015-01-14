@@ -14,6 +14,7 @@
 
     .controller 'optionCtrl', ($scope) ->
       $scope.TRIGGER_METHODS = $$options.TRIGGER_METHODS      
+      $scope.SHORTCUTS = $$options.SHORTCUTS
       $scope.options = {}
       $scope.isChanged = false
 
