@@ -23,16 +23,26 @@
     <h3 class="fui-arrow-right">사전 선택 방법</h3>
     <p class="desc">페이지에서 사전을 불러오는 방법에 대한 설정입니다.</p>
     <div class="box">
-      <input type="checkbox" name="useDrag" id="use-drag" ng-model="options.useDrag" ng-change="save()">
-      <label for="use-drag">단어를 드래그했을 때에도 검색하기</label>
-      <hr class="line">
+      <h4>더블클릭</h4>
       <ul>
-        <li class="item" ng-repeat="method in TRIGGER_METHODS" data-analytics-event="options:changeTriggerMethod:{{method.value}}">
-          <input type="radio" name="triggerMethod" id="method-{{$index}}"
-            ng-model="options.triggerMethod" value="{{method.value}}" ng-change="save()">
-          <label for="method-{{$index}}">{{method.desc(options.useDrag)}}</label>
+        <li class="item" ng-repeat="method in DBLCLICK_METHODS" data-analytics-event="options:changeTriggerMethod:{{method.value}}">
+          <input type="radio" name="dblclickMethod" id="dblclick-method-{{$index}}"
+            ng-model="options.dblclickMethod" value="{{method.value}}" ng-change="save()">
+          <label for="dblclick-method-{{$index}}">{{method.desc}}</label>
         </li>
       </ul>
+      <hr class="line">
+      <input type="checkbox" name="useDrag" id="use-drag" ng-model="options.useDrag" ng-change="save()">
+      <label for="use-drag">단어를 드래그했을 때에도 검색하기</label>
+      <div class="drag-option" ng-if="options.useDrag">
+        <h4>드래그</h4>
+        <ul>
+          <li class="item" ng-repeat="method in DRAG_METHODS" data-analytics-event="options:changeTriggerMethod:{{method.value}}">
+            <input type="radio" name="dragMethod" id="drag-method-{{$index}}"
+            ng-model="options.dragMethod" value="{{method.value}}" ng-change="save()">
+            <label for="drag-method-{{$index}}">{{method.desc}}</label>
+        </ul>
+      </div>
     </div>
 
     <h3 class="fui-arrow-right">단축키 사용 여부</h3>

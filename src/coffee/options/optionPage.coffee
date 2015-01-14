@@ -13,7 +13,8 @@
       $scope.menu = 'option'
 
     .controller 'optionCtrl', ($scope) ->
-      $scope.TRIGGER_METHODS = $$options.TRIGGER_METHODS      
+      $scope.DBLCLICK_METHODS = $$options.DBLCLICK_METHODS
+      $scope.DRAG_METHODS = $$options.DRAG_METHODS
       $scope.SHORTCUTS = $$options.SHORTCUTS
       $scope.options = {}
       $scope.isChanged = false
