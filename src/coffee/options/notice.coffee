@@ -1,5 +1,11 @@
 @define 'notice', ->
   notices = [
+      version: '3.0.4'
+      desc:
+        """
+          - 단축키 기능
+        """
+    ,
       version: '3.0.3'
       desc:
         """

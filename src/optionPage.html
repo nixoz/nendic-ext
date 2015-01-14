@@ -34,6 +34,22 @@
         </li>
       </ul>
     </div>
+
+    <h3 class="fui-arrow-right">단축키 사용 여부</h3>
+    <p class="desc">사전이 열렸을 때 단축키를 사용할 지 여부에 대한 설정입니다.</p>
+    <div class="box">
+      <input type="checkbox" name="useShortcut" id="use-shortcut" ng-model="options.useShortcut" ng-change="save()">
+      <label for="use-shortcut">단축키 사용하기</label>
+      <div class="shortcut" ng-if="options.useShortcut">
+        <hr class="line">
+        <h4>단축키 목록</h4>
+        <ul>
+          <li class="item">
+            <strong>A:</strong>발음 듣기
+          </li>
+        </ul>
+      </div>
+    </div>
     
     <h3 class="fui-arrow-right">사전 글자 크기</h3>
     <p class="desc">사전의 글자 크기를 설정합니다.</p>

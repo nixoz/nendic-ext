@@ -32,6 +32,11 @@
     ]
   )()
 
+  SHORTCUTS =
+    'a': '발음 듣기'
+    's': '영한/영영 전환'
+    'g': '영어사전 페이지로 이동'
+
   DEFAULT_OPTIONS =
     useDrag: false # 드래그 해서 선택할 것인지 여부
     triggerMethod: TRIGGER_METHODS[0].value
@@ -40,6 +45,7 @@
 
   @exports =
     TRIGGER_METHODS: TRIGGER_METHODS
+    SHORTCUTS: SHORTCUTS
     DEFAULT_OPTIONS: DEFAULT_OPTIONS
 
     # @return {Promise}
